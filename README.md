@@ -22,7 +22,25 @@ Where:
 
 ## Installation
 
-### Option 1: Automated Setup (Recommended)
+### From PyPI (Recommended)
+
+```bash
+# Core package with mock evaluator
+pip install bilateral-truth
+
+# With OpenAI support
+pip install bilateral-truth[openai]
+
+# With Anthropic (Claude) support  
+pip install bilateral-truth[anthropic]
+
+# With all LLM providers
+pip install bilateral-truth[all]
+```
+
+### Development Setup
+
+#### Option 1: Automated Setup (Recommended)
 
 ```bash
 # Set up virtual environment and install everything
@@ -32,24 +50,15 @@ Where:
 source venv/bin/activate
 ```
 
-### Option 2: Manual Setup
+#### Option 2: Manual Setup
 
 ```bash
 # Create and activate virtual environment
 python3 -m venv venv
 source venv/bin/activate
 
-# Install the package in development mode
-pip install -e .
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### Option 3: Global Installation
-
-```bash
-pip install -e .
+# Install the package in development mode with all dependencies
+pip install -e .[all,dev]
 ```
 
 ## Quick Start

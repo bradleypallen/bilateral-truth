@@ -1,0 +1,63 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  quick-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt', '**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e .
+        pip install pytest flake8 black mypy
+        pip install -r requirements-dev.txt
+    
+    - name: Quick lint check
+      run: |
+        flake8 bilateral_truth/ tests/ --count --select=E9,F63,F7,F82 --show-source --statistics
+    
+    - name: Quick format check
+      run: |
+        black --check bilateral_truth/ tests/
+    
+    - name: Quick type check  
+      run: |
+        mypy bilateral_truth/ --ignore-missing-imports
+      continue-on-error: true
+    
+    - name: Run unit tests
+      run: |
+        pytest tests/ -v --tb=short -x -k "not integration"
+    
+    - name: Test CLI functionality
+      run: |
+        bilateral-truth --help
+        bilateral-truth --model mock "Test statement" --samples 1
+        bilateral-truth --list-models
+    
+    - name: Test package build
+      run: |
+        pip install build
+        python -m build
+        pip install dist/*.whl --force-reinstall
+        python -c "import bilateral_truth; print('Package installs correctly')"
