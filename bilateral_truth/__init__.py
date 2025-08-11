@@ -17,7 +17,7 @@ from .llm_evaluators import (
 )
 from .model_router import ModelRouter, OpenRouterEvaluator
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __all__ = [
     "GeneralizedTruthValue",
     "TruthValueComponent",
