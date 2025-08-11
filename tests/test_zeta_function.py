@@ -1,6 +1,7 @@
 """Tests for zeta and zeta_c function implementations."""
 
 import unittest
+import pytest
 from bilateral_truth.assertions import Assertion
 from bilateral_truth.truth_values import GeneralizedTruthValue, TruthValueComponent
 from bilateral_truth.zeta_function import (
@@ -219,6 +220,7 @@ class TestZetaCFunction(unittest.TestCase):
         self.assertEqual(results1, results2)
 
 
+@pytest.mark.integration
 class TestIntegration(unittest.TestCase):
     """Integration tests for the complete system."""
 
