@@ -68,7 +68,7 @@ from bilateral_truth import Assertion, zeta_c, create_llm_evaluator
 
 # Create an LLM evaluator (requires API key)
 evaluator = create_llm_evaluator('openai', model='gpt-4')
-# or: evaluator = create_llm_evaluator('anthropic', model='claude-3-sonnet-20240229')
+# or: evaluator = create_llm_evaluator('anthropic', model='claude-sonnet-4-20250514')
 # or: evaluator = create_llm_evaluator('mock')  # for testing
 
 # Create assertions
@@ -261,7 +261,7 @@ python demo_cli.py
 The CLI supports models from multiple providers:
 
 - **OpenAI**: GPT-4, GPT-3.5-turbo, etc.
-- **Anthropic**: Claude-3 (Opus, Sonnet, Haiku), Claude-2
+- **Anthropic**: Claude-4 (Opus, Sonnet)
 - **OpenRouter**: Llama, Mistral, Gemini, and many more models
 - **Mock**: For testing and development
 

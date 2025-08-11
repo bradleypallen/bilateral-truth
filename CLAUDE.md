@@ -129,7 +129,7 @@ export OPENROUTER_API_KEY='your-key'
 ```bash
 # Single evaluations
 bilateral-truth --model gpt-4 "Statement to evaluate"
-bilateral-truth --model claude-3-sonnet-20240229 "Another statement"
+bilateral-truth --model claude-sonnet-4-20250514 "Another statement"
 
 # Robust evaluation with sampling
 bilateral-truth --model gpt-4 --samples 5 "Statement requiring consensus"

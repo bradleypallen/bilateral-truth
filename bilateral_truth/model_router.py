@@ -40,13 +40,13 @@ class ModelRouter:
         # Anthropic models
         "anthropic": {
             "patterns": [
-                r"^claude-3.*",
-                r"^claude-2.*",
-                r"^claude-instant.*",
+                r"^claude-.*-4.*",
+                r"^claude-sonnet.*",
+                r"^claude-opus.*",
                 r"^anthropic/.*",
             ],
             "provider": "anthropic",
-            "default_model": "claude-3-sonnet-20240229",
+            "default_model": "claude-sonnet-4-20250514",
         },
         # OpenRouter models (supports many providers)
         "openrouter": {
@@ -80,11 +80,10 @@ class ModelRouter:
         "gpt3.5": "gpt-3.5-turbo",
         "gpt35": "gpt-3.5-turbo",
         # Anthropic aliases
-        "claude": "claude-3-sonnet-20240229",
-        "claude3": "claude-3-sonnet-20240229",
-        "claude-sonnet": "claude-3-sonnet-20240229",
-        "claude-haiku": "claude-3-haiku-20240307",
-        "claude-opus": "claude-3-opus-20240229",
+        "claude": "claude-sonnet-4-20250514",
+        "claude4": "claude-sonnet-4-20250514",
+        "claude-sonnet": "claude-sonnet-4-20250514",
+        "claude-opus": "claude-opus-4-20250514",
         # OpenRouter aliases
         "llama": "meta-llama/llama-3.1-8b-instruct",
         "llama3": "meta-llama/llama-3.1-8b-instruct",
@@ -151,11 +150,8 @@ class ModelRouter:
             "gpt-3.5-turbo",
             "gpt-3.5-turbo-0125",
             # Anthropic models
-            "claude-3-opus-20240229",
-            "claude-3-sonnet-20240229",
-            "claude-3-haiku-20240307",
-            "claude-2.1",
-            "claude-2.0",
+            "claude-sonnet-4-20250514",
+            "claude-opus-4-20250514",
             # Mock models
             "mock",
         }
@@ -170,7 +166,7 @@ class ModelRouter:
                 return "mock", resolved_name
 
         raise ValueError(
-            f"Unknown model: {model_name}. Supported models include GPT-4, Claude-3, OpenRouter models, or 'mock' for testing."
+            f"Unknown model: {model_name}. Supported models include GPT-4, Claude-4, OpenRouter models, or 'mock' for testing."
         )
 
     @classmethod
@@ -218,11 +214,8 @@ class ModelRouter:
                 "gpt-3.5-turbo-0125",
             ],
             "anthropic": [
-                "claude-3-opus-20240229",
-                "claude-3-sonnet-20240229",
-                "claude-3-haiku-20240307",
-                "claude-2.1",
-                "claude-2.0",
+                "claude-sonnet-4-20250514",
+                "claude-opus-4-20250514",
             ],
             "openrouter": [
                 "openrouter/auto",

@@ -398,14 +398,14 @@ class AnthropicEvaluator(LLMEvaluator):
     """LLM evaluator using Anthropic's Claude API."""
 
     def __init__(
-        self, api_key: Optional[str] = None, model: str = "claude-3-sonnet-20240229"
+        self, api_key: Optional[str] = None, model: str = "claude-sonnet-4-20250514"
     ):
         """
         Initialize Anthropic evaluator.
 
         Args:
             api_key: Anthropic API key. If None, reads from ANTHROPIC_API_KEY environment variable
-            model: Model name to use (default: claude-3-sonnet-20240229)
+            model: Model name to use (default: claude-sonnet-4-20250514)
         """
         try:
             import anthropic
