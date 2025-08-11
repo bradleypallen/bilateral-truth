@@ -192,10 +192,16 @@ class TestOpenAIEvaluator(unittest.TestCase):
     """Test the OpenAIEvaluator class."""
 
     def test_missing_api_key(self):
-        """Test that missing API key raises ValueError."""
-        with patch.dict("os.environ", {}, clear=True):
-            with self.assertRaises(ValueError):
-                OpenAIEvaluator()
+        """Test that missing API key raises ValueError when openai package is available."""
+        try:
+            import openai
+            # Only test API key validation if package is installed
+            with patch.dict("os.environ", {}, clear=True):
+                with self.assertRaises(ValueError):
+                    OpenAIEvaluator()
+        except ImportError:
+            # Skip test if openai package not available
+            self.skipTest("openai package not available")
 
     def test_missing_openai_package(self):
         """Test that missing openai package raises ImportError."""
@@ -262,10 +268,16 @@ class TestAnthropicEvaluator(unittest.TestCase):
     """Test the AnthropicEvaluator class."""
 
     def test_missing_api_key(self):
-        """Test that missing API key raises ValueError."""
-        with patch.dict("os.environ", {}, clear=True):
-            with self.assertRaises(ValueError):
-                AnthropicEvaluator()
+        """Test that missing API key raises ValueError when anthropic package is available."""
+        try:
+            import anthropic
+            # Only test API key validation if package is installed
+            with patch.dict("os.environ", {}, clear=True):
+                with self.assertRaises(ValueError):
+                    AnthropicEvaluator()
+        except ImportError:
+            # Skip test if anthropic package not available
+            self.skipTest("anthropic package not available")
 
     def test_missing_anthropic_package(self):
         """Test that missing anthropic package raises ImportError."""
