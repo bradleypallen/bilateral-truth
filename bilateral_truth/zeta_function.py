@@ -7,7 +7,7 @@ while ζ_c adds persistent caching for improved performance.
 
 from typing import Dict, Callable, Optional, Union, Tuple, Any
 from .assertions import Assertion
-from .truth_values import GeneralizedTruthValue, TruthValueComponent
+from .truth_values import GeneralizedTruthValue
 
 
 class ZetaCache:
@@ -120,7 +120,7 @@ def zeta_c(
         # Legacy interface - single evaluation only
         if samples > 1:
             print(
-                f"Warning: Evaluator doesn't support sampling. Using single evaluation."
+                "Warning: Evaluator doesn't support sampling. Using single evaluation."
             )
         truth_value = evaluator(assertion)
 

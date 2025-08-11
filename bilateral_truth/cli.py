@@ -109,7 +109,7 @@ def format_truth_value(truth_value: GeneralizedTruthValue) -> str:
 
 def interactive_mode(model_name: str, samples: int = 1, tiebreak: str = "random"):
     """Run in interactive mode for continuous evaluation."""
-    print(f"bilateral-truth Interactive Mode")
+    print("bilateral-truth Interactive Mode")
     print(f"Model: {model_name}")
     if samples > 1:
         print(f"Sampling: {samples} samples with '{tiebreak}' tiebreaking")
@@ -169,7 +169,10 @@ def interactive_mode(model_name: str, samples: int = 1, tiebreak: str = "random"
 
             try:
                 result = zeta_c(
-                    assertion, evaluator.evaluate_bilateral, samples=samples, tiebreak_strategy=tiebreak
+                    assertion,
+                    evaluator.evaluate_bilateral,
+                    samples=samples,
+                    tiebreak_strategy=tiebreak,
                 )
                 print(f"Result: {format_truth_value(result)}\n")
             except Exception as e:
@@ -212,7 +215,10 @@ def single_evaluation(
 
     try:
         result = zeta_c(
-            assertion, evaluator.evaluate_bilateral, samples=samples, tiebreak_strategy=tiebreak
+            assertion,
+            evaluator.evaluate_bilateral,
+            samples=samples,
+            tiebreak_strategy=tiebreak,
         )
 
         if verbose:

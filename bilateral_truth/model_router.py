@@ -6,13 +6,17 @@ configuration to use based on model names, including OpenRouter support.
 """
 
 import re
-from typing import Dict, Tuple, Optional
+from typing import Dict, Tuple, Optional, TYPE_CHECKING
 from .llm_evaluators import (
     LLMEvaluator,
     OpenAIEvaluator,
     AnthropicEvaluator,
     MockLLMEvaluator,
 )
+
+if TYPE_CHECKING:
+    from .assertions import Assertion
+    from .truth_values import GeneralizedTruthValue, TruthValueComponent
 
 
 class ModelRouter:

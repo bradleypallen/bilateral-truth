@@ -7,8 +7,9 @@ and refutability as described in the research paper.
 """
 
 import os
-import json
-from typing import Optional, Dict, Any, Callable, List
+
+# import json  # unused currently
+from typing import Optional, Dict, List
 from abc import ABC, abstractmethod
 from collections import Counter
 import random
@@ -73,7 +74,7 @@ class LLMEvaluator(ABC):
 
         if not results:
             # All samples failed
-            return GeneralizedTruthValue.undefined()
+            return GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED)
 
         # Apply majority voting
         return self._majority_vote(results, tiebreak_strategy)
@@ -93,7 +94,7 @@ class LLMEvaluator(ABC):
 
         except Exception as e:
             print(f"Warning: Bilateral evaluation failed: {e}")
-            return GeneralizedTruthValue.undefined()
+            return GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED)
 
     def _majority_vote(
         self, results: List[GeneralizedTruthValue], tiebreak_strategy: str
@@ -109,7 +110,7 @@ class LLMEvaluator(ABC):
             The majority vote result with tiebreaking applied
         """
         if not results:
-            return GeneralizedTruthValue.undefined()
+            return GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED)
 
         if len(results) == 1:
             return results[0]
@@ -164,7 +165,7 @@ class LLMEvaluator(ABC):
 
         Returns:
             The component chosen by the tiebreaking strategy
-            
+
         Tiebreaking Strategies:
         - "random": Randomly select from tied components
         - "optimistic": Prefer t (verified/refuted) > f (cannot verify/refute) > e (parse error)

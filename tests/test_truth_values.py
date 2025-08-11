@@ -1,7 +1,11 @@
 """Tests for truth value implementations."""
 
 import unittest
-from bilateral_truth.truth_values import TruthValueComponent, GeneralizedTruthValue, EpistemicPolicy
+from bilateral_truth.truth_values import (
+    TruthValueComponent,
+    GeneralizedTruthValue,
+    EpistemicPolicy,
+)
 
 
 class TestTruthValueComponent(unittest.TestCase):
@@ -76,25 +80,46 @@ class TestGeneralizedTruthValue(unittest.TestCase):
     def test_classical_projection(self):
         """Test classical projection with designated/anti-designated value sets."""
         # Classical true: <t,f> → t
-        classical_true = GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE)
-        self.assertEqual(classical_true.project(EpistemicPolicy.CLASSICAL), TruthValueComponent.TRUE)
+        classical_true = GeneralizedTruthValue(
+            TruthValueComponent.TRUE, TruthValueComponent.FALSE
+        )
+        self.assertEqual(
+            classical_true.project(EpistemicPolicy.CLASSICAL), TruthValueComponent.TRUE
+        )
 
         # Classical false: <f,t> → f
-        classical_false = GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE)
-        self.assertEqual(classical_false.project(EpistemicPolicy.CLASSICAL), TruthValueComponent.FALSE)
+        classical_false = GeneralizedTruthValue(
+            TruthValueComponent.FALSE, TruthValueComponent.TRUE
+        )
+        self.assertEqual(
+            classical_false.project(EpistemicPolicy.CLASSICAL),
+            TruthValueComponent.FALSE,
+        )
 
         # All other combinations → e
         other_combinations = [
             GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.TRUE),
-            GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.UNDEFINED),
+            GeneralizedTruthValue(
+                TruthValueComponent.TRUE, TruthValueComponent.UNDEFINED
+            ),
             GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.FALSE),
-            GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.UNDEFINED),
-            GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.TRUE),
-            GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.FALSE),
-            GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED),
+            GeneralizedTruthValue(
+                TruthValueComponent.FALSE, TruthValueComponent.UNDEFINED
+            ),
+            GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.TRUE
+            ),
+            GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.FALSE
+            ),
+            GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED
+            ),
         ]
         for gtv in other_combinations:
-            self.assertEqual(gtv.project(EpistemicPolicy.CLASSICAL), TruthValueComponent.UNDEFINED)
+            self.assertEqual(
+                gtv.project(EpistemicPolicy.CLASSICAL), TruthValueComponent.UNDEFINED
+            )
 
     def test_paraconsistent_projection(self):
         """Test paraconsistent projection (allows contradictions)."""
@@ -102,28 +127,45 @@ class TestGeneralizedTruthValue(unittest.TestCase):
         paraconsistent_true_cases = [
             GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.TRUE),
             GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE),
-            GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.UNDEFINED),
+            GeneralizedTruthValue(
+                TruthValueComponent.TRUE, TruthValueComponent.UNDEFINED
+            ),
         ]
         for gtv in paraconsistent_true_cases:
-            self.assertEqual(gtv.project(EpistemicPolicy.PARACONSISTENT), TruthValueComponent.TRUE)
+            self.assertEqual(
+                gtv.project(EpistemicPolicy.PARACONSISTENT), TruthValueComponent.TRUE
+            )
 
         # Anti-designated: {<u,v> | v=t} → f
         paraconsistent_false_cases = [
             GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE),
-            GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.TRUE),
+            GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.TRUE
+            ),
         ]
         for gtv in paraconsistent_false_cases:
-            self.assertEqual(gtv.project(EpistemicPolicy.PARACONSISTENT), TruthValueComponent.FALSE)
+            self.assertEqual(
+                gtv.project(EpistemicPolicy.PARACONSISTENT), TruthValueComponent.FALSE
+            )
 
         # Neither (all others) → e
         paraconsistent_undefined_cases = [
             GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.FALSE),
-            GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.UNDEFINED),
-            GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.FALSE),
-            GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED),
+            GeneralizedTruthValue(
+                TruthValueComponent.FALSE, TruthValueComponent.UNDEFINED
+            ),
+            GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.FALSE
+            ),
+            GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED
+            ),
         ]
         for gtv in paraconsistent_undefined_cases:
-            self.assertEqual(gtv.project(EpistemicPolicy.PARACONSISTENT), TruthValueComponent.UNDEFINED)
+            self.assertEqual(
+                gtv.project(EpistemicPolicy.PARACONSISTENT),
+                TruthValueComponent.UNDEFINED,
+            )
 
     def test_paracomplete_projection(self):
         """Test paracomplete projection (allows truth value gaps)."""
@@ -131,28 +173,44 @@ class TestGeneralizedTruthValue(unittest.TestCase):
         paracomplete_true_cases = [
             GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE),
             GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.FALSE),
-            GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.FALSE),
+            GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.FALSE
+            ),
         ]
         for gtv in paracomplete_true_cases:
-            self.assertEqual(gtv.project(EpistemicPolicy.PARACOMPLETE), TruthValueComponent.TRUE)
+            self.assertEqual(
+                gtv.project(EpistemicPolicy.PARACOMPLETE), TruthValueComponent.TRUE
+            )
 
         # Anti-designated: {<u,v> | u=f} → f
         paracomplete_false_cases = [
             GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE),
-            GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.UNDEFINED),
+            GeneralizedTruthValue(
+                TruthValueComponent.FALSE, TruthValueComponent.UNDEFINED
+            ),
         ]
         for gtv in paracomplete_false_cases:
-            self.assertEqual(gtv.project(EpistemicPolicy.PARACOMPLETE), TruthValueComponent.FALSE)
+            self.assertEqual(
+                gtv.project(EpistemicPolicy.PARACOMPLETE), TruthValueComponent.FALSE
+            )
 
         # Neither (all others) → e
         paracomplete_undefined_cases = [
             GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.TRUE),
-            GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.UNDEFINED),
-            GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.TRUE),
-            GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED),
+            GeneralizedTruthValue(
+                TruthValueComponent.TRUE, TruthValueComponent.UNDEFINED
+            ),
+            GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.TRUE
+            ),
+            GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED
+            ),
         ]
         for gtv in paracomplete_undefined_cases:
-            self.assertEqual(gtv.project(EpistemicPolicy.PARACOMPLETE), TruthValueComponent.UNDEFINED)
+            self.assertEqual(
+                gtv.project(EpistemicPolicy.PARACOMPLETE), TruthValueComponent.UNDEFINED
+            )
 
 
 if __name__ == "__main__":

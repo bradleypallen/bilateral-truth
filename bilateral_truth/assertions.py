@@ -5,7 +5,7 @@ Provides a simple representation of assertions in ℒ_AT
 (the language of atomic assertions).
 """
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 
 class Assertion:

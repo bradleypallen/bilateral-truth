@@ -19,7 +19,8 @@ They can be skipped by running: pytest tests/ -k "not integration"
 import unittest
 import os
 import pytest
-from unittest.mock import patch
+
+# from unittest.mock import patch  # unused currently
 
 from bilateral_truth import Assertion, GeneralizedTruthValue, TruthValueComponent
 from bilateral_truth.llm_evaluators import OpenAIEvaluator, AnthropicEvaluator

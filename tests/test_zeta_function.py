@@ -3,7 +3,13 @@
 import unittest
 from bilateral_truth.assertions import Assertion
 from bilateral_truth.truth_values import GeneralizedTruthValue, TruthValueComponent
-from bilateral_truth.zeta_function import zeta, zeta_c, ZetaCache, clear_cache, get_cache_size
+from bilateral_truth.zeta_function import (
+    zeta,
+    zeta_c,
+    ZetaCache,
+    clear_cache,
+    get_cache_size,
+)
 
 
 class TestZetaCache(unittest.TestCase):
@@ -13,7 +19,9 @@ class TestZetaCache(unittest.TestCase):
         """Set up test fixtures."""
         self.cache = ZetaCache()
         self.assertion = Assertion("test")
-        self.truth_value = GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE)
+        self.truth_value = GeneralizedTruthValue(
+            TruthValueComponent.TRUE, TruthValueComponent.FALSE
+        )
 
     def test_empty_cache(self):
         """Test empty cache behavior."""
@@ -58,9 +66,13 @@ class TestZetaFunction(unittest.TestCase):
 
         def custom_evaluator(assertion):
             if assertion.predicate == "always_true":
-                return GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE)
+                return GeneralizedTruthValue(
+                    TruthValueComponent.TRUE, TruthValueComponent.FALSE
+                )
             else:
-                return GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE)
+                return GeneralizedTruthValue(
+                    TruthValueComponent.FALSE, TruthValueComponent.TRUE
+                )
 
         assertion1 = Assertion("always_true")
         assertion2 = Assertion("anything_else")
@@ -68,8 +80,14 @@ class TestZetaFunction(unittest.TestCase):
         result1 = zeta(assertion1, custom_evaluator)
         result2 = zeta(assertion2, custom_evaluator)
 
-        self.assertEqual(result1, GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE))
-        self.assertEqual(result2, GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE))
+        self.assertEqual(
+            result1,
+            GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE),
+        )
+        self.assertEqual(
+            result2,
+            GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE),
+        )
 
 
 class TestZetaCFunction(unittest.TestCase):
@@ -88,13 +106,18 @@ class TestZetaCFunction(unittest.TestCase):
         assertion = Assertion("test")
 
         def test_evaluator(f):
-            return GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE)
+            return GeneralizedTruthValue(
+                TruthValueComponent.TRUE, TruthValueComponent.FALSE
+            )
 
         # First call should compute and cache
         self.assertEqual(get_cache_size(), 0)
         result1 = zeta_c(assertion, test_evaluator)
         self.assertEqual(get_cache_size(), 1)
-        self.assertEqual(result1, GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE))
+        self.assertEqual(
+            result1,
+            GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE),
+        )
 
     def test_second_evaluation_uses_cache(self):
         """Test that second evaluation uses cached result."""
@@ -106,17 +129,25 @@ class TestZetaCFunction(unittest.TestCase):
         def counting_evaluator(f):
             nonlocal call_count
             call_count += 1
-            return GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE)
+            return GeneralizedTruthValue(
+                TruthValueComponent.FALSE, TruthValueComponent.TRUE
+            )
 
         # First call
         result1 = zeta_c(assertion, counting_evaluator)
         self.assertEqual(call_count, 1)
-        self.assertEqual(result1, GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE))
+        self.assertEqual(
+            result1,
+            GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE),
+        )
 
         # Second call should use cache, not call evaluator again
         result2 = zeta_c(assertion, counting_evaluator)
         self.assertEqual(call_count, 1)  # Should still be 1
-        self.assertEqual(result2, GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE))
+        self.assertEqual(
+            result2,
+            GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE),
+        )
         self.assertEqual(result1, result2)
 
     def test_different_assertions_evaluated_separately(self):
@@ -126,16 +157,26 @@ class TestZetaCFunction(unittest.TestCase):
 
         def test_evaluator(f):
             if f.predicate == "test1":
-                return GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE)
+                return GeneralizedTruthValue(
+                    TruthValueComponent.TRUE, TruthValueComponent.FALSE
+                )
             else:
-                return GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE)
+                return GeneralizedTruthValue(
+                    TruthValueComponent.FALSE, TruthValueComponent.TRUE
+                )
 
         result1 = zeta_c(assertion1, test_evaluator)
         result2 = zeta_c(assertion2, test_evaluator)
 
         self.assertEqual(get_cache_size(), 2)
-        self.assertEqual(result1, GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE))
-        self.assertEqual(result2, GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE))
+        self.assertEqual(
+            result1,
+            GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE),
+        )
+        self.assertEqual(
+            result2,
+            GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE),
+        )
 
     def test_custom_cache(self):
         """Test using a custom cache instance."""
@@ -143,24 +184,30 @@ class TestZetaCFunction(unittest.TestCase):
         assertion = Assertion("test")
 
         def test_evaluator(f):
-            return GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED)
+            return GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED
+            )
 
         # Use custom cache
         result1 = zeta_c(assertion, test_evaluator, cache=custom_cache)
         self.assertEqual(len(custom_cache), 1)
         self.assertEqual(get_cache_size(), 0)  # Global cache should be empty
+        self.assertIsInstance(result1, GeneralizedTruthValue)
 
         # Use global cache
         result2 = zeta_c(assertion, test_evaluator)
         self.assertEqual(len(custom_cache), 1)
         self.assertEqual(get_cache_size(), 1)  # Now global cache has one entry
+        self.assertIsInstance(result2, GeneralizedTruthValue)
 
     def test_cache_persistence_across_calls(self):
         """Test that cache persists across multiple function calls."""
         assertions = [Assertion(f"pred_{i}") for i in range(5)]
 
         def test_evaluator(f):
-            return GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED)
+            return GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED
+            )
 
         # Evaluate all assertions
         results1 = [zeta_c(f, test_evaluator) for f in assertions]
@@ -196,11 +243,17 @@ class TestIntegration(unittest.TestCase):
 
         def test_evaluator(f):
             if f.predicate == "statement1":
-                return GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE)
+                return GeneralizedTruthValue(
+                    TruthValueComponent.TRUE, TruthValueComponent.FALSE
+                )
             elif f.predicate == "statement2":
-                return GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE)
+                return GeneralizedTruthValue(
+                    TruthValueComponent.FALSE, TruthValueComponent.TRUE
+                )
             else:
-                return GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED)
+                return GeneralizedTruthValue(
+                    TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED
+                )
 
         # First round of evaluations
         results1 = []
@@ -217,9 +270,20 @@ class TestIntegration(unittest.TestCase):
         self.assertEqual(get_cache_size(), len(assertions))  # No new entries
 
         # Verify specific expected results
-        self.assertEqual(results1[0], GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE))  # "statement1"
-        self.assertEqual(results1[1], GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE))  # "statement2"
-        self.assertEqual(results1[2], GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED))  # "statement3"
+        self.assertEqual(
+            results1[0],
+            GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE),
+        )  # "statement1"
+        self.assertEqual(
+            results1[1],
+            GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE),
+        )  # "statement2"
+        self.assertEqual(
+            results1[2],
+            GeneralizedTruthValue(
+                TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED
+            ),
+        )  # "statement3"
 
 
 if __name__ == "__main__":
