@@ -18,8 +18,8 @@ class TestMockLLMEvaluator(unittest.TestCase):
     def test_predefined_responses(self):
         """Test evaluator with predefined responses."""
         responses = {
-            "The sky is blue": GeneralizedTruthValue.true(),
-            "It is raining": GeneralizedTruthValue.false(),
+            "The sky is blue": GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE),
+            "It is raining": GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE),
         }
 
         evaluator = MockLLMEvaluator(responses)
@@ -32,8 +32,8 @@ class TestMockLLMEvaluator(unittest.TestCase):
         result2 = evaluator.evaluate_bilateral(assertion2)
         result3 = evaluator.evaluate_bilateral(assertion3)
 
-        self.assertEqual(result1, GeneralizedTruthValue.true())
-        self.assertEqual(result2, GeneralizedTruthValue.false())
+        self.assertEqual(result1, GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE))
+        self.assertEqual(result2, GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE))
         # Unknown statement should use mock logic
         self.assertIsInstance(result3, GeneralizedTruthValue)
 
@@ -81,10 +81,10 @@ class TestMockLLMEvaluator(unittest.TestCase):
         like_nat_result = evaluator.evaluate_bilateral(like_natural)
 
         # Emotional statements should be hard to verify or refute
-        self.assertEqual(love_result, GeneralizedTruthValue.undefined())
-        self.assertEqual(like_result, GeneralizedTruthValue.undefined())
-        self.assertEqual(love_nat_result, GeneralizedTruthValue.undefined())
-        self.assertEqual(like_nat_result, GeneralizedTruthValue.undefined())
+        self.assertEqual(love_result, GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED))
+        self.assertEqual(like_result, GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED))
+        self.assertEqual(love_nat_result, GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED))
+        self.assertEqual(like_nat_result, GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED))
 
     def test_meta_truth_statements(self):
         """Test mock evaluation logic for meta-truth statements."""
@@ -100,10 +100,10 @@ class TestMockLLMEvaluator(unittest.TestCase):
         valid_result = evaluator.evaluate_bilateral(valid_assertion)
         statement_result = evaluator.evaluate_bilateral(statement_with_true)
 
-        self.assertEqual(true_result, GeneralizedTruthValue.true())
-        self.assertEqual(false_result, GeneralizedTruthValue.false())
-        self.assertEqual(valid_result, GeneralizedTruthValue.true())
-        self.assertEqual(statement_result, GeneralizedTruthValue.true())
+        self.assertEqual(true_result, GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE))
+        self.assertEqual(false_result, GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE))
+        self.assertEqual(valid_result, GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE))
+        self.assertEqual(statement_result, GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE))
 
 
 class TestEvaluatorFactory(unittest.TestCase):
@@ -119,13 +119,13 @@ class TestEvaluatorFactory(unittest.TestCase):
 
     def test_create_mock_with_responses(self):
         """Test creating mock evaluator with predefined responses."""
-        responses = {"test": GeneralizedTruthValue.true()}
+        responses = {"test": GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE)}
         evaluator = create_llm_evaluator("mock", responses=responses)
         self.assertIsInstance(evaluator, MockLLMEvaluator)
 
         assertion = Assertion("test")
         result = evaluator.evaluate_bilateral(assertion)
-        self.assertEqual(result, GeneralizedTruthValue.true())
+        self.assertEqual(result, GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE))
 
         # Test that separate evaluation methods work with predefined responses
         u_result = evaluator._evaluate_verification(assertion)

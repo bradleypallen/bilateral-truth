@@ -7,7 +7,7 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from bilateral_truth import Assertion, GeneralizedTruthValue, TruthValueComponent, MockLLMEvaluator
+from bilateral_truth import Assertion, GeneralizedTruthValue, TruthValueComponent, MockLLMEvaluator, EpistemicPolicy
 import random
 
 def create_variable_mock_evaluator():

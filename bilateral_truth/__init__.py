@@ -5,7 +5,7 @@ This package implements bilateral factuality evaluation using generalized truth 
 providing cached evaluation of assertions with support for multiple LLM evaluators.
 """
 
-from .truth_values import GeneralizedTruthValue, TruthValueComponent
+from .truth_values import GeneralizedTruthValue, TruthValueComponent, EpistemicPolicy
 from .assertions import Assertion
 from .zeta_function import zeta, zeta_c, clear_cache, get_cache_size
 from .llm_evaluators import (
@@ -21,6 +21,7 @@ __version__ = "0.1.0"
 __all__ = [
     "GeneralizedTruthValue",
     "TruthValueComponent",
+    "EpistemicPolicy",
     "Assertion",
     "zeta",
     "zeta_c",

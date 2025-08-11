@@ -84,10 +84,17 @@ print(f"zeta_c({assertion3}) = {result3}")
 ```python
 from bilateral_truth import GeneralizedTruthValue, TruthValueComponent
 
-# Classical values
-true_val = GeneralizedTruthValue.true()     # <t,f>
-false_val = GeneralizedTruthValue.false()   # <f,t>
-undefined_val = GeneralizedTruthValue.undefined() # <e,e>
+# Classical values using projection
+from bilateral_truth import EpistemicPolicy
+
+classical_true = GeneralizedTruthValue(TruthValueComponent.TRUE, TruthValueComponent.FALSE)   # <t,f>
+classical_false = GeneralizedTruthValue(TruthValueComponent.FALSE, TruthValueComponent.TRUE) # <f,t>
+undefined_val = GeneralizedTruthValue(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED) # <e,e>
+
+# Project to 3-valued logic
+projected_true = classical_true.project(EpistemicPolicy.CLASSICAL)    # t
+projected_false = classical_false.project(EpistemicPolicy.CLASSICAL)  # f
+projected_undefined = undefined_val.project(EpistemicPolicy.CLASSICAL) # e
 
 # Custom combinations
 custom_val = GeneralizedTruthValue(

@@ -19,6 +19,21 @@ class TruthValueComponent(Enum):
     FALSE = "f"
 
 
+class EpistemicPolicy(Enum):
+    """
+    Epistemic policies for mapping generalized truth values to classical 3-valued logic.
+    
+    Each policy defines designated (→ t) and anti-designated (→ f) value sets:
+    - CLASSICAL: Designated {<t,f>}, Anti-designated {<f,t>}
+    - PARACONSISTENT: Designated {<u,v> | u=t}, Anti-designated {<u,v> | v=t}  
+    - PARACOMPLETE: Designated {<u,v> | v=f}, Anti-designated {<u,v> | u=f}
+    """
+    
+    CLASSICAL = "classical"
+    PARACONSISTENT = "paraconsistent"  
+    PARACOMPLETE = "paracomplete"
+
+
 class GeneralizedTruthValue:
     """
     Generalized truth value <u,v> where:
@@ -56,17 +71,47 @@ class GeneralizedTruthValue:
         """Return the (u, v) components as a tuple."""
         return (self.u, self.v)
 
-    @classmethod
-    def true(cls) -> "GeneralizedTruthValue":
-        """Create a generalized truth value representing classical truth."""
-        return cls(TruthValueComponent.TRUE, TruthValueComponent.FALSE)
+    def project(self, policy: EpistemicPolicy = EpistemicPolicy.CLASSICAL) -> TruthValueComponent:
+        """
+        Project generalized truth value to classical 3-valued logic using designated value sets.
+        
+        Args:
+            policy: Epistemic policy defining designated/anti-designated value sets
+            
+        Returns:
+            TruthValueComponent: t (designated), f (anti-designated), or e (neither)
+            
+        Epistemic Policies:
+        - CLASSICAL: Designated {<t,f>}, Anti-designated {<f,t>}
+        - PARACONSISTENT: Designated {u=t}, Anti-designated {v=t}
+        - PARACOMPLETE: Designated {v=f}, Anti-designated {u=f}
+        """
+        if policy == EpistemicPolicy.CLASSICAL:
+            # Classical: strict correspondence  
+            if self.u == TruthValueComponent.TRUE and self.v == TruthValueComponent.FALSE:
+                return TruthValueComponent.TRUE  # <t,f> → t
+            elif self.u == TruthValueComponent.FALSE and self.v == TruthValueComponent.TRUE:
+                return TruthValueComponent.FALSE  # <f,t> → f
+            else:
+                return TruthValueComponent.UNDEFINED  # all others → e
+                
+        elif policy == EpistemicPolicy.PARACONSISTENT:
+            # Paraconsistent: allows contradictions
+            if self.u == TruthValueComponent.TRUE:
+                return TruthValueComponent.TRUE  # {<t,*>} → t
+            elif self.v == TruthValueComponent.TRUE:
+                return TruthValueComponent.FALSE  # {<*,t>} → f  
+            else:
+                return TruthValueComponent.UNDEFINED  # all others → e
+                
+        elif policy == EpistemicPolicy.PARACOMPLETE:
+            # Paracomplete: allows truth value gaps
+            if self.v == TruthValueComponent.FALSE:
+                return TruthValueComponent.TRUE  # {<*,f>} → t
+            elif self.u == TruthValueComponent.FALSE:
+                return TruthValueComponent.FALSE  # {<f,*>} → f
+            else:
+                return TruthValueComponent.UNDEFINED  # all others → e
+        else:
+            raise ValueError(f"Unknown projection policy: {policy}")
 
-    @classmethod
-    def false(cls) -> "GeneralizedTruthValue":
-        """Create a generalized truth value representing classical falsehood."""
-        return cls(TruthValueComponent.FALSE, TruthValueComponent.TRUE)
-
-    @classmethod
-    def undefined(cls) -> "GeneralizedTruthValue":
-        """Create a generalized truth value representing undefined."""
-        return cls(TruthValueComponent.UNDEFINED, TruthValueComponent.UNDEFINED)
