@@ -1,3 +1,6 @@
+# Repo-specific
+/bilateral-truth/evaluations/standard_datasets/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
