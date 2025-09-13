@@ -1,5 +1,5 @@
 # Repo-specific
-/bilateral-truth/evaluations/standard_datasets/
+evaluations/standard_datasets
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
