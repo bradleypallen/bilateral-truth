@@ -1,4 +1,6 @@
 # Repo-specific
+# Large benchmark datasets (>100MB for MMLU, >10MB for others)
+evaluations/standard_datasets/*.json
 evaluations/standard_datasets/
 
 # Byte-compiled / optimized / DLL files
