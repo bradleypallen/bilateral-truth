@@ -1,0 +1,774 @@
+{
+  "hypothesis_supported": false,
+  "within_family_mean": 1.0323039946691326,
+  "between_family_mean": 1.1874770220407609,
+  "p_value": 0.13082706766917296,
+  "cohens_d": 0.7909650952632525,
+  "model_families": {
+    "claude-3-5-haiku-20241022": "Anthropic",
+    "claude-opus-4-1-20250805": "Anthropic",
+    "google-gemini-2.5-flash": "Google",
+    "gpt-4.1-2025-04-14": "OpenAI",
+    "gpt-4.1-mini-2025-04-14": "OpenAI",
+    "meta-llama-llama-4-maverick": "Meta/Llama",
+    "meta-llama-llama-4-scout": "Meta/Llama"
+  },
+  "family_strengths": {
+    "OpenAI": {
+      "strengths": [
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Economics",
+          "score": 0.8303571428571428,
+          "advantage": 37.499999999999986
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Fiction",
+          "score": 0.9415384615384615,
+          "advantage": 11.272727272727275
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Health",
+          "score": 0.921875,
+          "advantage": 14.774750712250718
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Misconceptions",
+          "score": 0.9083384192859323,
+          "advantage": 14.490463599975298
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "History",
+          "score": 0.9273109243697479,
+          "advantage": 11.029577586954636
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Language",
+          "score": 1.0,
+          "advantage": 16.666666666666675
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Mandela Effect",
+          "score": 0.875,
+          "advantage": 7.142857142857145
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Indexical Error: Other",
+          "score": 1.0,
+          "advantage": 100.0
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Confusion: Places",
+          "score": 0.75,
+          "advantage": 224.99999999999994
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Science",
+          "score": 0.9444444444444444,
+          "advantage": 10.185185185185189
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Sociology",
+          "score": 0.873728813559322,
+          "advantage": 15.819865983445002
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Confusion: People",
+          "score": 0.25,
+          "advantage": 100.0
+        },
+        {
+          "benchmark": "FACTScore",
+          "category": "Biography",
+          "score": 0.6400835497494819,
+          "advantage": 4.149187755847896
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "business",
+          "score": 0.8353386809269162,
+          "advantage": 137.00306761182273
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Weather",
+          "score": 0.9388888888888889,
+          "advantage": 19.494949494949495
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Law",
+          "score": 0.7535021551724138,
+          "advantage": 22.729517698537112
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "law",
+          "score": 0.7382154882154882,
+          "advantage": 11.379880678126298
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "psychology",
+          "score": 0.8823529411764706,
+          "advantage": 7.733847637415622
+        }
+      ],
+      "weaknesses": [
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Indexical Error: Location",
+          "score": 0.8571428571428571,
+          "disadvantage": -16.666666666666675
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Indexical Error: Identity",
+          "score": 0.375,
+          "disadvantage": -166.66666666666669
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "chemistry",
+          "score": 0.6253968253968254,
+          "disadvantage": -18.234789447343967
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Advertising",
+          "score": 0.8660714285714286,
+          "disadvantage": -15.46391752577319
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Conspiracies",
+          "score": 0.828125,
+          "disadvantage": -14.09772617319787
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "math",
+          "score": 0.7140434192672999,
+          "disadvantage": -19.75653206650831
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Statistics",
+          "score": 0.8541666666666667,
+          "disadvantage": -17.073170731707307
+        }
+      ]
+    },
+    "Meta/Llama": {
+      "strengths": [
+        {
+          "benchmark": "SimpleQA",
+          "category": "TV shows",
+          "score": 0.9356060606060606,
+          "advantage": 15.719696969696969
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "biology",
+          "score": 0.9179206566347469,
+          "advantage": 7.419848201140621
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "math",
+          "score": 0.8551136363636364,
+          "advantage": 19.75653206650831
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Sports",
+          "score": 0.8974358974358975,
+          "advantage": 32.820512820512825
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "History",
+          "score": 0.9782608695652174,
+          "advantage": 42.29249011857708
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Politics",
+          "score": 0.8713474025974026,
+          "advantage": 37.36535523300228
+        }
+      ],
+      "weaknesses": [
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Economics",
+          "score": 0.6038961038961039,
+          "disadvantage": -37.499999999999986
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Health",
+          "score": 0.8032036613272311,
+          "disadvantage": -14.774750712250718
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Misconceptions",
+          "score": 0.7933747412008281,
+          "disadvantage": -14.490463599975298
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Politics",
+          "score": 1.0,
+          "disadvantage": -0.0
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Psychology",
+          "score": 0.5166666666666666,
+          "disadvantage": -63.771712158808946
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "health",
+          "score": 0.8282258064516128,
+          "disadvantage": -6.104865598536495
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Confusion: Other",
+          "score": 0.0,
+          "disadvantage": -100.0
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Mandela Effect",
+          "score": 0.8166666666666667,
+          "disadvantage": -7.142857142857145
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Subjective",
+          "score": 1.0,
+          "disadvantage": -0.0
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Proverbs",
+          "score": 0.6821428571428572,
+          "disadvantage": -24.200116346713198
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Logical Falsehood",
+          "score": 0.7797619047619048,
+          "disadvantage": -28.244274809160302
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Education",
+          "score": 0.5,
+          "disadvantage": -11.111111111111116
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Superstitions",
+          "score": 0.7614035087719297,
+          "disadvantage": -19.595726853791387
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Stereotypes",
+          "score": 0.7244582043343653,
+          "disadvantage": -31.132478632478637
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Science",
+          "score": 0.8571428571428571,
+          "disadvantage": -10.185185185185189
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Nutrition",
+          "score": 0.8642857142857143,
+          "disadvantage": -15.70247933884297
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Religion",
+          "score": 0.9166666666666667,
+          "disadvantage": -9.090909090909081
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Confusion: People",
+          "score": 0.0,
+          "disadvantage": -100.0
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Law",
+          "score": 0.613953488372093,
+          "disadvantage": -22.729517698537112
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "other",
+          "score": 0.7349802371541503,
+          "disadvantage": -20.444857819174008
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Misinformation",
+          "score": 1.0,
+          "disadvantage": -0.0
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Misconceptions: Topical",
+          "score": 1.0,
+          "disadvantage": -0.0
+        }
+      ]
+    },
+    "Google": {
+      "strengths": [
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Indexical Error: Identity",
+          "score": 1.0,
+          "advantage": 166.66666666666669
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Psychology",
+          "score": 0.8461538461538461,
+          "advantage": 63.771712158808946
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "health",
+          "score": 0.8787878787878788,
+          "advantage": 6.104865598536495
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Advertising",
+          "score": 1.0,
+          "advantage": 15.46391752577319
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Logical Falsehood",
+          "score": 1.0,
+          "advantage": 28.244274809160302
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Education",
+          "score": 0.5555555555555556,
+          "advantage": 11.111111111111116
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Finance",
+          "score": 1.0,
+          "advantage": 9.090909090909095
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Stereotypes",
+          "score": 0.95,
+          "advantage": 31.132478632478637
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Nutrition",
+          "score": 1.0,
+          "advantage": 15.70247933884297
+        }
+      ],
+      "weaknesses": [
+        {
+          "benchmark": "SimpleQA",
+          "category": "TV shows",
+          "score": 0.8085106382978723,
+          "disadvantage": -15.719696969696969
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Fiction",
+          "score": 0.8461538461538461,
+          "disadvantage": -11.272727272727275
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Art",
+          "score": 0.7391304347826086,
+          "disadvantage": -21.152661064425786
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Misquotations",
+          "score": 0.5555555555555556,
+          "disadvantage": -23.689839572192522
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Language",
+          "score": 0.8571428571428571,
+          "disadvantage": -16.666666666666675
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Paranormal",
+          "score": 0.96,
+          "disadvantage": -4.1666666666666705
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Other",
+          "score": 0.7093023255813954,
+          "disadvantage": -30.138713745271122
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Indexical Error: Other",
+          "score": 0.5,
+          "disadvantage": -100.0
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "philosophy",
+          "score": 0.7567567567567568,
+          "disadvantage": -9.359605911330043
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Distraction",
+          "score": 0.625,
+          "disadvantage": -20.727272727272723
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "physics",
+          "score": 0.56,
+          "disadvantage": -40.47619047619045
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Video games",
+          "score": 0.7586206896551724,
+          "disadvantage": -22.15151515151517
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Music",
+          "score": 0.6078431372549019,
+          "disadvantage": -51.17698343504795
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Sociology",
+          "score": 0.7543859649122807,
+          "disadvantage": -15.819865983445002
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Science and technology",
+          "score": 0.728,
+          "disadvantage": -24.92637734066995
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "economics",
+          "score": 0.873015873015873,
+          "disadvantage": -4.8382126348228045
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "history",
+          "score": 0.6206896551724138,
+          "disadvantage": -50.12626262626263
+        },
+        {
+          "benchmark": "FACTScore",
+          "category": "Biography",
+          "score": 0.6145833333333334,
+          "disadvantage": -4.149187755847896
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Sports",
+          "score": 0.6756756756756757,
+          "disadvantage": -32.820512820512825
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "History",
+          "score": 0.6875,
+          "disadvantage": -42.29249011857708
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Weather",
+          "score": 0.7857142857142857,
+          "disadvantage": -19.494949494949495
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "law",
+          "score": 0.6627906976744186,
+          "disadvantage": -11.379880678126298
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Geography",
+          "score": 0.6623376623376623,
+          "disadvantage": -34.86698773076481
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Myths and Fairytales",
+          "score": 0.75,
+          "disadvantage": -6.593406593406599
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Politics",
+          "score": 0.6343283582089553,
+          "disadvantage": -37.36535523300228
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "engineering",
+          "score": 0.5737704918032787,
+          "disadvantage": -38.29192546583851
+        }
+      ]
+    },
+    "Anthropic": {
+      "strengths": [
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Indexical Error: Location",
+          "score": 1.0,
+          "advantage": 16.666666666666675
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Art",
+          "score": 0.8954761904761905,
+          "advantage": 21.152661064425786
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Politics",
+          "score": 1.0,
+          "advantage": 0.0
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Misquotations",
+          "score": 0.6871657754010696,
+          "advantage": 23.689839572192522
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "chemistry",
+          "score": 0.7394366197183099,
+          "advantage": 18.234789447343967
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Confusion: Other",
+          "score": 0.25,
+          "advantage": 100.0
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Subjective",
+          "score": 1.0,
+          "advantage": 0.0
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Paranormal",
+          "score": 1.0,
+          "advantage": 4.1666666666666705
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Proverbs",
+          "score": 0.8472222222222222,
+          "advantage": 24.200116346713198
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Other",
+          "score": 0.9230769230769231,
+          "advantage": 30.138713745271122
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "philosophy",
+          "score": 0.8275862068965517,
+          "advantage": 9.359605911330043
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Distraction",
+          "score": 0.7545454545454545,
+          "advantage": 20.727272727272723
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "physics",
+          "score": 0.7866666666666666,
+          "advantage": 40.47619047619045
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Superstitions",
+          "score": 0.9106060606060606,
+          "advantage": 19.595726853791387
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Conspiracies",
+          "score": 0.9448717948717948,
+          "advantage": 14.09772617319787
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Video games",
+          "score": 0.9266666666666667,
+          "advantage": 22.15151515151517
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Music",
+          "score": 0.9189189189189189,
+          "advantage": 51.17698343504795
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Statistics",
+          "score": 1.0,
+          "advantage": 17.073170731707307
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Science and technology",
+          "score": 0.9094640270400772,
+          "advantage": 24.92637734066995
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Religion",
+          "score": 1.0,
+          "advantage": 9.090909090909081
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "economics",
+          "score": 0.9152542372881356,
+          "advantage": 4.8382126348228045
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "history",
+          "score": 0.9318181818181819,
+          "advantage": 50.12626262626263
+        },
+        {
+          "benchmark": "SimpleQA",
+          "category": "Geography",
+          "score": 0.8932748538011696,
+          "advantage": 34.86698773076481
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Myths and Fairytales",
+          "score": 0.7994505494505495,
+          "advantage": 6.593406593406599
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "other",
+          "score": 0.8852459016393442,
+          "advantage": 20.444857819174008
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "engineering",
+          "score": 0.7934782608695652,
+          "advantage": 38.29192546583851
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Misinformation",
+          "score": 1.0,
+          "advantage": 0.0
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Misconceptions: Topical",
+          "score": 1.0,
+          "advantage": 0.0
+        }
+      ],
+      "weaknesses": [
+        {
+          "benchmark": "TruthfulQA",
+          "category": "History",
+          "score": 0.8351926977687627,
+          "disadvantage": -11.029577586954636
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Finance",
+          "score": 0.9166666666666666,
+          "disadvantage": -9.090909090909095
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "biology",
+          "score": 0.8545168067226891,
+          "disadvantage": -7.419848201140621
+        },
+        {
+          "benchmark": "TruthfulQA",
+          "category": "Confusion: Places",
+          "score": 0.23076923076923078,
+          "disadvantage": -224.99999999999994
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "business",
+          "score": 0.3524590163934426,
+          "disadvantage": -137.00306761182273
+        },
+        {
+          "benchmark": "MMLU-Pro",
+          "category": "psychology",
+          "score": 0.8190118152524167,
+          "disadvantage": -7.733847637415622
+        }
+      ]
+    }
+  }
+}

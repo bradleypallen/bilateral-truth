@@ -1,0 +1,710 @@
+#!/usr/bin/env python3
+"""
+Generic Bilateral Truth Evaluator
+
+Evaluates any standard format dataset using bilateral truth values with 
+epistemic policy projection and comprehensive metrics calculation.
+
+Based on MMLU-Pro evaluator architecture for consistency.
+"""
+
+import json
+import time
+import argparse
+import hashlib
+import sys
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple, Any
+from collections import defaultdict, Counter
+
+# Add project root to path
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
+from bilateral_truth.model_router import ModelRouter
+from bilateral_truth.zeta_function import zeta, clear_cache, get_cache_size
+from bilateral_truth.assertions import Assertion
+from bilateral_truth.truth_values import GeneralizedTruthValue, TruthValueComponent, EpistemicPolicy
+
+# Load environment variables
+try:
+    from dotenv import load_dotenv
+    env_path = project_root / ".env"
+    if env_path.exists():
+        load_dotenv(env_path)
+        print(f"🔑 Loaded environment variables from {env_path}")
+except ImportError:
+    print("⚠️  python-dotenv not installed")
+
+
+class GenericBilateralEvaluator:
+    """Generic evaluator for standard format datasets using bilateral truth values."""
+    
+    def __init__(self, model_name: str, dataset_path: str,
+                 epistemic_policy: EpistemicPolicy = EpistemicPolicy.CLASSICAL,
+                 checkpoint_dir: str = "checkpoints", 
+                 system_prompt: Optional[str] = None,
+                 context: Optional[str] = None):
+        """Initialize evaluator.
+        
+        Args:
+            model_name: Name of the model to evaluate
+            dataset_path: Path to standard format dataset JSON
+            epistemic_policy: Epistemic policy for projecting bilateral truth values
+            checkpoint_dir: Directory to save checkpoints for recovery
+            system_prompt: Custom system prompt for evaluation
+            context: Custom context for evaluation
+        """
+        self.model_name = model_name
+        self.dataset_path = dataset_path
+        self.epistemic_policy = epistemic_policy
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(exist_ok=True)
+        self.evaluator = ModelRouter.create_evaluator(model_name)
+        
+        # Load dataset
+        self.dataset = self._load_dataset()
+        
+        # Default prompts for generic evaluation
+        default_system_prompt = """You are an expert evaluating factual statements for accuracy across diverse domains. Your task is to determine whether claims can be verified or refuted based on established knowledge.
+
+Focus on:
+- Factual accuracy based on authoritative sources
+- Current and historical knowledge across all domains
+- Precise details including names, dates, numbers, and places
+- Distinguishing between correct facts and plausible misinformation
+
+Be especially careful with:
+- Statements that sound plausible but contain factual errors
+- Claims mixing accurate and inaccurate information
+- Details that may be close to correct but are precisely wrong
+- Domain-specific expertise requirements"""
+
+        default_context = "This statement is being evaluated for factual accuracy as part of a bilateral truth evaluation benchmark."
+        
+        # Use provided prompts or defaults
+        self.system_prompt = system_prompt if system_prompt is not None else default_system_prompt
+        self.context_template = context if context is not None else default_context
+        
+        # Results tracking - matching MMLU-Pro schema
+        self.results = {
+            'model': model_name,
+            'dataset': self.dataset['metadata']['benchmark'],
+            'epistemic_policy': epistemic_policy.value,
+            'total_samples': 0,
+            'bilateral_distribution': defaultdict(int),
+            'projected_distribution': defaultdict(int),
+            'category_analysis': {},
+            'detailed_results': []
+        }
+        
+        # Internal tracking
+        self._total_assertions = 0
+        self._total_agreements = 0
+        self._total_abstentions = 0
+        self._category_stats = defaultdict(lambda: {'total': 0, 'agreements': 0, 'abstentions': 0})
+    
+    def _load_dataset(self) -> Dict[str, Any]:
+        """Load standard format dataset."""
+        dataset_file = Path(self.dataset_path)
+        if not dataset_file.exists():
+            raise FileNotFoundError(f"Dataset file not found: {self.dataset_path}")
+        
+        with open(dataset_file, 'r') as f:
+            dataset = json.load(f)
+        
+        # Validate dataset format
+        if 'metadata' not in dataset or 'assertions' not in dataset:
+            raise ValueError(f"Invalid dataset format. Missing 'metadata' or 'assertions'.")
+        
+        print(f"📊 Loaded dataset: {dataset['metadata']['benchmark']}")
+        print(f"   📝 {dataset['metadata']['total_assertions']} assertions")
+        print(f"   📅 Generated: {dataset['metadata']['generation_timestamp']}")
+        
+        return dataset
+    
+    def get_checkpoint_filename(self) -> str:
+        """Generate checkpoint filename based on model and configuration."""
+        model_safe = self.model_name.replace("/", "_").replace(":", "_")
+        dataset_hash = hashlib.md5(self.dataset_path.encode()).hexdigest()[:8]
+        policy_hash = self.epistemic_policy.value[:4]
+        
+        # Include hash of prompts to distinguish different prompt configurations
+        prompt_hash = hashlib.md5(f"{self.system_prompt}{self.context_template}".encode()).hexdigest()[:8]
+        
+        return f"generic_checkpoint_{model_safe}_{dataset_hash}_{policy_hash}_{prompt_hash}.json"
+    
+    def save_checkpoint(self, start_time: float, current_assertion_idx: int):
+        """Save checkpoint with current progress."""
+        checkpoint_file = self.checkpoint_dir / self.get_checkpoint_filename()
+        
+        checkpoint_data = {
+            "model": self.model_name,
+            "dataset_path": self.dataset_path,
+            "epistemic_policy": self.epistemic_policy.value,
+            "start_time": start_time,
+            "current_assertion_idx": current_assertion_idx,
+            "total_completed_evaluations": self.results['total_samples'],
+            "checkpoint_time": time.time(),
+            "checkpoint_timestamp": time.strftime('%Y-%m-%d %H:%M:%S'),
+            "detailed_results": self.results['detailed_results'],
+            "bilateral_distribution": dict(self.results['bilateral_distribution']),
+            "projected_distribution": dict(self.results['projected_distribution']),
+            "category_stats": dict(self._category_stats),
+            "total_agreements": self._total_agreements,
+            "total_assertions": self._total_assertions,
+            "total_abstentions": self._total_abstentions,
+            "system_prompt": self.system_prompt,
+            "context_template": self.context_template
+        }
+        
+        with open(checkpoint_file, 'w') as f:
+            json.dump(checkpoint_data, f, indent=2, default=str)
+        
+        print(f"💾 Checkpoint saved: {self.results['total_samples']} evaluations completed")
+    
+    def load_checkpoint(self) -> Optional[Dict]:
+        """Load checkpoint if it exists."""
+        checkpoint_file = self.checkpoint_dir / self.get_checkpoint_filename()
+        
+        if not checkpoint_file.exists():
+            return None
+            
+        try:
+            with open(checkpoint_file, 'r') as f:
+                checkpoint_data = json.load(f)
+                
+            # Validate checkpoint compatibility
+            if (checkpoint_data.get("model") != self.model_name or 
+                checkpoint_data.get("dataset_path") != self.dataset_path or
+                checkpoint_data.get("epistemic_policy") != self.epistemic_policy.value or
+                checkpoint_data.get("system_prompt") != self.system_prompt or
+                checkpoint_data.get("context_template") != self.context_template):
+                print("⚠️  Checkpoint found but incompatible (different model/dataset/policy/prompts). Starting fresh.")
+                return None
+                
+            print(f"📂 Checkpoint found: {checkpoint_data['total_completed_evaluations']} evaluations completed")
+            print(f"   Checkpoint saved: {checkpoint_data['checkpoint_timestamp']}")
+            
+            return checkpoint_data
+            
+        except Exception as e:
+            print(f"⚠️  Error loading checkpoint: {e}. Starting fresh.")
+            return None
+    
+    def delete_checkpoint(self):
+        """Delete checkpoint file after successful completion."""
+        checkpoint_file = self.checkpoint_dir / self.get_checkpoint_filename()
+        if checkpoint_file.exists():
+            checkpoint_file.unlink()
+            print(f"🗑️  Checkpoint file deleted: {checkpoint_file}")
+    
+    def restore_from_checkpoint(self, checkpoint_data: Dict):
+        """Restore evaluator state from checkpoint data."""
+        self.results['detailed_results'] = checkpoint_data.get('detailed_results', [])
+        self.results['bilateral_distribution'] = defaultdict(int, checkpoint_data.get('bilateral_distribution', {}))
+        self.results['projected_distribution'] = defaultdict(int, checkpoint_data.get('projected_distribution', {}))
+        self.results['total_samples'] = checkpoint_data.get('total_completed_evaluations', 0)
+        self._category_stats = defaultdict(lambda: {'total': 0, 'agreements': 0, 'abstentions': 0}, 
+                                          checkpoint_data.get('category_stats', {}))
+        self._total_agreements = checkpoint_data.get('total_agreements', 0)
+        self._total_assertions = checkpoint_data.get('total_assertions', 0)
+        self._total_abstentions = checkpoint_data.get('total_abstentions', 0)
+
+    def format_time(self, seconds: float) -> str:
+        """Format seconds into human-readable time."""
+        if seconds < 60:
+            return f"{seconds:.1f}s"
+        elif seconds < 3600:
+            minutes = seconds / 60
+            return f"{minutes:.1f}m"
+        else:
+            hours = seconds / 3600
+            return f"{hours:.1f}h"
+
+    def estimate_completion(self, current_assertions: int, total_assertions: int, elapsed_time: float) -> Tuple[str, str]:
+        """Estimate remaining time and completion time."""
+        if current_assertions == 0:
+            return "Unknown", "Unknown"
+        
+        avg_time_per_assertion = elapsed_time / current_assertions
+        remaining_assertions = total_assertions - current_assertions
+        remaining_time = remaining_assertions * avg_time_per_assertion
+        
+        completion_timestamp = time.time() + remaining_time
+        completion_time = time.strftime("%H:%M:%S", time.localtime(completion_timestamp))
+        
+        return self.format_time(remaining_time), completion_time
+    
+    def evaluate_assertion(self, assertion_data: Dict, assertion_idx: int, total_assertions: int, 
+                         elapsed_time: float, item_start_time: float) -> Dict:
+        """Evaluate a single assertion with comprehensive status logging.
+        
+        Args:
+            assertion_data: Standard format assertion dictionary
+            assertion_idx: Current assertion index for progress tracking
+            total_assertions: Total number of assertions
+            elapsed_time: Time elapsed since start
+            item_start_time: Start time for this assertion
+            
+        Returns:
+            Dictionary with evaluation results
+        """
+        assertion_id = assertion_data['assertion_id']
+        assertion_text = assertion_data['assertion_text']
+        expected_label = assertion_data['expected_label']  # 'correct' or 'incorrect'
+        category = assertion_data['context']['category']
+        topic = assertion_data['context']['topic']
+        
+        # Progress header with timing info matching MMLU-Pro
+        remaining_est, completion_est = self.estimate_completion(assertion_idx, total_assertions, elapsed_time)
+        progress_percent = (assertion_idx / total_assertions) * 100
+        
+        print(f"\n📋 Assertion {assertion_idx+1}/{total_assertions} ({progress_percent:.1f}%)")
+        print(f"🕒 Elapsed: {self.format_time(elapsed_time)} | ETA: {remaining_est} | Complete by: {completion_est}")
+        print(f"❓ {assertion_text[:70]}{'...' if len(assertion_text) > 70 else ''}")
+        
+        # Create assertion object
+        assertion = Assertion(assertion_text)
+        
+        # Get bilateral truth value with context
+        context = f"{self.context_template}\n\nCategory: {category}"
+        truth_value = zeta(
+            assertion,
+            self.evaluator.evaluate_bilateral,
+            system_prompt=self.system_prompt,
+            context=context
+        )
+        truth_str = str(truth_value)
+        
+        # Apply epistemic policy projection
+        projected_value = truth_value.project(self.epistemic_policy)
+        
+        # Track distributions
+        self.results['bilateral_distribution'][truth_str] += 1
+        self.results['projected_distribution'][projected_value.value] += 1
+        self.results['total_samples'] += 1
+        
+        # Check if this is an abstention
+        is_abstention = (projected_value == TruthValueComponent.UNDEFINED)
+        
+        if is_abstention:
+            self._total_abstentions += 1
+        
+        # Check agreement with expected result (only for non-abstentions)
+        agreement = None
+        if not is_abstention:
+            expected_verifiable = (expected_label == 'correct')
+            actual_verifiable = (projected_value == TruthValueComponent.TRUE)
+            agreement = (expected_verifiable == actual_verifiable)
+            
+            if agreement:
+                self._total_agreements += 1
+        
+        # Update category statistics
+        self._category_stats[category]['total'] += 1
+        if is_abstention:
+            self._category_stats[category]['abstentions'] += 1
+        elif agreement:
+            self._category_stats[category]['agreements'] += 1
+        
+        # Add detailed result matching MMLU-Pro format
+        detailed_result = {
+            'index': len(self.results['detailed_results']),
+            'assertion_id': assertion_id,
+            'assertion': assertion_text,
+            'expected_label': expected_label,
+            'category': category,
+            'topic': topic,
+            'bilateral_value': truth_str,
+            'projected_value': projected_value.value,
+            'is_abstention': is_abstention,
+            'agreement': agreement,
+            'context': assertion_data['context'],
+            'metadata': assertion_data['metadata']
+        }
+        
+        self.results['detailed_results'].append(detailed_result)
+        
+        # Show result for this assertion matching MMLU-Pro format
+        if is_abstention:
+            status = "⚪ ABSTENTION"
+            print(f"     Expected: {expected_label:>9} → Bilateral: {truth_str} → Projected: {projected_value.value} {status}")
+        else:
+            status = "✅" if agreement else "❌"
+            predicted_label = "correct" if projected_value == TruthValueComponent.TRUE else "incorrect"
+            print(f"     Expected: {expected_label:>9} → Bilateral: {truth_str} → Projected: {predicted_label} {status}")
+        print(f"              Category: {category} | Topic: {topic}")
+        
+        self._total_assertions += 1
+        
+        # Item completion summary matching MMLU-Pro
+        item_time = time.time() - item_start_time
+        non_abstentions = self.results['total_samples'] - self._total_abstentions
+        running_accuracy = self._total_agreements / non_abstentions if non_abstentions > 0 else 0
+        coverage = non_abstentions / self.results['total_samples'] if self.results['total_samples'] > 0 else 0
+        
+        print(f"   ⏱️  Item time: {self.format_time(item_time)}")
+        print(f"   📊 Running accuracy: {running_accuracy:.3f} ({self._total_agreements}/{non_abstentions}) | Coverage: {coverage:.3f}")
+        
+        return {
+            'assertion_id': assertion_id,
+            'assertion': assertion_text,
+            'category': category,
+            'agreement': agreement,
+            'is_abstention': is_abstention
+        }
+    
+    def run_evaluation(self, checkpoint_interval: int = 20, max_samples: int = None) -> Dict:
+        """Run complete evaluation with checkpoint support.
+        
+        Args:
+            checkpoint_interval: Save checkpoint every N assertions
+            max_samples: Maximum number of statements to evaluate (None for all)
+            
+        Returns:
+            Complete evaluation results
+        """
+        all_assertions = self.dataset['assertions']
+        
+        # Sample statements if max_samples is specified
+        if max_samples is not None and max_samples < len(all_assertions):
+            import random
+            random.seed(42)  # Deterministic sampling
+            
+            # Separate positive and negative examples for balanced sampling
+            positive_assertions = [a for a in all_assertions if a['expected_label'] == 'correct']
+            negative_assertions = [a for a in all_assertions if a['expected_label'] == 'incorrect']
+            
+            # Calculate balanced split (50/50 or as close as possible)
+            half_samples = max_samples // 2
+            remaining = max_samples % 2
+            
+            # Sample equal numbers from each class (or as close as possible)
+            pos_sample_size = min(half_samples + remaining, len(positive_assertions))
+            neg_sample_size = min(max_samples - pos_sample_size, len(negative_assertions))
+            
+            # If we can't get enough from one class, get more from the other
+            if pos_sample_size + neg_sample_size < max_samples:
+                if len(positive_assertions) > pos_sample_size:
+                    pos_sample_size = min(max_samples - neg_sample_size, len(positive_assertions))
+                elif len(negative_assertions) > neg_sample_size:
+                    neg_sample_size = min(max_samples - pos_sample_size, len(negative_assertions))
+            
+            # Sample from each class
+            sampled_positive = random.sample(positive_assertions, pos_sample_size)
+            sampled_negative = random.sample(negative_assertions, neg_sample_size)
+            
+            # Combine and shuffle
+            all_assertions = sampled_positive + sampled_negative
+            random.shuffle(all_assertions)
+            
+            print(f"📊 Sampled {len(all_assertions)} statements from {len(self.dataset['assertions'])} total")
+            print(f"   📊 Balance: {pos_sample_size} positive, {neg_sample_size} negative")
+        
+        total_assertions = len(all_assertions)
+        
+        # Check for existing checkpoint
+        checkpoint_data = self.load_checkpoint()
+        
+        if checkpoint_data:
+            print(f"🔄 Resuming from checkpoint...")
+            self.restore_from_checkpoint(checkpoint_data)
+            start_time = checkpoint_data["start_time"]
+            start_idx = checkpoint_data.get("current_assertion_idx", 0) + 1
+            print(f"✅ Resumed: {self.results['total_samples']} evaluations completed")
+            print(f"📊 Resuming from assertion {start_idx + 1}")
+        else:
+            # Fresh start
+            clear_cache()
+            print(f"🗑️  Cache cleared")
+            start_time = time.time()
+            start_idx = 0
+        
+        print(f"\n🚀 {'Resuming' if checkpoint_data else 'Starting'} {self.dataset['metadata']['benchmark'].upper()} evaluation with {self.model_name}")
+        print(f"⏰ {'Resumed' if checkpoint_data else 'Started'} at: {time.strftime('%H:%M:%S', time.localtime(time.time()))}")
+        if checkpoint_data:
+            print(f"📊 Original start: {time.strftime('%H:%M:%S', time.localtime(start_time))}")
+        print(f"📊 Assertions to evaluate: {total_assertions:,}")
+        print(f"🎯 Epistemic policy: {self.epistemic_policy.value}")
+        print("=" * 80)
+        
+        # Evaluate each assertion with comprehensive progress tracking  
+        for assertion_idx in range(start_idx, total_assertions):
+            assertion_data = all_assertions[assertion_idx]
+                
+            try:
+                # Progress tracking and timing
+                current_time = time.time()
+                elapsed_time = current_time - start_time
+                item_start_time = current_time
+                
+                # Evaluate assertion with full progress logging
+                self.evaluate_assertion(assertion_data, assertion_idx, total_assertions, 
+                                     elapsed_time, item_start_time)
+                
+                # Periodic cache status and checkpointing
+                if (assertion_idx + 1) % checkpoint_interval == 0:
+                    cache_size = get_cache_size()
+                    print(f"   💾 Cache size: {cache_size} entries")
+                    
+                    # Save checkpoint
+                    try:
+                        self.save_checkpoint(start_time, assertion_idx)
+                    except Exception as e:
+                        print(f"⚠️  Warning: Failed to save checkpoint: {e}")
+                
+            except Exception as e:
+                print(f"❌ Error evaluating assertion {assertion_idx+1}: {e}")
+                # Add failed evaluation
+                self.results['detailed_results'].append({
+                    'index': len(self.results['detailed_results']),
+                    'assertion_id': assertion_data['assertion_id'],
+                    'assertion': assertion_data['assertion_text'],
+                    'expected_label': assertion_data['expected_label'],
+                    'category': assertion_data['context']['category'],
+                    'topic': assertion_data['context']['topic'],
+                    'bilateral_value': '<e,e>',
+                    'projected_value': 'e',
+                    'is_abstention': True,
+                    'agreement': None,
+                    'error': str(e)
+                })
+                self.results['total_samples'] += 1
+                self._total_abstentions += 1
+        
+        # Final results compilation - matching MMLU-Pro schema
+        total_time = time.time() - start_time
+        self.results['evaluation_time'] = total_time
+        self.results['cache_size'] = get_cache_size()
+        
+        # Calculate ArXiv paper-compliant metrics
+        non_abstentions = self.results['total_samples'] - self._total_abstentions
+        self.results['total_abstentions'] = self._total_abstentions
+        self.results['total_non_abstentions'] = non_abstentions
+        self.results['coverage'] = non_abstentions / self.results['total_samples'] if self.results['total_samples'] > 0 else 0
+        self.results['accuracy'] = self._total_agreements / non_abstentions if non_abstentions > 0 else 0
+        
+        # Calculate F1 Macro (over non-abstentions only)
+        self.results['f1_macro'] = self._calculate_f1_macro()
+        
+        # Build category analysis matching MMLU-Pro format
+        for category, stats in self._category_stats.items():
+            if stats['total'] > 0:
+                non_abstentions_cat = stats['total'] - stats['abstentions']
+                self.results['category_analysis'][category] = {
+                    'total': stats['total'],
+                    'agreements': stats['agreements'],
+                    'abstentions': stats['abstentions'],
+                    'accuracy': stats['agreements'] / non_abstentions_cat if non_abstentions_cat > 0 else 0,
+                    'coverage': non_abstentions_cat / stats['total']
+                }
+            
+        # Save final checkpoint before completing
+        try:
+            self.save_checkpoint(start_time, total_assertions - 1)
+        except Exception as e:
+            print(f"⚠️  Warning: Failed to save final checkpoint: {e}")
+        
+        print("\n" + "=" * 80)
+        print(f"🏁 {self.dataset['metadata']['benchmark'].upper()} EVALUATION COMPLETE!")
+        print(f"⏰ Total time: {self.format_time(total_time)}")
+        print(f"📊 Completed: {self.results['total_samples']:,} evaluations")
+        print(f"⚡ Average time per assertion: {self.format_time(total_time / total_assertions) if total_assertions > 0 else '0s'}")
+        print(f"🎯 Overall accuracy: {self.results['accuracy']:.3f}")
+        print(f"📊 Coverage: {self.results['coverage']:.3f}")
+        print(f"📊 F1 Macro: {self.results['f1_macro']:.3f}")
+        print("=" * 80)
+        
+        return self.results
+    
+    def _calculate_f1_macro(self) -> float:
+        """Calculate F1 Macro over non-abstentions."""
+        # Filter out abstentions
+        non_abstentions = [r for r in self.results['detailed_results'] if not r['is_abstention']]
+        
+        if not non_abstentions:
+            return 0.0
+        
+        # Calculate precision and recall for each class (correct/incorrect)
+        correct_predictions = [r for r in non_abstentions if r['projected_value'] == 't']
+        incorrect_predictions = [r for r in non_abstentions if r['projected_value'] == 'f']
+        
+        correct_actual = [r for r in non_abstentions if r['expected_label'] == 'correct']
+        incorrect_actual = [r for r in non_abstentions if r['expected_label'] == 'incorrect']
+        
+        # Correct class metrics
+        correct_tp = len([r for r in correct_predictions if r['expected_label'] == 'correct'])
+        correct_precision = correct_tp / len(correct_predictions) if correct_predictions else 0
+        correct_recall = correct_tp / len(correct_actual) if correct_actual else 0
+        correct_f1 = 2 * correct_precision * correct_recall / (correct_precision + correct_recall) if (correct_precision + correct_recall) > 0 else 0
+        
+        # Incorrect class metrics  
+        incorrect_tp = len([r for r in incorrect_predictions if r['expected_label'] == 'incorrect'])
+        incorrect_precision = incorrect_tp / len(incorrect_predictions) if incorrect_predictions else 0
+        incorrect_recall = incorrect_tp / len(incorrect_actual) if incorrect_actual else 0
+        incorrect_f1 = 2 * incorrect_precision * incorrect_recall / (incorrect_precision + incorrect_recall) if (incorrect_precision + incorrect_recall) > 0 else 0
+        
+        # Macro average
+        return (correct_f1 + incorrect_f1) / 2
+    
+    def save_results(self, output_path: str) -> None:
+        """Save evaluation results to JSON file.
+        
+        Args:
+            output_path: Path to save results
+        """
+        output_file = Path(output_path)
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Convert defaultdict to regular dict for JSON serialization
+        results_copy = dict(self.results)
+        results_copy['bilateral_distribution'] = dict(results_copy['bilateral_distribution'])
+        results_copy['projected_distribution'] = dict(results_copy['projected_distribution'])
+        
+        with open(output_file, 'w') as f:
+            json.dump(results_copy, f, indent=2, default=str)
+            
+        print(f"📁 Results saved to {output_path}")
+    
+    def print_summary(self) -> None:
+        """Print evaluation summary matching MMLU-Pro format."""
+        print(f"\n📊 {self.dataset['metadata']['benchmark'].upper()} Evaluation Summary for {self.model_name}")
+        print("=" * 60)
+        
+        print(f"Total Assertions: {self._total_assertions:,}")
+        print(f"Total Samples: {self.results['total_samples']:,}")
+        print(f"Overall Accuracy: {self.results['accuracy']:.3f}")
+        print(f"Coverage: {self.results['coverage']:.3f}")
+        print(f"F1 Macro: {self.results['f1_macro']:.3f}")
+        print(f"Cache Size: {self.results['cache_size']} entries")
+        
+        print(f"\nEpistemic Policy: {self.epistemic_policy.value}")
+        print("Bilateral Truth Value Distribution:")
+        total_samples = self.results['total_samples']
+        for truth_value, count in sorted(self.results['bilateral_distribution'].items()):
+            percentage = count / total_samples * 100 if total_samples > 0 else 0
+            print(f"  {truth_value}: {count:,} ({percentage:.1f}%)")
+        
+        print("\nProjected Value Distribution:")
+        for projected_value, count in sorted(self.results['projected_distribution'].items()):
+            percentage = count / total_samples * 100 if total_samples > 0 else 0
+            print(f"  {projected_value}: {count:,} ({percentage:.1f}%)")
+        
+        print("\nCategory Performance:")
+        for category, category_data in self.results['category_analysis'].items():
+            accuracy = category_data['accuracy']
+            coverage = category_data['coverage']
+            total = category_data['total']
+            print(f"  {category}: Acc {accuracy:.3f}, Cov {coverage:.3f} ({total:,} samples)")
+
+
+def main():
+    """Main script for generic bilateral truth evaluation."""
+    parser = argparse.ArgumentParser(description="Generic Bilateral Truth Evaluation")
+    parser.add_argument("--model", required=True, help="Model name to evaluate")
+    parser.add_argument("--dataset", required=True, help="Path to standard format dataset JSON file")
+    parser.add_argument("--samples", type=int, help="Number of statements to evaluate (default: all)")
+    parser.add_argument("--epistemic-policy", default="classical",
+                       choices=["classical", "paraconsistent", "paracomplete"],
+                       help="Epistemic policy for projecting bilateral truth values")
+    parser.add_argument("--output-dir", default="results", help="Output directory for results")
+    parser.add_argument("--checkpoint-interval", type=int, default=20, 
+                       help="Save checkpoint every N assertions (default: 20)")
+    parser.add_argument("--checkpoint-dir", default="checkpoints", 
+                       help="Directory for checkpoint files (default: checkpoints)")
+    parser.add_argument("--system-prompt", help="Custom system prompt for evaluation")
+    parser.add_argument("--context", help="Custom context for evaluation")
+    parser.add_argument("--no-save", action="store_true", 
+                       help="Don't save detailed results to JSON file")
+    parser.add_argument("--clear-checkpoints", action="store_true",
+                       help="Clear all existing checkpoints before starting (forces fresh evaluation)")
+    
+    args = parser.parse_args()
+    
+    # Clear checkpoints if requested
+    if args.clear_checkpoints:
+        checkpoint_dir = Path(args.checkpoint_dir)
+        if checkpoint_dir.exists():
+            import glob
+            checkpoint_files = glob.glob(str(checkpoint_dir / "*.json"))
+            if checkpoint_files:
+                for file_path in checkpoint_files:
+                    Path(file_path).unlink()
+                print(f"🗑️  Cleared {len(checkpoint_files)} checkpoint file(s)")
+            else:
+                print("🗑️  No checkpoint files found to clear")
+        else:
+            print("🗑️  Checkpoint directory doesn't exist, nothing to clear")
+    
+    # Convert epistemic policy string to enum
+    policy_map = {
+        "classical": EpistemicPolicy.CLASSICAL,
+        "paraconsistent": EpistemicPolicy.PARACONSISTENT,
+        "paracomplete": EpistemicPolicy.PARACOMPLETE
+    }
+    epistemic_policy = policy_map[args.epistemic_policy]
+    
+    # Print configuration
+    print("📋 Generic Bilateral Truth Evaluation Configuration")
+    print("=" * 60)
+    print(f"   Model: {args.model}")
+    print(f"   Dataset: {args.dataset}")
+    print(f"   Epistemic Policy: {epistemic_policy.value}")
+    print(f"   Custom system prompt: {'Yes' if args.system_prompt else 'No (using default)'}")
+    print(f"   Custom context: {'Yes' if args.context else 'No (using default)'}")
+    print(f"   Checkpoint interval: {args.checkpoint_interval} assertions")
+    print(f"   Checkpoint directory: {args.checkpoint_dir}")
+    print(f"   Clear checkpoints: {'Yes' if args.clear_checkpoints else 'No'}")
+    print()
+    
+    # Create evaluator
+    evaluator = GenericBilateralEvaluator(
+        args.model, 
+        args.dataset,
+        epistemic_policy=epistemic_policy,
+        checkpoint_dir=args.checkpoint_dir,
+        system_prompt=args.system_prompt,
+        context=args.context
+    )
+    
+    # Run evaluation
+    try:
+        results = evaluator.run_evaluation(
+            checkpoint_interval=args.checkpoint_interval,
+            max_samples=args.samples
+        )
+        
+        # Save results if requested
+        if not args.no_save:
+            model_safe = args.model.replace('/', '_').replace(':', '_')
+            dataset_name = Path(args.dataset).stem
+            output_file = f"{args.output_dir}/{dataset_name}_{model_safe}_{epistemic_policy.value}_results.json"
+            evaluator.save_results(output_file)
+            print(f"💾 Results saved to {output_file}")
+        
+        # Clean up checkpoint file on successful completion
+        try:
+            evaluator.delete_checkpoint()
+        except Exception as e:
+            print(f"⚠️  Warning: Failed to delete checkpoint: {e}")
+        
+        # Print summary
+        evaluator.print_summary()
+        
+    except KeyboardInterrupt:
+        print("\n⚠️  Evaluation interrupted by user")
+        # Save partial results
+        if evaluator.results['total_samples'] > 0:
+            model_safe = args.model.replace('/', '_').replace(':', '_')
+            dataset_name = Path(args.dataset).stem
+            output_file = f"{args.output_dir}/{dataset_name}_{model_safe}_{epistemic_policy.value}_partial.json"
+            evaluator.save_results(output_file)
+            print(f"Partial results saved to {output_file}")
+    except Exception as e:
+        print(f"❌ Evaluation failed: {e}")
+        raise
+
+
+if __name__ == "__main__":
+    main()B

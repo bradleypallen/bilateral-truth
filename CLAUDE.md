@@ -38,6 +38,23 @@ python -m pytest -m integration
 python -m pytest --cov=bilateral_truth
 ```
 
+### Running Benchmark Evaluations
+```bash
+# Generate/update benchmark datasets
+cd evaluations
+python data_generators/truthfulqa_generator.py
+python data_generators/simpleqa_generator.py
+python data_generators/mmlupro_generator.py
+python data_generators/factscore_generator.py  # Requires downloading data first
+
+# Run evaluations with different models
+python generic_evaluator.py --dataset standard_datasets/truthfulqa_complete.json --model gpt-4 --samples 100
+python generic_evaluator.py --dataset standard_datasets/factscore_complete.json --model claude-3-5-haiku-20241022 --samples 50
+
+# View results
+ls -la results/
+```
+
 ### Code Quality
 ```bash
 # Code formatting
@@ -59,6 +76,59 @@ pip install -e .
 bilateral-truth --help
 bilateral-truth --model mock "The sky is blue"
 ```
+
+### Evaluation Frameworks
+
+The project includes a comprehensive benchmark evaluation infrastructure:
+
+```bash
+# Generic evaluator for all benchmarks
+cd evaluations
+python generic_evaluator.py --dataset standard_datasets/truthfulqa_complete.json --model gpt-4 --samples 100
+python generic_evaluator.py --dataset standard_datasets/simpleqa_complete.json --model claude-3-5-haiku-20241022 --samples 50
+python generic_evaluator.py --dataset standard_datasets/mmlupro_complete.json --model mock --samples 10
+python generic_evaluator.py --dataset standard_datasets/factscore_complete.json --model gpt-4o-mini --samples 20
+```
+
+#### Available Benchmarks
+
+1. **TruthfulQA** (870KB, ~800 assertions)
+   - Tests factual accuracy and truthfulness
+   - Categories: Misconceptions, Science, History, etc.
+   
+2. **SimpleQA** (14MB, ~4,000 assertions)  
+   - Simple fact verification tasks
+   - Binary true/false questions
+   
+3. **MMLU-Pro** (115MB, ~12,000 assertions)
+   - Comprehensive knowledge evaluation
+   - Multiple domains and difficulty levels
+   
+4. **FACTScore** (configurable size)
+   - Atomic facts from LLM-generated biographies
+   - Pre-generated facts with LLAMA+NP and ChatGPT labels
+   - Sample data included; full dataset available from Google Drive
+
+#### Benchmark Infrastructure Status
+
+**✅ Completed:**
+- Generic evaluation framework (`evaluations/generic_evaluator.py`)
+- Standard data format for all benchmarks
+- Data generators for all 4 benchmarks
+- Checkpoint/recovery system for long evaluations
+- Results analysis and reporting
+- Sample FACTScore data (35 facts from 5 scientists)
+
+**🔄 In Progress:**
+- Running full evaluations on production models
+- Downloading complete FACTScore dataset (~6,000 biography facts)
+
+**📋 Next Steps:**
+1. Download full FACTScore data from [Google Drive](https://drive.google.com/drive/folders/1kFey69z8hGXScln01mVxrOhrqgM62X7I)
+2. Run systematic evaluations across all models and benchmarks
+3. Generate comparative analysis reports
+4. Add more benchmarks (e.g., BIG-Bench, HellaSwag, GSM8K)
+5. Implement cross-benchmark correlation analysis
 
 ## Architecture Overview
 
@@ -156,3 +226,30 @@ bilateral-truth --model mock --interactive
 **LLM Prompt Design**: Evaluators use structured prompts that explicitly ask for separate verifiability and refutability assessments, following the bilateral evaluation framework from the research paper.
 
 **Error Handling**: LLM evaluations gracefully handle API failures, network issues, and malformed responses by falling back to undefined values or continuing with fewer samples.
+
+## Current Development Status (September 2025)
+
+### Recently Completed
+- ✅ Generic evaluation framework supporting multiple benchmarks
+- ✅ Four benchmark datasets integrated (TruthfulQA, SimpleQA, MMLU-Pro, FACTScore)
+- ✅ Standard data format for consistent evaluation across benchmarks
+- ✅ FACTScore integration without pip package conflicts
+- ✅ Checkpoint/recovery system for long-running evaluations
+
+### Immediate Priorities
+1. **Download FACTScore full dataset** - Get ~6,000 biography facts from [Google Drive](https://drive.google.com/drive/folders/1kFey69z8hGXScln01mVxrOhrqgM62X7I)
+2. **Run production evaluations** - Systematic testing across all models and benchmarks
+3. **Generate analysis reports** - Comparative performance metrics and insights
+4. **Add new benchmarks** - Consider BIG-Bench, HellaSwag, GSM8K for broader coverage
+
+### Key Files for Benchmark Work
+- `evaluations/generic_evaluator.py` - Main evaluation engine
+- `evaluations/data_generators/` - Dataset conversion scripts
+- `evaluations/standard_datasets/` - Converted benchmark data
+- `evaluations/results/` - Evaluation outputs
+- `evaluations/STANDARD_FORMAT.md` - Data format specification
+
+### Notes
+- API keys are stored in the .env file in the root directory
+- Mock evaluator available for testing without API costs
+- All benchmarks use the same evaluation pipeline for consistency

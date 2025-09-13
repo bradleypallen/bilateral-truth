@@ -23,7 +23,7 @@ class LLMEvaluator(ABC):
 
     @abstractmethod
     def evaluate_bilateral(
-        self, assertion: Assertion, samples: int = 1
+        self, assertion: Assertion, samples: int = 1, system_prompt: Optional[str] = None, context: Optional[str] = None
     ) -> GeneralizedTruthValue:
         """
         Perform bilateral evaluation of an assertion.
@@ -31,6 +31,8 @@ class LLMEvaluator(ABC):
         Args:
             assertion: The assertion to evaluate
             samples: Number of samples to take for majority voting (default: 1)
+            system_prompt: Optional custom system prompt for verification/refutation instructions
+            context: Optional background information to inform the evaluation
 
         Returns:
             GeneralizedTruthValue with verifiability (u) and refutability (v) components
@@ -38,7 +40,7 @@ class LLMEvaluator(ABC):
         pass
 
     def evaluate_with_majority_voting(
-        self, assertion: Assertion, samples: int, tiebreak_strategy: str = "random"
+        self, assertion: Assertion, samples: int, tiebreak_strategy: str = "random", system_prompt: Optional[str] = None, context: Optional[str] = None
     ) -> GeneralizedTruthValue:
         """
         Evaluate assertion using multiple samples and majority voting.
@@ -50,6 +52,8 @@ class LLMEvaluator(ABC):
                 - "random": Randomly select from tied components
                 - "optimistic": Prefer t (verified/refuted) - bias toward strong claims
                 - "pessimistic": Prefer f (cannot verify/refute) - bias toward epistemic caution
+            system_prompt: Optional custom system prompt for verification/refutation instructions
+            context: Optional background information to inform the evaluation
 
         Returns:
             GeneralizedTruthValue determined by majority vote with tiebreaking
@@ -59,13 +63,13 @@ class LLMEvaluator(ABC):
 
         if samples == 1:
             # Single sample - no voting needed
-            return self._single_evaluation(assertion)
+            return self._single_evaluation(assertion, system_prompt=system_prompt, context=context)
 
         # Collect multiple samples
         results = []
         for i in range(samples):
             try:
-                result = self._single_evaluation(assertion)
+                result = self._single_evaluation(assertion, system_prompt=system_prompt, context=context)
                 results.append(result)
             except Exception as e:
                 print(f"Warning: Sample {i+1} failed: {e}")
@@ -79,16 +83,21 @@ class LLMEvaluator(ABC):
         # Apply majority voting
         return self._majority_vote(results, tiebreak_strategy)
 
-    def _single_evaluation(self, assertion: Assertion) -> GeneralizedTruthValue:
+    def _single_evaluation(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> GeneralizedTruthValue:
         """
         Perform a single bilateral evaluation using separate verification and refutation calls.
 
         This implements Definition 3.4 from the paper with separate API calls.
+        
+        Args:
+            assertion: The assertion to evaluate
+            system_prompt: Optional custom system prompt for verification/refutation instructions
+            context: Optional background information to inform the evaluation
         """
         try:
             # Make separate calls for verification and refutation
-            u_component = self._evaluate_verification(assertion)
-            v_component = self._evaluate_refutation(assertion)
+            u_component = self._evaluate_verification(assertion, system_prompt=system_prompt, context=context)
+            v_component = self._evaluate_refutation(assertion, system_prompt=system_prompt, context=context)
 
             return GeneralizedTruthValue(u_component, v_component)
 
@@ -193,15 +202,21 @@ class LLMEvaluator(ABC):
             # Default to random for unknown strategies
             return random.choice(tied_components)
 
-    def _create_verification_prompt(self, assertion: Assertion) -> str:
+    def _create_verification_prompt(self, assertion: Assertion, context: Optional[str] = None) -> str:
         """
         Create a prompt for verification assessment as per Definition 3.4.
 
         The LLM must respond with exactly "VERIFIED" or "CANNOT VERIFY".
+        
+        Args:
+            assertion: The assertion to evaluate
+            context: Optional background information to inform the evaluation
         """
+        context_section = f"\n\nContext: {context}\n" if context else ""
+        
         return f"""You are tasked with determining whether the following assertion can be verified as true based on available evidence and knowledge.
 
-Assertion: {assertion}
+Assertion: {assertion}{context_section}
 
 Your task is to determine if this assertion can be verified. Consider all available evidence, facts, and reliable sources of information.
 
@@ -213,15 +228,21 @@ Do not provide any explanation or additional text. Respond with only the require
 
 Response:"""
 
-    def _create_refutation_prompt(self, assertion: Assertion) -> str:
+    def _create_refutation_prompt(self, assertion: Assertion, context: Optional[str] = None) -> str:
         """
         Create a prompt for refutation assessment as per Definition 3.4.
 
         The LLM must respond with exactly "REFUTED" or "CANNOT REFUTE".
+        
+        Args:
+            assertion: The assertion to evaluate
+            context: Optional background information to inform the evaluation
         """
+        context_section = f"\n\nContext: {context}\n" if context else ""
+        
         return f"""You are tasked with determining whether the following assertion can be refuted (shown to be false) based on available evidence and knowledge.
 
-Assertion: {assertion}
+Assertion: {assertion}{context_section}
 
 Your task is to determine if this assertion can be refuted. Consider all available evidence, facts, and reliable sources of information that might contradict the assertion.
 
@@ -277,17 +298,27 @@ Response:"""
             # Model failed to return required token sequence - return empty
             return TruthValueComponent.UNDEFINED
 
-    def _evaluate_verification(self, assertion: Assertion) -> TruthValueComponent:
+    def _evaluate_verification(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
         """
         Evaluate verification component separately.
         Must be overridden by concrete evaluator classes.
+        
+        Args:
+            assertion: The assertion to evaluate
+            system_prompt: Optional custom system prompt for verification instructions
+            context: Optional background information to inform the evaluation
         """
         raise NotImplementedError("Subclasses must implement _evaluate_verification")
 
-    def _evaluate_refutation(self, assertion: Assertion) -> TruthValueComponent:
+    def _evaluate_refutation(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
         """
         Evaluate refutation component separately.
         Must be overridden by concrete evaluator classes.
+        
+        Args:
+            assertion: The assertion to evaluate
+            system_prompt: Optional custom system prompt for refutation instructions
+            context: Optional background information to inform the evaluation
         """
         raise NotImplementedError("Subclasses must implement _evaluate_refutation")
 
@@ -320,17 +351,20 @@ class OpenAIEvaluator(LLMEvaluator):
         self.client = openai.OpenAI(api_key=self.api_key)
 
     def evaluate_bilateral(
-        self, assertion: Assertion, samples: int = 1
+        self, assertion: Assertion, samples: int = 1, system_prompt: Optional[str] = None, context: Optional[str] = None
     ) -> GeneralizedTruthValue:
         """Evaluate assertion using OpenAI API with optional sampling."""
         if samples > 1:
-            return self.evaluate_with_majority_voting(assertion, samples)
-        return self._single_evaluation(assertion)
+            return self.evaluate_with_majority_voting(assertion, samples, system_prompt=system_prompt, context=context)
+        return self._single_evaluation(assertion, system_prompt=system_prompt, context=context)
 
-    def _evaluate_verification(self, assertion: Assertion) -> TruthValueComponent:
+    def _evaluate_verification(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
         """Evaluate verification using OpenAI API."""
         try:
-            prompt = self._create_verification_prompt(assertion)
+            prompt = self._create_verification_prompt(assertion, context=context)
+            
+            # Use custom system prompt or default
+            sys_prompt = system_prompt or "You are an expert in factual verification. You must respond with only the exact required token sequences."
 
             # Build request parameters
             request_params = {
@@ -338,7 +372,7 @@ class OpenAIEvaluator(LLMEvaluator):
                 "messages": [
                     {
                         "role": "system",
-                        "content": "You are an expert in factual verification. You must respond with only the exact required token sequences.",
+                        "content": sys_prompt,
                     },
                     {"role": "user", "content": prompt},
                 ],
@@ -360,10 +394,13 @@ class OpenAIEvaluator(LLMEvaluator):
             print(f"Warning: OpenAI verification call failed: {e}")
             return TruthValueComponent.UNDEFINED
 
-    def _evaluate_refutation(self, assertion: Assertion) -> TruthValueComponent:
+    def _evaluate_refutation(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
         """Evaluate refutation using OpenAI API."""
         try:
-            prompt = self._create_refutation_prompt(assertion)
+            prompt = self._create_refutation_prompt(assertion, context=context)
+            
+            # Use custom system prompt or default
+            sys_prompt = system_prompt or "You are an expert in logical refutation. You must respond with only the exact required token sequences."
 
             # Build request parameters
             request_params = {
@@ -371,7 +408,7 @@ class OpenAIEvaluator(LLMEvaluator):
                 "messages": [
                     {
                         "role": "system",
-                        "content": "You are an expert in logical refutation. You must respond with only the exact required token sequences.",
+                        "content": sys_prompt,
                     },
                     {"role": "user", "content": prompt},
                 ],
@@ -424,22 +461,26 @@ class AnthropicEvaluator(LLMEvaluator):
         self.client = anthropic.Anthropic(api_key=self.api_key)
 
     def evaluate_bilateral(
-        self, assertion: Assertion, samples: int = 1
+        self, assertion: Assertion, samples: int = 1, system_prompt: Optional[str] = None, context: Optional[str] = None
     ) -> GeneralizedTruthValue:
         """Evaluate assertion using Anthropic API with optional sampling."""
         if samples > 1:
-            return self.evaluate_with_majority_voting(assertion, samples)
-        return self._single_evaluation(assertion)
+            return self.evaluate_with_majority_voting(assertion, samples, system_prompt=system_prompt, context=context)
+        return self._single_evaluation(assertion, system_prompt=system_prompt, context=context)
 
-    def _evaluate_verification(self, assertion: Assertion) -> TruthValueComponent:
+    def _evaluate_verification(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
         """Evaluate verification using Anthropic API."""
         try:
-            prompt = self._create_verification_prompt(assertion)
+            prompt = self._create_verification_prompt(assertion, context=context)
+            
+            # Use custom system prompt or default
+            sys_prompt = system_prompt or "You are an expert in factual verification. You must respond with only the exact required token sequences."
 
             response = self.client.messages.create(
                 model=self.model,
                 max_tokens=10,  # Only need a few tokens for response
                 temperature=0.0,  # Zero temperature for consistent token responses
+                system=sys_prompt,
                 messages=[{"role": "user", "content": prompt}],
             )
 
@@ -450,15 +491,19 @@ class AnthropicEvaluator(LLMEvaluator):
             print(f"Warning: Anthropic verification call failed: {e}")
             return TruthValueComponent.UNDEFINED
 
-    def _evaluate_refutation(self, assertion: Assertion) -> TruthValueComponent:
+    def _evaluate_refutation(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
         """Evaluate refutation using Anthropic API."""
         try:
-            prompt = self._create_refutation_prompt(assertion)
+            prompt = self._create_refutation_prompt(assertion, context=context)
+            
+            # Use custom system prompt or default
+            sys_prompt = system_prompt or "You are an expert in logical refutation. You must respond with only the exact required token sequences."
 
             response = self.client.messages.create(
                 model=self.model,
                 max_tokens=10,  # Only need a few tokens for response
                 temperature=0.0,  # Zero temperature for consistent token responses
+                system=sys_prompt,
                 messages=[{"role": "user", "content": prompt}],
             )
 
@@ -483,14 +528,14 @@ class MockLLMEvaluator(LLMEvaluator):
         self.responses = responses or {}
 
     def evaluate_bilateral(
-        self, assertion: Assertion, samples: int = 1
+        self, assertion: Assertion, samples: int = 1, system_prompt: Optional[str] = None, context: Optional[str] = None
     ) -> GeneralizedTruthValue:
         """Return predefined response or simulate evaluation with optional sampling."""
         if samples > 1:
-            return self.evaluate_with_majority_voting(assertion, samples)
-        return self._single_evaluation(assertion)
+            return self.evaluate_with_majority_voting(assertion, samples, system_prompt=system_prompt, context=context)
+        return self._single_evaluation(assertion, system_prompt=system_prompt, context=context)
 
-    def _evaluate_verification(self, assertion: Assertion) -> TruthValueComponent:
+    def _evaluate_verification(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
         """Mock verification evaluation using predefined logic."""
         assertion_str = str(assertion)
 
@@ -534,7 +579,7 @@ class MockLLMEvaluator(LLMEvaluator):
             # Unknown predicates
             return TruthValueComponent.UNDEFINED
 
-    def _evaluate_refutation(self, assertion: Assertion) -> TruthValueComponent:
+    def _evaluate_refutation(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
         """Mock refutation evaluation using predefined logic."""
         assertion_str = str(assertion)
 

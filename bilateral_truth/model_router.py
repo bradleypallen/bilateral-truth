@@ -2,11 +2,10 @@
 Model routing functionality for the ζ_c CLI.
 
 This module provides routing logic to determine which LLM provider and
-configuration to use based on model names, including OpenRouter support.
+configuration to use based on explicit model names.
 """
 
-import re
-from typing import Dict, Tuple, Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 from .llm_evaluators import (
     LLMEvaluator,
     OpenAIEvaluator,
@@ -21,226 +20,102 @@ if TYPE_CHECKING:
 
 class ModelRouter:
     """
-    Routes model names to appropriate LLM evaluators and configurations.
+    Routes model names to appropriate LLM evaluators.
+    Uses explicit model names only - no patterns or aliases.
     """
 
-    # Model name patterns and their corresponding providers
-    MODEL_PATTERNS = {
+    # Map of exact model names to their providers
+    MODEL_PROVIDERS = {
         # OpenAI models
-        "openai": {
-            "patterns": [
-                r"^gpt-4.*",
-                r"^gpt-3\.5.*",
-                r"^text-davinci.*",
-                r"^openai/.*",
-            ],
-            "provider": "openai",
-            "default_model": "gpt-4",
-        },
+        "gpt-5-2025-08-07": "openai",
+        "gpt-5-mini-2025-08-07": "openai",
+        "gpt-4.1-2025-04-14": "openai",
+        "gpt-4.1-mini-2025-04-14": "openai",
+        
         # Anthropic models
-        "anthropic": {
-            "patterns": [
-                r"^claude-.*-4.*",
-                r"^claude-sonnet.*",
-                r"^claude-opus.*",
-                r"^anthropic/.*",
-            ],
-            "provider": "anthropic",
-            "default_model": "claude-sonnet-4-20250514",
-        },
-        # OpenRouter models (supports many providers)
-        "openrouter": {
-            "patterns": [
-                r"^openrouter/.*",
-                r"^meta-llama/.*",
-                r"^mistralai/.*",
-                r"^google/.*",
-                r"^cohere/.*",
-                r"^perplexity/.*",
-                r"^nousresearch/.*",
-                r"^microsoft/.*",
-                r"^01-ai/.*",
-            ],
-            "provider": "openrouter",
-            "default_model": "openrouter/auto",
-        },
+        "claude-opus-4-1-20250805": "anthropic",
+        "claude-sonnet-4-20250514": "anthropic",
+        "claude-3-7-sonnet-20250219": "anthropic",
+        "claude-3-5-haiku-20241022": "anthropic",
+        
+        # OpenRouter models
+        "meta-llama/llama-4-scout": "openrouter",
+        "meta-llama/llama-4-maverick": "openrouter",
+        "google/gemini-2.5-pro": "openrouter",
+        "google/gemini-2.5-flash": "openrouter",
+        
         # Mock models for testing
-        "mock": {
-            "patterns": [r"^mock.*", r"^test.*", r"^demo.*"],
-            "provider": "mock",
-            "default_model": "mock",
-        },
-    }
-
-    # Aliases for common model names
-    MODEL_ALIASES = {
-        # OpenAI aliases
-        "gpt4": "gpt-4",
-        "gpt-4-turbo": "gpt-4-turbo-preview",
-        "gpt3.5": "gpt-3.5-turbo",
-        "gpt35": "gpt-3.5-turbo",
-        # Anthropic aliases
-        "claude": "claude-sonnet-4-20250514",
-        "claude4": "claude-sonnet-4-20250514",
-        "claude-sonnet": "claude-sonnet-4-20250514",
-        "claude-opus": "claude-opus-4-20250514",
-        # OpenRouter aliases
-        "llama": "meta-llama/llama-3.1-8b-instruct",
-        "llama3": "meta-llama/llama-3.1-8b-instruct",
-        "llama3-70b": "meta-llama/llama-3.1-70b-instruct",
-        "mistral": "mistralai/mistral-7b-instruct",
-        "mixtral": "mistralai/mixtral-8x7b-instruct",
-        "gemini": "google/gemini-pro",
-        "auto": "openrouter/auto",
-        # Mock aliases
         "mock": "mock",
-        "test": "mock",
-        "demo": "mock",
     }
 
     @classmethod
-    def resolve_model_name(cls, model_name: str) -> str:
+    def get_provider(cls, model_name: str) -> str:
         """
-        Resolve model name aliases to canonical names.
-
+        Get the provider for a specific model name.
+        
         Args:
-            model_name: The input model name (may be an alias)
-
+            model_name: The exact model name
+            
         Returns:
-            The canonical model name
-        """
-        # Convert to lowercase for case-insensitive matching
-        normalized_name = model_name.lower().strip()
-
-        # Check if it's an alias
-        if normalized_name in cls.MODEL_ALIASES:
-            return cls.MODEL_ALIASES[normalized_name]
-
-        return model_name
-
-    @classmethod
-    def get_provider_info(cls, model_name: str) -> Tuple[str, str]:
-        """
-        Determine the provider and canonical model name for a given model.
-
-        Args:
-            model_name: The model name to route
-
-        Returns:
-            Tuple of (provider, canonical_model_name)
-
+            The provider name
+            
         Raises:
             ValueError: If the model name is not recognized
         """
-        # First resolve any aliases
-        resolved_name = cls.resolve_model_name(model_name)
-
-        # Try to match against patterns
-        for provider_name, config in cls.MODEL_PATTERNS.items():
-            for pattern in config["patterns"]:
-                if re.match(pattern, resolved_name, re.IGNORECASE):
-                    return config["provider"], resolved_name
-
-        # If no pattern matches, try exact matching with known models
-        known_models = {
-            # OpenAI models
-            "gpt-4",
-            "gpt-4-turbo-preview",
-            "gpt-4-0125-preview",
-            "gpt-3.5-turbo",
-            "gpt-3.5-turbo-0125",
-            # Anthropic models
-            "claude-sonnet-4-20250514",
-            "claude-opus-4-20250514",
-            # Mock models
-            "mock",
-        }
-
-        if resolved_name in known_models:
-            # Try to infer provider from model name
-            if "gpt" in resolved_name or "davinci" in resolved_name:
-                return "openai", resolved_name
-            elif "claude" in resolved_name:
-                return "anthropic", resolved_name
-            elif resolved_name == "mock":
-                return "mock", resolved_name
-
-        raise ValueError(
-            f"Unknown model: {model_name}. Supported models include GPT-4, Claude-4, OpenRouter models, or 'mock' for testing."
-        )
+        if model_name not in cls.MODEL_PROVIDERS:
+            available_models = ", ".join(sorted(cls.MODEL_PROVIDERS.keys()))
+            raise ValueError(
+                f"Unknown model: '{model_name}'. Available models: {available_models}"
+            )
+        return cls.MODEL_PROVIDERS[model_name]
 
     @classmethod
     def create_evaluator(cls, model_name: str, **kwargs) -> LLMEvaluator:
         """
         Create an LLM evaluator for the specified model.
-
+        
         Args:
-            model_name: The model name to create an evaluator for
+            model_name: The exact model name
             **kwargs: Additional arguments passed to the evaluator constructor
-
+            
         Returns:
             An LLMEvaluator instance configured for the specified model
-
+            
         Raises:
             ValueError: If the model name is not recognized
         """
-        provider, canonical_model = cls.get_provider_info(model_name)
-
+        provider = cls.get_provider(model_name)
+        
         if provider == "openai":
-            return OpenAIEvaluator(model=canonical_model, **kwargs)
+            return OpenAIEvaluator(model=model_name, **kwargs)
         elif provider == "anthropic":
-            return AnthropicEvaluator(model=canonical_model, **kwargs)
+            return AnthropicEvaluator(model=model_name, **kwargs)
         elif provider == "openrouter":
-            return OpenRouterEvaluator(model=canonical_model, **kwargs)
+            return OpenRouterEvaluator(model=model_name, **kwargs)
         elif provider == "mock":
             return MockLLMEvaluator(**kwargs)
         else:
             raise ValueError(f"Unsupported provider: {provider}")
 
     @classmethod
-    def list_available_models(cls) -> Dict[str, list]:
+    def list_available_models(cls) -> dict:
         """
-        Get a list of available models organized by provider.
-
+        Get all available models organized by provider.
+        
         Returns:
-            Dictionary mapping provider names to lists of available models
+            Dictionary mapping provider names to lists of model names
         """
-        return {
-            "openai": [
-                "gpt-4",
-                "gpt-4-turbo-preview",
-                "gpt-4-0125-preview",
-                "gpt-3.5-turbo",
-                "gpt-3.5-turbo-0125",
-            ],
-            "anthropic": [
-                "claude-sonnet-4-20250514",
-                "claude-opus-4-20250514",
-            ],
-            "openrouter": [
-                "openrouter/auto",
-                "meta-llama/llama-3.1-8b-instruct",
-                "meta-llama/llama-3.1-70b-instruct",
-                "mistralai/mistral-7b-instruct",
-                "mistralai/mixtral-8x7b-instruct",
-                "google/gemini-pro",
-                "cohere/command-r-plus",
-                "perplexity/llama-3.1-sonar-large-128k-online",
-                "nousresearch/hermes-3-llama-3.1-405b",
-                "microsoft/wizardlm-2-8x22b",
-            ],
-            "mock": ["mock"],
-        }
-
-    @classmethod
-    def list_aliases(cls) -> Dict[str, str]:
-        """
-        Get a list of model aliases and their canonical names.
-
-        Returns:
-            Dictionary mapping aliases to canonical model names
-        """
-        return cls.MODEL_ALIASES.copy()
+        models_by_provider = {}
+        for model, provider in cls.MODEL_PROVIDERS.items():
+            if provider not in models_by_provider:
+                models_by_provider[provider] = []
+            models_by_provider[provider].append(model)
+        
+        # Sort models within each provider
+        for provider in models_by_provider:
+            models_by_provider[provider].sort()
+            
+        return models_by_provider
 
 
 class OpenRouterEvaluator(LLMEvaluator):
@@ -249,26 +124,26 @@ class OpenRouterEvaluator(LLMEvaluator):
     def __init__(self, api_key: Optional[str] = None, model: str = "openrouter/auto"):
         """
         Initialize OpenRouter evaluator.
-
+        
         Args:
             api_key: OpenRouter API key. If None, reads from OPENROUTER_API_KEY environment variable
             model: Model name to use (default: openrouter/auto)
         """
         import os
-
+        
         try:
             import openai
         except ImportError:
             raise ImportError(
                 "openai package is required for OpenRouter. Install with: pip install openai"
             )
-
+        
         self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
         if not self.api_key:
             raise ValueError(
                 "OpenRouter API key must be provided or set in OPENROUTER_API_KEY environment variable"
             )
-
+        
         self.model = model
         # OpenRouter uses OpenAI-compatible API
         self.client = openai.OpenAI(
@@ -276,17 +151,20 @@ class OpenRouterEvaluator(LLMEvaluator):
         )
 
     def evaluate_bilateral(
-        self, assertion: "Assertion", samples: int = 1
+        self, assertion: "Assertion", samples: int = 1, system_prompt: Optional[str] = None, context: Optional[str] = None
     ) -> "GeneralizedTruthValue":
         """Evaluate assertion using OpenRouter API with optional sampling."""
         if samples > 1:
-            return self.evaluate_with_majority_voting(assertion, samples)
-        return self._single_evaluation(assertion)
+            return self.evaluate_with_majority_voting(assertion, samples, system_prompt=system_prompt, context=context)
+        return self._single_evaluation(assertion, system_prompt=system_prompt, context=context)
 
-    def _evaluate_verification(self, assertion: "Assertion") -> "TruthValueComponent":
+    def _evaluate_verification(self, assertion: "Assertion", system_prompt: Optional[str] = None, context: Optional[str] = None) -> "TruthValueComponent":
         """Evaluate verification using OpenRouter API."""
         try:
-            prompt = self._create_verification_prompt(assertion)
+            prompt = self._create_verification_prompt(assertion, context=context)
+            
+            # Use custom system prompt or default
+            sys_prompt = system_prompt or "You are an expert in factual verification. You must respond with only the exact required token sequences."
 
             # Build request parameters
             request_params = {
@@ -294,34 +172,35 @@ class OpenRouterEvaluator(LLMEvaluator):
                 "messages": [
                     {
                         "role": "system",
-                        "content": "You are an expert in factual verification. You must respond with only the exact required token sequences.",
+                        "content": sys_prompt,
                     },
                     {"role": "user", "content": prompt},
                 ],
                 "max_completion_tokens": 10,  # Only need a few tokens for response
             }
 
-            # Add temperature only for models that support it (some newer models don't support temperature=0.0)
+            # Add temperature only for models that support it
             if not (self.model.startswith("gpt-5") or "gpt-5" in self.model):
-                request_params["temperature"] = (
-                    0.0  # Zero temperature for consistent token responses
-                )
+                request_params["temperature"] = 0.0
 
             response = self.client.chat.completions.create(**request_params)
-
+            
             response_text = response.choices[0].message.content
             return self._parse_verification_response(response_text)
-
+            
         except Exception as e:
             print(f"Warning: OpenRouter verification call failed: {e}")
             from .truth_values import TruthValueComponent
-
+            
             return TruthValueComponent.UNDEFINED
 
-    def _evaluate_refutation(self, assertion: "Assertion") -> "TruthValueComponent":
+    def _evaluate_refutation(self, assertion: "Assertion", system_prompt: Optional[str] = None, context: Optional[str] = None) -> "TruthValueComponent":
         """Evaluate refutation using OpenRouter API."""
         try:
-            prompt = self._create_refutation_prompt(assertion)
+            prompt = self._create_refutation_prompt(assertion, context=context)
+            
+            # Use custom system prompt or default
+            sys_prompt = system_prompt or "You are an expert in logical refutation. You must respond with only the exact required token sequences."
 
             # Build request parameters
             request_params = {
@@ -329,50 +208,45 @@ class OpenRouterEvaluator(LLMEvaluator):
                 "messages": [
                     {
                         "role": "system",
-                        "content": "You are an expert in logical refutation. You must respond with only the exact required token sequences.",
+                        "content": sys_prompt,
                     },
                     {"role": "user", "content": prompt},
                 ],
                 "max_completion_tokens": 10,  # Only need a few tokens for response
             }
 
-            # Add temperature only for models that support it (some newer models don't support temperature=0.0)
+            # Add temperature only for models that support it
             if not (self.model.startswith("gpt-5") or "gpt-5" in self.model):
-                request_params["temperature"] = (
-                    0.0  # Zero temperature for consistent token responses
-                )
+                request_params["temperature"] = 0.0
 
             response = self.client.chat.completions.create(**request_params)
-
+            
             response_text = response.choices[0].message.content
             return self._parse_refutation_response(response_text)
-
+            
         except Exception as e:
             print(f"Warning: OpenRouter refutation call failed: {e}")
             from .truth_values import TruthValueComponent
-
+            
             return TruthValueComponent.UNDEFINED
 
 
 def get_model_info(model_name: str) -> str:
     """
     Get information about a specific model.
-
+    
     Args:
         model_name: The model name to get information for
-
+        
     Returns:
         A string with information about the model
     """
     try:
-        provider, canonical_name = ModelRouter.get_provider_info(model_name)
-
-        info = f"Model: {canonical_name}\n"
+        provider = ModelRouter.get_provider(model_name)
+        
+        info = f"Model: {model_name}\n"
         info += f"Provider: {provider}\n"
-
-        if canonical_name != model_name:
-            info += f"Resolved from: {model_name}\n"
-
+        
         # Add provider-specific information
         if provider == "openai":
             info += "API Key: Set OPENAI_API_KEY environment variable\n"
@@ -383,14 +257,12 @@ def get_model_info(model_name: str) -> str:
         elif provider == "openrouter":
             info += "API Key: Set OPENROUTER_API_KEY environment variable\n"
             info += "Documentation: https://openrouter.ai/docs\n"
-            info += (
-                "Note: Provides access to many different models through a unified API\n"
-            )
+            info += "Note: Provides access to many different models through a unified API\n"
         elif provider == "mock":
             info += "Description: Mock evaluator for testing/development\n"
             info += "No API key required\n"
-
+        
         return info
-
+        
     except ValueError as e:
         return f"Error: {e}"

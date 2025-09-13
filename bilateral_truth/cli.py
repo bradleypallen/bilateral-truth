@@ -107,15 +107,19 @@ def format_truth_value(truth_value: GeneralizedTruthValue) -> str:
     return f"<{u_symbol},{v_symbol}>"
 
 
-def interactive_mode(model_name: str, samples: int = 1, tiebreak: str = "random"):
+def interactive_mode(model_name: str, samples: int = 1, tiebreak: str = "random", system_prompt: Optional[str] = None, context: Optional[str] = None):
     """Run in interactive mode for continuous evaluation."""
     print("bilateral-truth Interactive Mode")
     print(f"Model: {model_name}")
     if samples > 1:
         print(f"Sampling: {samples} samples with '{tiebreak}' tiebreaking")
+    if system_prompt:
+        print(f"System prompt: {system_prompt[:50]}{'...' if len(system_prompt) > 50 else ''}")
+    if context:
+        print(f"Context: {context[:50]}{'...' if len(context) > 50 else ''}")
 
     # Check if API key is available for the model
-    provider, _ = ModelRouter.get_provider_info(model_name)
+    provider = ModelRouter.get_provider(model_name)
     if provider != "mock":
         keys = check_api_keys()
         if not keys.get(provider, False):
@@ -173,6 +177,8 @@ def interactive_mode(model_name: str, samples: int = 1, tiebreak: str = "random"
                     evaluator.evaluate_bilateral,
                     samples=samples,
                     tiebreak_strategy=tiebreak,
+                    system_prompt=system_prompt,
+                    context=context,
                 )
                 print(f"Result: {format_truth_value(result)}\n")
             except Exception as e:
@@ -194,6 +200,8 @@ def single_evaluation(
     verbose: bool = False,
     samples: int = 1,
     tiebreak: str = "random",
+    system_prompt: Optional[str] = None,
+    context: Optional[str] = None,
 ) -> int:
     """Evaluate a single assertion and print the result."""
     try:
@@ -211,6 +219,10 @@ def single_evaluation(
         print(f"Assertion: '{assertion}'")
         if samples > 1:
             print(f"Samples: {samples} (tiebreak: {tiebreak})")
+        if system_prompt:
+            print(f"System prompt: {system_prompt[:50]}{'...' if len(system_prompt) > 50 else ''}")
+        if context:
+            print(f"Context: {context[:50]}{'...' if len(context) > 50 else ''}")
         print("Evaluating...")
 
     try:
@@ -219,6 +231,8 @@ def single_evaluation(
             evaluator.evaluate_bilateral,
             samples=samples,
             tiebreak_strategy=tiebreak,
+            system_prompt=system_prompt,
+            context=context,
         )
 
         if verbose:
@@ -269,6 +283,9 @@ Examples:
   
   # Evaluate single assertion with Claude
   %(prog)s --model claude "The capital of France is Paris"
+  
+  # Use custom system prompt and context
+  %(prog)s --model gpt-4 --system-prompt "You are a geography expert" --context "Paris is known for the Eiffel Tower" "The capital of France is Paris"
   
   # Use majority voting with 5 samples
   %(prog)s --model llama3 --samples 5 "Climate change is real"
@@ -343,6 +360,16 @@ Examples:
         help="Tiebreaking strategy when samples tie: random (default), optimistic (prefer verified/refuted), pessimistic (prefer cannot verify/refute)",
     )
 
+    parser.add_argument(
+        "--system-prompt",
+        help="Custom system prompt for verification/refutation instructions",
+    )
+
+    parser.add_argument(
+        "--context",
+        help="Background information to inform the evaluation",
+    )
+
     args = parser.parse_args()
 
     # Load custom .env file if specified
@@ -379,11 +406,11 @@ Examples:
 
     # Main evaluation modes
     if args.interactive:
-        return interactive_mode(args.model, args.samples, args.tiebreak)
+        return interactive_mode(args.model, args.samples, args.tiebreak, args.system_prompt, args.context)
 
     if args.assertion:
         return single_evaluation(
-            args.assertion, args.model, args.verbose, args.samples, args.tiebreak
+            args.assertion, args.model, args.verbose, args.samples, args.tiebreak, args.system_prompt, args.context
         )
 
     # No assertion provided and not interactive - show help

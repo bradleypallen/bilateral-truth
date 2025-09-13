@@ -54,7 +54,12 @@ class ZetaCache:
 
 
 def zeta(
-    assertion: Assertion, evaluator: Callable[[Assertion], GeneralizedTruthValue]
+    assertion: Assertion, 
+    evaluator: Callable[[Assertion], GeneralizedTruthValue],
+    samples: int = 1,
+    tiebreak_strategy: str = "random",
+    system_prompt: Optional[str] = None,
+    context: Optional[str] = None,
 ) -> GeneralizedTruthValue:
     """
     The base ζ function for bilateral factuality evaluation.
@@ -66,11 +71,69 @@ def zeta(
         assertion: The assertion φ ∈ ℒ_AT to evaluate
         evaluator: LLM evaluator function that performs bilateral assessment.
                   Must be provided - no default evaluation.
+        samples: Number of samples for majority voting (default: 1)
+        tiebreak_strategy: Strategy for breaking ties ("random", "pessimistic", "optimistic")
+        system_prompt: Optional custom system prompt for verification/refutation instructions
+        context: Optional background information to inform the evaluation
 
     Returns:
         A GeneralizedTruthValue <u,v> representing the bilateral evaluation
     """
-    return evaluator(assertion)
+    # Handle LLM evaluation with sampling and prompts
+    if hasattr(evaluator, "evaluate_bilateral"):
+        # New interface with sampling support - check if it supports new parameters
+        import inspect
+        try:
+            sig = inspect.signature(evaluator.evaluate_bilateral)
+            if 'system_prompt' in sig.parameters and 'context' in sig.parameters:
+                # New interface with system_prompt and context support
+                truth_value = evaluator.evaluate_bilateral(assertion, samples, system_prompt=system_prompt, context=context)
+            else:
+                # Old interface without system_prompt/context support
+                if system_prompt or context:
+                    print(
+                        "Warning: Evaluator doesn't support system_prompt or context parameters."
+                    )
+                truth_value = evaluator.evaluate_bilateral(assertion, samples)
+        except (TypeError, ValueError):
+            # Fallback if signature inspection fails
+            if system_prompt or context:
+                print(
+                    "Warning: Could not detect evaluator parameter support. Ignoring system_prompt and context."
+                )
+            truth_value = evaluator.evaluate_bilateral(assertion, samples)
+    elif callable(evaluator):
+        # Legacy callable interface or function reference
+        import inspect
+        try:
+            sig = inspect.signature(evaluator)
+            if 'system_prompt' in sig.parameters and 'context' in sig.parameters:
+                # Function supports new parameters
+                if 'samples' in sig.parameters:
+                    truth_value = evaluator(assertion, samples, system_prompt=system_prompt, context=context)
+                else:
+                    # Function doesn't support samples but supports new parameters
+                    if samples > 1:
+                        print("Warning: Evaluator doesn't support sampling. Using single evaluation.")
+                    truth_value = evaluator(assertion, system_prompt=system_prompt, context=context)
+            else:
+                # Function doesn't support new parameters
+                if samples > 1:
+                    print("Warning: Evaluator doesn't support sampling. Using single evaluation.")
+                if system_prompt or context:
+                    print("Warning: Evaluator doesn't support system_prompt or context parameters.")
+                truth_value = evaluator(assertion)
+        except (TypeError, ValueError):
+            # Fallback for inspection failure
+            if samples > 1:
+                print("Warning: Evaluator doesn't support sampling. Using single evaluation.")
+            if system_prompt or context:
+                print("Warning: Evaluator doesn't support system_prompt or context parameters.")
+            truth_value = evaluator(assertion)
+    else:
+        raise ValueError(f"Invalid evaluator: {evaluator}")
+
+    return truth_value
 
 
 # Global cache instance
@@ -83,6 +146,8 @@ def zeta_c(
     cache: Optional[ZetaCache] = None,
     samples: int = 1,
     tiebreak_strategy: str = "random",
+    system_prompt: Optional[str] = None,
+    context: Optional[str] = None,
 ) -> GeneralizedTruthValue:
     """
     The cached ζ_c function: ℒ_AT → 𝒱³ × 𝒱³
@@ -95,6 +160,8 @@ def zeta_c(
         cache: Optional cache instance. If None, uses global cache.
         samples: Number of samples for majority voting (default: 1)
         tiebreak_strategy: Strategy for breaking ties ("random", "pessimistic", "optimistic")
+        system_prompt: Optional custom system prompt for verification/refutation instructions
+        context: Optional background information to inform the evaluation
 
     Returns:
         A GeneralizedTruthValue <u,v> from cache or computed via ζ
@@ -102,9 +169,9 @@ def zeta_c(
     if cache is None:
         cache = _global_cache
 
-    # Cache key is just the assertion φ as per Definition 3.5
-    # Sampling is handled within ζ(φ), not in the cache key
-    cache_key = assertion
+    # Cache key includes assertion, system_prompt, and context to ensure correct caching
+    # Different prompts/contexts should produce different cached results
+    cache_key = (assertion, system_prompt, context)
 
     # Check if result is in cache domain: φ ∈ dom(c)
     if cache_key in cache:
@@ -112,17 +179,8 @@ def zeta_c(
         assert cached_result is not None  # Should never be None since key exists
         return cached_result
 
-    # Compute ζ(φ) with sampling - this is the ζ function call from Definition 3.5
-    if hasattr(evaluator, "evaluate_bilateral"):
-        # New interface with sampling support
-        truth_value = evaluator.evaluate_bilateral(assertion, samples)
-    else:
-        # Legacy interface - single evaluation only
-        if samples > 1:
-            print(
-                "Warning: Evaluator doesn't support sampling. Using single evaluation."
-            )
-        truth_value = evaluator(assertion)
+    # Compute ζ(φ) - this is the ζ function call from Definition 3.5
+    truth_value = zeta(assertion, evaluator, samples, tiebreak_strategy, system_prompt, context)
 
     # Update cache: c := c ∪ {(φ, ζ(φ))}
     cache.update(cache_key, truth_value)

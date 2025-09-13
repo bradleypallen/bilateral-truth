@@ -1,0 +1,29 @@
+Model,Dataset,Strongest_Category,Strongest_F1,Strongest_N,Weakest_Category,Weakest_F1,Weakest_N
+claude-3-5-haiku-202,TRUTHFULQA,Misconceptions: Topical,1.0,2,Indexical Error: Identity,0.25,8
+claude-opus-4-1-2025,TRUTHFULQA,Misconceptions: Topical,1.0,2,Confusion: People,0.0,25
+gemini-2.5-flash,TRUTHFULQA,Misconceptions: Topical,1.0,2,Confusion: People,0.0,25
+gpt-4.1-2025-04-14,TRUTHFULQA,Misconceptions: Topical,1.0,2,Confusion: People,0.0,25
+gpt-4.1-mini-2025-04,TRUTHFULQA,Misconceptions: Topical,1.0,2,Confusion: Other,0.0,9
+llama-4-maverick,TRUTHFULQA,Misconceptions: Topical,1.0,2,Confusion: People,0.0,25
+llama-4-scout,TRUTHFULQA,Misconceptions: Topical,1.0,2,Confusion: People,0.0,25
+claude-3-5-haiku-202,SIMPLEQA,Other,0.9230769230769231,110,Politics,0.7583333333333333,183
+claude-opus-4-1-2025,SIMPLEQA,Music,1.0,56,Other,0.9230769230769231,110
+gemini-2.5-flash,SIMPLEQA,TV shows,0.8085106382978723,68,Music,0.6078431372549019,56
+gpt-4.1-2025-04-14,SIMPLEQA,History,0.8947368421052632,46,Video games,0.7575757575757576,40
+gpt-4.1-mini-2025-04,SIMPLEQA,Video games,0.9285714285714286,40,Music,0.7727272727272727,56
+llama-4-maverick,SIMPLEQA,History,0.9565217391304348,46,Geography,0.8113207547169812,99
+llama-4-scout,SIMPLEQA,History,1.0,46,Music,0.8529411764705882,56
+claude-3-5-haiku-202,MMLUPRO,history,0.8636363636363636,32,chemistry,0.4788732394366197,106
+claude-opus-4-1-2025,MMLUPRO,philosophy,1.0,38,business,0.0,74
+gemini-2.5-flash,MMLUPRO,health,0.8787878787878788,75,physics,0.56,107
+gpt-4.1-2025-04-14,MMLUPRO,biology,0.9107142857142857,63,history,0.6129032258064516,32
+gpt-4.1-mini-2025-04,MMLUPRO,business,0.8863636363636364,74,chemistry,0.6,106
+llama-4-maverick,MMLUPRO,engineering,1.0,73,chemistry,0.6666666666666666,106
+llama-4-scout,MMLUPRO,biology,0.8823529411764706,63,engineering,0.45454545454545453,73
+claude-3-5-haiku-202,FACTSCORE,Biography,0.6240875912408759,1000,Biography,0.6240875912408759,1000
+claude-opus-4-1-2025,FACTSCORE,Biography,0.6451612903225806,1000,Biography,0.6451612903225806,1000
+gemini-2.5-flash,FACTSCORE,Biography,0.6145833333333334,1000,Biography,0.6145833333333334,1000
+gpt-4.1-2025-04-14,FACTSCORE,Biography,0.6590330788804071,1000,Biography,0.6590330788804071,1000
+gpt-4.1-mini-2025-04,FACTSCORE,Biography,0.6211340206185567,1000,Biography,0.6211340206185567,1000
+llama-4-maverick,FACTSCORE,Biography,0.6330275229357798,1000,Biography,0.6330275229357798,1000
+llama-4-scout,FACTSCORE,Biography,0.6121794871794872,1000,Biography,0.6121794871794872,1000

@@ -1,0 +1,334 @@
+{
+  "run_id": "20250912_143225",
+  "timestamp": "2025-09-12T14:32:43.762314",
+  "evaluation_type": "unilateral_forced_choice",
+  "prompt_style": "direct",
+  "models": [
+    "gpt-4.1-2025-04-14",
+    "gpt-4.1-mini-2025-04-14",
+    "claude-opus-4-1-20250805",
+    "claude-3-5-haiku-20241022",
+    "meta-llama/llama-4-scout",
+    "meta-llama/llama-4-maverick",
+    "google/gemini-2.5-pro",
+    "google/gemini-2.5-flash"
+  ],
+  "benchmarks": [
+    "TruthfulQA",
+    "SimpleQA",
+    "MMLU-Pro",
+    "FACTScore"
+  ],
+  "results": [
+    {
+      "model": "claude-opus-4-1-20250805",
+      "benchmark": "TruthfulQA",
+      "status": "failed",
+      "elapsed_time": 0.3741471767425537,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/truthfulqa_complete.json', '--model', 'claude-opus-4-1-20250805', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "claude-3-5-haiku-20241022",
+      "benchmark": "TruthfulQA",
+      "status": "failed",
+      "elapsed_time": 0.3856379985809326,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/truthfulqa_complete.json', '--model', 'claude-3-5-haiku-20241022', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "gpt-4.1-mini-2025-04-14",
+      "benchmark": "TruthfulQA",
+      "status": "failed",
+      "elapsed_time": 0.4952688217163086,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/truthfulqa_complete.json', '--model', 'gpt-4.1-mini-2025-04-14', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "meta-llama/llama-4-maverick",
+      "benchmark": "TruthfulQA",
+      "status": "failed",
+      "elapsed_time": 0.4786951541900635,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/truthfulqa_complete.json', '--model', 'meta-llama/llama-4-maverick', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "gpt-4.1-2025-04-14",
+      "benchmark": "TruthfulQA",
+      "status": "failed",
+      "elapsed_time": 0.500831127166748,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/truthfulqa_complete.json', '--model', 'gpt-4.1-2025-04-14', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "google/gemini-2.5-flash",
+      "benchmark": "TruthfulQA",
+      "status": "failed",
+      "elapsed_time": 0.47315025329589844,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/truthfulqa_complete.json', '--model', 'google/gemini-2.5-flash', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "google/gemini-2.5-pro",
+      "benchmark": "TruthfulQA",
+      "status": "failed",
+      "elapsed_time": 0.4806540012359619,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/truthfulqa_complete.json', '--model', 'google/gemini-2.5-pro', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "meta-llama/llama-4-scout",
+      "benchmark": "TruthfulQA",
+      "status": "failed",
+      "elapsed_time": 0.48429203033447266,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/truthfulqa_complete.json', '--model', 'meta-llama/llama-4-scout', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "claude-opus-4-1-20250805",
+      "benchmark": "SimpleQA",
+      "status": "failed",
+      "elapsed_time": 0.435438871383667,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/simpleqa_complete.json', '--model', 'claude-opus-4-1-20250805', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "claude-3-5-haiku-20241022",
+      "benchmark": "SimpleQA",
+      "status": "failed",
+      "elapsed_time": 0.45757269859313965,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/simpleqa_complete.json', '--model', 'claude-3-5-haiku-20241022', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "meta-llama/llama-4-scout",
+      "benchmark": "SimpleQA",
+      "status": "failed",
+      "elapsed_time": 0.4855790138244629,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/simpleqa_complete.json', '--model', 'meta-llama/llama-4-scout', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "meta-llama/llama-4-maverick",
+      "benchmark": "SimpleQA",
+      "status": "failed",
+      "elapsed_time": 0.48758721351623535,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/simpleqa_complete.json', '--model', 'meta-llama/llama-4-maverick', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "gpt-4.1-2025-04-14",
+      "benchmark": "SimpleQA",
+      "status": "failed",
+      "elapsed_time": 0.5130980014801025,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/simpleqa_complete.json', '--model', 'gpt-4.1-2025-04-14', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "gpt-4.1-mini-2025-04-14",
+      "benchmark": "SimpleQA",
+      "status": "failed",
+      "elapsed_time": 0.5142416954040527,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/simpleqa_complete.json', '--model', 'gpt-4.1-mini-2025-04-14', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "google/gemini-2.5-pro",
+      "benchmark": "SimpleQA",
+      "status": "failed",
+      "elapsed_time": 0.5034482479095459,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/simpleqa_complete.json', '--model', 'google/gemini-2.5-pro', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "google/gemini-2.5-flash",
+      "benchmark": "SimpleQA",
+      "status": "failed",
+      "elapsed_time": 0.5005791187286377,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/simpleqa_complete.json', '--model', 'google/gemini-2.5-flash', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "meta-llama/llama-4-scout",
+      "benchmark": "MMLU-Pro",
+      "status": "failed",
+      "elapsed_time": 1.3383371829986572,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/mmlupro_complete.json', '--model', 'meta-llama/llama-4-scout', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "gpt-4.1-2025-04-14",
+      "benchmark": "MMLU-Pro",
+      "status": "failed",
+      "elapsed_time": 1.3674819469451904,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/mmlupro_complete.json', '--model', 'gpt-4.1-2025-04-14', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "google/gemini-2.5-pro",
+      "benchmark": "MMLU-Pro",
+      "status": "failed",
+      "elapsed_time": 1.3832409381866455,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/mmlupro_complete.json', '--model', 'google/gemini-2.5-pro', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "google/gemini-2.5-flash",
+      "benchmark": "MMLU-Pro",
+      "status": "failed",
+      "elapsed_time": 1.3866231441497803,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/mmlupro_complete.json', '--model', 'google/gemini-2.5-flash', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "gpt-4.1-mini-2025-04-14",
+      "benchmark": "MMLU-Pro",
+      "status": "failed",
+      "elapsed_time": 1.4066922664642334,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/mmlupro_complete.json', '--model', 'gpt-4.1-mini-2025-04-14', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "claude-3-5-haiku-20241022",
+      "benchmark": "MMLU-Pro",
+      "status": "failed",
+      "elapsed_time": 1.4142227172851562,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/mmlupro_complete.json', '--model', 'claude-3-5-haiku-20241022', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "claude-opus-4-1-20250805",
+      "benchmark": "MMLU-Pro",
+      "status": "failed",
+      "elapsed_time": 1.4176392555236816,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/mmlupro_complete.json', '--model', 'claude-opus-4-1-20250805', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "meta-llama/llama-4-maverick",
+      "benchmark": "MMLU-Pro",
+      "status": "failed",
+      "elapsed_time": 1.430783987045288,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/mmlupro_complete.json', '--model', 'meta-llama/llama-4-maverick', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "claude-opus-4-1-20250805",
+      "benchmark": "FACTScore",
+      "status": "failed",
+      "elapsed_time": 0.5786290168762207,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/factscore_complete.json', '--model', 'claude-opus-4-1-20250805', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "claude-3-5-haiku-20241022",
+      "benchmark": "FACTScore",
+      "status": "failed",
+      "elapsed_time": 0.5931820869445801,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/factscore_complete.json', '--model', 'claude-3-5-haiku-20241022', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "gpt-4.1-2025-04-14",
+      "benchmark": "FACTScore",
+      "status": "failed",
+      "elapsed_time": 0.6388869285583496,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/factscore_complete.json', '--model', 'gpt-4.1-2025-04-14', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "google/gemini-2.5-flash",
+      "benchmark": "FACTScore",
+      "status": "failed",
+      "elapsed_time": 0.6463019847869873,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/factscore_complete.json', '--model', 'google/gemini-2.5-flash', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "gpt-4.1-mini-2025-04-14",
+      "benchmark": "FACTScore",
+      "status": "failed",
+      "elapsed_time": 0.6650018692016602,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/factscore_complete.json', '--model', 'gpt-4.1-mini-2025-04-14', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "meta-llama/llama-4-scout",
+      "benchmark": "FACTScore",
+      "status": "failed",
+      "elapsed_time": 0.6599419116973877,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/factscore_complete.json', '--model', 'meta-llama/llama-4-scout', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "google/gemini-2.5-pro",
+      "benchmark": "FACTScore",
+      "status": "failed",
+      "elapsed_time": 0.6576859951019287,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/factscore_complete.json', '--model', 'google/gemini-2.5-pro', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    },
+    {
+      "model": "meta-llama/llama-4-maverick",
+      "benchmark": "FACTScore",
+      "status": "failed",
+      "elapsed_time": 0.6631460189819336,
+      "error": "Command '['/Users/bradleyallen/Documents/GitHub/bilateral-truth/venv/bin/python', 'unilateral_evaluator.py', '--dataset', 'standard_datasets/factscore_complete.json', '--model', 'meta-llama/llama-4-maverick', '--samples', '1000', '--prompt-style', 'direct']' returned non-zero exit status 1.",
+      "stdout": "\ud83d\udd11 Loaded environment variables from /Users/bradleyallen/Documents/GitHub/bilateral-truth/.env\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 409, in <module>\n    main()\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 389, in main\n    results = evaluator.evaluate_dataset(sample_size=args.samples)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/bradleyallen/Documents/GitHub/bilateral-truth/evaluations/unilateral_evaluator.py\", line 200, in evaluate_dataset\n    items = self.dataset['data']\n            ~~~~~~~~~~~~^^^^^^^^\nKeyError: 'data'\n"
+    }
+  ],
+  "statistics": {
+    "TruthfulQA": {
+      "completed": 0,
+      "failed": 8,
+      "total_time": 3.6726765632629395
+    },
+    "SimpleQA": {
+      "completed": 0,
+      "failed": 8,
+      "total_time": 3.8975448608398438
+    },
+    "MMLU-Pro": {
+      "completed": 0,
+      "failed": 8,
+      "total_time": 11.145021438598633
+    },
+    "FACTScore": {
+      "completed": 0,
+      "failed": 8,
+      "total_time": 5.102775812149048
+    }
+  }
+}
