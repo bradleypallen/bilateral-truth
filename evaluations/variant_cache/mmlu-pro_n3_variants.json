@@ -1,0 +1,1014 @@
+{
+  "metadata": {
+    "benchmark": "mmlu-pro",
+    "n_variants": 3,
+    "variation_model": "claude-opus-4-6",
+    "dataset_path": "standard_datasets/mmlupro_complete.json",
+    "total_assertions": 250,
+    "seed": 42,
+    "generation_started": "2026-03-19T14:08:54Z",
+    "total_generated": 125
+  },
+  "variants": {
+    "mmlupro_110019": {
+      "source_question": "Which of the following is a true statement about the flow of energy in an ecosystem?",
+      "variants": [
+        "Which of the following statements accurately describes how energy flows within an ecosystem?",
+        "Of the options below, which one is a correct claim regarding the flow of energy through an ecosystem?",
+        "Considering the movement of energy in an ecosystem, which of the following represents a true statement?"
+      ]
+    },
+    "mmlupro_070331": {
+      "source_question": "A previously healthy 22-year-old college student is brought to the emergency department by her parents 20 minutes after they observed her having a seizure. After the seizure, she was confused and had difficulty thinking of some words. She has had a headache, cough, and fever for 3 days treated with acetaminophen and dextromethorphan. Her temperature is 38.9\u00b0C (102\u00b0F). Neurologic examination shows diffuse hyperreflexia. On mental status examination, she is confused and has short-term memory deficits. She has difficulty naming objects and makes literal paraphasic errors. An MRI of the brain shows bitemporal hyperintensities. A lumbar puncture is done; cerebrospinal fluid analysis shows an erythrocyte count of 340/mm3 , a leukocyte count of 121/mm3 (88% monocytes), and a protein concentration of 78 mg/dL. Which of the following is the most likely diagnosis? ",
+      "variants": [
+        "A 22-year-old college student with no prior medical history is brought to the emergency department by her parents approximately 20 minutes after they witnessed her experiencing a seizure. Following the seizure, she exhibited confusion and word-finding difficulties. For the past 3 days, she has been suffering from a headache, cough, and fever, which she has been managing with acetaminophen and dextromethorphan. Her temperature is recorded at 38.9\u00b0C (102\u00b0F). A neurologic exam reveals diffuse hyperreflexia, and mental status testing demonstrates confusion along with short-term memory deficits. She struggles to name objects and produces literal paraphasic errors. Brain MRI reveals hyperintensities in both temporal lobes. A lumbar puncture is performed, and cerebrospinal fluid analysis reveals an erythrocyte count of 340/mm3, a leukocyte count of 121/mm3 (with 88% monocytes), and a protein level of 78 mg/dL. What is the most likely diagnosis?",
+        "It is known that a previously healthy 22-year-old female college student was observed by her parents having a seizure, and she was transported to the emergency department within 20 minutes. In the postictal period, she displayed confusion and had trouble retrieving certain words. Over the preceding 3 days, she had developed a headache, cough, and fever, for which she took acetaminophen and dextromethorphan. On examination, her temperature measures 38.9\u00b0C (102\u00b0F), and the neurologic assessment demonstrates hyperreflexia throughout. Mental status evaluation reveals that she is confused, has deficits in short-term memory, has difficulty with object naming, and commits literal paraphasic errors. MRI imaging of the brain demonstrates bilateral temporal lobe hyperintensities. Cerebrospinal fluid obtained via lumbar puncture shows 340/mm3 erythrocytes, 121/mm3 leukocytes (88% of which are monocytes), and a protein concentration of 78 mg/dL. Which of the following represents the most likely diagnosis?",
+        "Her parents bring a 22-year-old college student, who was previously in good health, to the emergency department 20 minutes after witnessing her have a seizure. Post-seizure, she was noted to be confused and had difficulty coming up with certain words. She had been experiencing a headache, fever, and cough for the past three days, treated with dextromethorphan and acetaminophen. According to the examination findings, her temperature is 38.9\u00b0C (102\u00b0F), diffuse hyperreflexia is present on neurologic evaluation, and mental status testing shows confusion with short-term memory impairment. She is unable to easily name objects and makes literal paraphasic errors. Brain MRI demonstrates hyperintense signals in both temporal regions. Analysis of cerebrospinal fluid from a lumbar puncture reveals an erythrocyte count of 340/mm3, a leukocyte count of 121/mm3 (88% monocytes), and protein at 78 mg/dL. Of the following, what is the most likely diagnosis?"
+      ]
+    },
+    "mmlupro_106516": {
+      "source_question": "Why should a successful public relations counselor continually review present and future realities for an organization?",
+      "variants": [
+        "For what reason is it important that a successful public relations counselor continuously assess the current and upcoming realities facing an organization?",
+        "What is the rationale behind a successful PR counselor's need to continually evaluate both the present and future realities pertaining to an organization?",
+        "It is asked: why should an organization's successful public relations counselor engage in an ongoing review of its present realities as well as those anticipated in the future?"
+      ]
+    },
+    "mmlupro_020066": {
+      "source_question": "Assume that half of the mass of a 62-kg person consists of protons. If the half-life of the proton is 10^33 years, calculate the number of proton decays per day from the body.",
+      "variants": [
+        "Suppose that protons make up half the mass of a person weighing 62 kg. Given that the proton's half-life is 10^33 years, determine how many proton decays occur per day within that person's body.",
+        "Consider a 62-kg individual whose body mass is composed of 50% protons. Assuming the half-life of a proton is 10^33 years, calculate the daily number of proton decays taking place in the body.",
+        "It is given that half of the total mass of a person with a mass of 62 kg consists of protons. With the proton half-life taken to be 10^33 years, find the number of proton decays per day occurring in this person's body."
+      ]
+    },
+    "mmlupro_030907": {
+      "source_question": "An equation of state due to Dieterici is P(V - nb')exp [(na') / (RTV)] = nRT(1) Evaluate the constants a' and b' in terms of the critical constants P_c, V_c, and T_c of a gas.",
+      "variants": [
+        "The Dieterici equation of state is given by P(V - nb') exp[(na') / (RTV)] = nRT (Equation 1). Determine the constants a' and b' expressed in terms of the critical constants P_c, V_c, and T_c of a gas.",
+        "According to Dieterici, the equation of state takes the form P(V - nb') exp[(na') / (RTV)] = nRT, labeled as equation (1). Express the constants a' and b' as functions of the critical constants P_c, V_c, and T_c for a gas.",
+        "It is known that the Dieterici equation of state is P(V - nb') exp[(na') / (RTV)] = nRT (1). Find a' and b' in terms of a gas's critical constants, namely P_c, V_c, and T_c."
+      ]
+    },
+    "mmlupro_004589": {
+      "source_question": "What is the ones digit of $1 \\cdot 2 \\cdot 3 \\cdot 4 \\cdot 5 \\cdot 6 \\cdot 7 \\cdot 8 \\cdot 9$?",
+      "variants": [
+        "What is the units digit of the product 1 \u00d7 2 \u00d7 3 \u00d7 4 \u00d7 5 \u00d7 6 \u00d7 7 \u00d7 8 \u00d7 9?",
+        "Determine the ones digit of the product obtained by multiplying all integers from 1 through 9.",
+        "It is asked: what digit appears in the ones place when 1, 2, 3, 4, 5, 6, 7, 8, and 9 are all multiplied together?"
+      ]
+    },
+    "mmlupro_070944": {
+      "source_question": "Which of the following would result in Angelman syndrome?",
+      "variants": [
+        "Which of the following options would lead to Angelman syndrome?",
+        "Among the choices below, which one would give rise to Angelman syndrome?",
+        "It is asked: which of the following would be expected to result in Angelman syndrome?"
+      ]
+    },
+    "mmlupro_085416": {
+      "source_question": "Your firm is trying to decide whether to buy an e-commerce software company. The company has $100,000 in total capital assets: $60,000 in equity and $40,000 in debt. The cost of the company\u2019s equity is 10%, while the cost of the company's debt is 5%. The corporate tax rate is 21%. What is the WACC of the company?",
+      "variants": [
+        "Your firm is evaluating the potential acquisition of an e-commerce software company. The company's total capital assets amount to $100,000, comprising $60,000 in equity and $40,000 in debt. The cost of equity stands at 10%, and the cost of debt is 5%. Given a corporate tax rate of 21%, what is the company's WACC?",
+        "It is known that your firm is considering purchasing an e-commerce software company. This company holds $100,000 in total capital assets, of which $60,000 is equity and $40,000 is debt. Its equity has a cost of 10% and its debt has a cost of 5%. With a corporate tax rate of 21%, determine the company's weighted average cost of capital (WACC).",
+        "An e-commerce software company is being considered for acquisition by your firm. The company's capital structure consists of $60,000 in equity and $40,000 in debt, totaling $100,000 in capital assets. Equity costs 10% while debt costs 5%, and the applicable corporate tax rate is 21%. What is the WACC for this company?"
+      ]
+    },
+    "mmlupro_059864": {
+      "source_question": "In 1933, the Consumer Price Index was 38.3 (1967 = 100) and Babe Ruth received a salary of $80,000, his highest ever. Near the end of the 1978 baseball season, the Consumer Price Index hit 200. Using this information, what would Ruth's salary be in 1978?",
+      "variants": [
+        "In 1933, the Consumer Price Index stood at 38.3 (with 1967 as the base year at 100), and Babe Ruth earned his highest-ever salary of $80,000. By the close of the 1978 baseball season, the Consumer Price Index had reached 200. Based on this data, what would Ruth's salary have been in 1978 dollars?",
+        "It is known that Babe Ruth's peak salary was $80,000, which he received in 1933 when the Consumer Price Index was 38.3 (1967 = 100). Toward the end of the 1978 baseball season, the CPI climbed to 200. Given these figures, what would the equivalent of Ruth's salary be in 1978?",
+        "According to established records, the Consumer Price Index in 1933 was 38.3, using 1967 as the base year (1967 = 100), and Babe Ruth was paid a salary of $80,000 that year \u2014 the highest he ever received. The CPI reached 200 near the conclusion of the 1978 baseball season. Using this information, what would Ruth's salary amount to in 1978 terms?"
+      ]
+    },
+    "mmlupro_081097": {
+      "source_question": "A typewriter is priced at $80, less series discounts of 20%, 10%, 5%. What is the net price?",
+      "variants": [
+        "A typewriter has a list price of $80 and is subject to successive discounts of 20%, 10%, and 5%. What is the resulting net price?",
+        "It is given that a typewriter is listed at $80 with series discounts of 20%, 10%, and 5% applied sequentially. Determine the net price.",
+        "Consider a typewriter priced at $80, on which chain discounts of 20%, 10%, and 5% are applied. What net price does this yield?"
+      ]
+    },
+    "mmlupro_009840": {
+      "source_question": "Roya paid $48 for 12 cartons of orange juice. What is the unit rate per carton of orange juice that Roya paid?",
+      "variants": [
+        "Roya spent a total of $48 on 12 cartons of orange juice. What is the price per carton of orange juice that she paid?",
+        "For 12 cartons of orange juice, Roya paid $48 in total. What unit rate did Roya pay per carton of orange juice?",
+        "It is given that Roya purchased 12 cartons of orange juice at a total cost of $48. What is the unit rate, per carton of orange juice, that Roya paid?"
+      ]
+    },
+    "mmlupro_092328": {
+      "source_question": "What hormone, if any, acts antagonistically to the parathormone?",
+      "variants": [
+        "Which hormone, if any, functions as an antagonist to parathormone?",
+        "Is there a hormone that acts antagonistically to parathormone, and if so, what is it?",
+        "It is being asked what hormone, if one exists, operates in opposition to the parathormone."
+      ]
+    },
+    "mmlupro_101041": {
+      "source_question": "This question refers to the following information.\n\"We found that not only was it a civil war, an effort by a people who had for years been seeking their liberation from any colonial influence whatsoever, but also we found that the Vietnamese whom we had enthusiastically molded after our own image were hard put to take up the fight against the threat we were supposedly saving them from.\n\"We found most people didn't even know the difference between communism and democracy. They only wanted to work in rice paddies without helicopters strafing them and bombs with napalm burning their villages and tearing their country apart. They wanted everything to do with the war, particularly with this foreign presence of the United States of America, to leave them alone in peace, and they practiced the art of survival by siding with whichever military force was present at a particular time, be it Viet Cong, North Vietnamese or American.\"\nJohn Kerry, 1971\nThe two political issues that most concerned the Counterculture Movement of the 1960s were",
+      "variants": [
+        "This question is based on the following passage.\n\"We found that not only was it a civil war, an effort by a people who had for years been seeking their liberation from any colonial influence whatsoever, but also we found that the Vietnamese whom we had enthusiastically molded after our own image were hard put to take up the fight against the threat we were supposedly saving them from.\n\"We found most people didn't even know the difference between communism and democracy. They only wanted to work in rice paddies without helicopters strafing them and bombs with napalm burning their villages and tearing their country apart. They wanted everything to do with the war, particularly with this foreign presence of the United States of America, to leave them alone in peace, and they practiced the art of survival by siding with whichever military force was present at a particular time, be it Viet Cong, North Vietnamese or American.\"\nJohn Kerry, 1971\nThe two political concerns that were most central to the Counterculture Movement of the 1960s were",
+        "The following information pertains to this question.\n\"We found that not only was it a civil war, an effort by a people who had for years been seeking their liberation from any colonial influence whatsoever, but also we found that the Vietnamese whom we had enthusiastically molded after our own image were hard put to take up the fight against the threat we were supposedly saving them from.\n\"We found most people didn't even know the difference between communism and democracy. They only wanted to work in rice paddies without helicopters strafing them and bombs with napalm burning their villages and tearing their country apart. They wanted everything to do with the war, particularly with this foreign presence of the United States of America, to leave them alone in peace, and they practiced the art of survival by siding with whichever military force was present at a particular time, be it Viet Cong, North Vietnamese or American.\"\n\u2014 John Kerry, 1971\nOf the political issues of greatest concern to the 1960s Counterculture Movement, the two most prominent were",
+        "Consider the excerpt below in answering this question.\n\"We found that not only was it a civil war, an effort by a people who had for years been seeking their liberation from any colonial influence whatsoever, but also we found that the Vietnamese whom we had enthusiastically molded after our own image were hard put to take up the fight against the threat we were supposedly saving them from.\n\"We found most people didn't even know the difference between communism and democracy. They only wanted to work in rice paddies without helicopters strafing them and bombs with napalm burning their villages and tearing their country apart. They wanted everything to do with the war, particularly with this foreign presence of the United States of America, to leave them alone in peace, and they practiced the art of survival by siding with whichever military force was present at a particular time, be it Viet Cong, North Vietnamese or American.\"\nJohn Kerry, 1971\nThe Counterculture Movement of the 1960s was most preoccupied with which two political issues"
+      ]
+    },
+    "mmlupro_072258": {
+      "source_question": "Find the degree ofskewnessof the distribution representing thesedata. Class Limit Frequency Class Midpoint 49 - 54 6 51.5 55 - 60 15 57.5 61 - 66 24 63.5 67 - 72 33 69.5 73 - 78 22 75.5",
+      "variants": [
+        "Determine the degree of skewness for the distribution described by the following data: Class Limits and corresponding Frequencies with Class Midpoints are 49\u201354 (frequency 6, midpoint 51.5), 55\u201360 (frequency 15, midpoint 57.5), 61\u201366 (frequency 24, midpoint 63.5), 67\u201372 (frequency 33, midpoint 69.5), and 73\u201378 (frequency 22, midpoint 75.5).",
+        "It is required to calculate the skewness of the distribution represented by the data below. The class intervals, their frequencies, and midpoints are as follows: 49 to 54 with a frequency of 6 and midpoint 51.5; 55 to 60 with a frequency of 15 and midpoint 57.5; 61 to 66 with a frequency of 24 and midpoint 63.5; 67 to 72 with a frequency of 33 and midpoint 69.5; 73 to 78 with a frequency of 22 and midpoint 75.5.",
+        "Using the dataset provided here, find the degree of skewness of its distribution. The data consists of five classes: the class 49\u201354 has frequency 6 and class midpoint 51.5, the class 55\u201360 has frequency 15 and class midpoint 57.5, the class 61\u201366 has frequency 24 and class midpoint 63.5, the class 67\u201372 has frequency 33 and class midpoint 69.5, and the class 73\u201378 has frequency 22 and class midpoint 75.5."
+      ]
+    },
+    "mmlupro_023572": {
+      "source_question": "Which of the following is not one of nor follows directly from Kepler's laws?",
+      "variants": [
+        "Which of the following neither constitutes one of Kepler's laws nor is a direct consequence of them?",
+        "Among the options below, which one is not included in Kepler's laws and does not follow directly from those laws?",
+        "It is asked: which of the following statements is neither one of Kepler's laws nor a direct implication derived from them?"
+      ]
+    },
+    "mmlupro_057699": {
+      "source_question": "What is a command Economy?",
+      "variants": [
+        "What is meant by the term 'command economy'?",
+        "It is asked: what does a command economy refer to?",
+        "Could you define what a command economy is?"
+      ]
+    },
+    "mmlupro_087294": {
+      "source_question": "What are enhancer sequences ?",
+      "variants": [
+        "What is meant by the term enhancer sequences?",
+        "It is being asked: what are enhancer sequences?",
+        "Could you define what enhancer sequences are?"
+      ]
+    },
+    "mmlupro_096747": {
+      "source_question": "Who is the founder of Sikhism?",
+      "variants": [
+        "Who established the Sikh religion?",
+        "It is asked: who is the individual who founded Sikhism?",
+        "Who is recognized as the founder of the Sikh faith?"
+      ]
+    },
+    "mmlupro_093822": {
+      "source_question": "What is the difference between a kinesis and a taxis?",
+      "variants": [
+        "How does a kinesis differ from a taxis?",
+        "What distinguishes a taxis from a kinesis?",
+        "In what way are a kinesis and a taxis different from each other?"
+      ]
+    },
+    "mmlupro_089134": {
+      "source_question": "A deck of playing cards is thoroughly shuffled and a card is drawn from the deck. What is the probability that the card drawn is the ace of diamonds?",
+      "variants": [
+        "A standard deck of playing cards is completely shuffled, and a single card is selected from it. What is the probability that the selected card turns out to be the ace of diamonds?",
+        "After a thorough shuffling of a deck of playing cards, one card is drawn at random. What is the likelihood that this drawn card is the ace of diamonds?",
+        "It is given that a deck of playing cards has been thoroughly shuffled and that a card is then drawn from the deck. What is the probability that the card which has been drawn is the ace of diamonds?"
+      ]
+    },
+    "mmlupro_010105": {
+      "source_question": "A theater group has eight members, of which four are females. How many ways are there to assign the roles of a play that involve one female lead, one male lead, and three different objects that can be played by either gender?",
+      "variants": [
+        "A theater troupe consists of eight members, four of whom are female. In how many ways can the roles in a play be assigned if the play requires one female lead, one male lead, and three distinct object roles that may be filled by a person of either gender?",
+        "Consider a group of eight theater members, with exactly four being female. How many different ways can the following roles be cast: one lead role for a female, one lead role for a male, and three different object roles open to members of any gender?",
+        "It is given that a theater group is made up of eight members, of which four are women. How many possible ways exist to assign the roles in a play that calls for one female lead, one male lead, and three distinct object roles that can each be performed by a member of either gender?"
+      ]
+    },
+    "mmlupro_054476": {
+      "source_question": "Find the surface heat transfer coefficient of a 2 ft. high flat plateat 220\u00b0F, when immersed in water at 70\u00b0F.",
+      "variants": [
+        "Determine the surface heat transfer coefficient for a flat plate that is 2 ft. tall and maintained at 220\u00b0F, submerged in water at a temperature of 70\u00b0F.",
+        "For a 2-foot-high flat plate at a temperature of 220\u00b0F immersed in 70\u00b0F water, calculate the surface heat transfer coefficient.",
+        "It is required to find the surface heat transfer coefficient when a flat plate, 2 ft. in height and at 220\u00b0F, is placed in water held at 70\u00b0F."
+      ]
+    },
+    "mmlupro_016445": {
+      "source_question": "Unpolarized light is incident on a pair of ideal linear polarizers whose transmission axes make an angle of 45q with each other. The transmitted light intensity through both polarizers is what percentage of the incident intensity?",
+      "variants": [
+        "When unpolarized light passes through two ideal linear polarizers with transmission axes oriented at an angle of 45\u00b0 relative to each other, what percentage of the original incident intensity does the transmitted light intensity represent?",
+        "Consider a scenario in which unpolarized light strikes a pair of ideal linear polarizers whose transmission axes are separated by 45\u00b0. The question is: what fraction, expressed as a percentage of the incident intensity, is the intensity of the light transmitted through both polarizers?",
+        "It is given that unpolarized light is directed onto two ideal linear polarizers, with their transmission axes making a 45\u00b0 angle with respect to one another. As a percentage of the incident intensity, what is the intensity of the light that passes through both polarizers?"
+      ]
+    },
+    "mmlupro_071731": {
+      "source_question": "The mental retardation associated with PKU is preventable with:",
+      "variants": [
+        "The intellectual disability linked to PKU can be prevented with:",
+        "It is known that the mental retardation resulting from PKU is preventable by means of:",
+        "According to established medical knowledge, the cognitive impairment associated with phenylketonuria (PKU) can be avoided through:"
+      ]
+    },
+    "mmlupro_015532": {
+      "source_question": "A plane can travel 100 miles per hour (mph) without any wind. Its fuel supply is 3 hours. (This means that it can fly 300 miles without a wind). The pilot now proposes to fly east with a tail wind of 10 mph and to return with, of course, a head wind of 10 mph. How far out can he fly and return without running out of fuel? (The student should first reflect on whether or not the answer is the same as it is without a wind, namely, 150 miles.)",
+      "variants": [
+        "Consider an aircraft capable of flying at an airspeed of 100 miles per hour in still air, carrying enough fuel for exactly 3 hours of flight \u2014 meaning it could cover 300 miles in calm conditions. The pilot plans to head east assisted by a 10 mph tailwind, and then return westward against a 10 mph headwind. How far from the starting point can the pilot fly before needing to turn back, so as not to exhaust the fuel supply? (One should first consider whether the answer differs from the no-wind scenario of 150 miles.)",
+        "It is known that a certain plane has a cruising speed of 100 mph in the absence of wind and carries sufficient fuel for 3 hours of flight, allowing it to travel 300 miles under windless conditions. The pilot now intends to fly eastward with a 10 mph tailwind and subsequently return westward, naturally facing a 10 mph headwind. What is the maximum distance the pilot can fly outbound and still make it back before the fuel runs out? The student is encouraged to reflect beforehand on whether the answer remains 150 miles, as it would be without any wind.",
+        "Suppose a plane flies at 100 miles per hour when there is no wind and has a fuel capacity that permits 3 hours of continuous flight \u2014 equivalent to a 300-mile range in still air. The pilot's plan is to fly eastward, benefiting from a tailwind of 10 mph, and then to fly back, facing a headwind of 10 mph. How far out can the pilot travel and still return without running out of fuel? Before solving, the student should consider whether the answer is the same 150 miles that applies in the no-wind case."
+      ]
+    },
+    "mmlupro_023079": {
+      "source_question": "An object carries a charge of \u20131 C. How many excess electrons does it contain?",
+      "variants": [
+        "A charge of \u20131 C is carried by an object. How many excess electrons does it contain?",
+        "It is known that an object has a charge of \u20131 C. What is the number of excess electrons present in this object?",
+        "Consider an object that bears a net charge of \u20131 C. How many electrons in excess does it have?"
+      ]
+    },
+    "mmlupro_083057": {
+      "source_question": "What is the net price of a bed that is list-priced at $300 and discounted first at 30%, and then at 20%?",
+      "variants": [
+        "What would the net price be for a bed with a list price of $300 after applying a first discount of 30% followed by a second discount of 20%?",
+        "A bed has a listed price of $300. It is discounted by 30% first and then by an additional 20%. What is the resulting net price?",
+        "Consider a bed that is originally list-priced at $300 and subject to two successive discounts \u2014 the first at 30% and the second at 20%. What is its net price?"
+      ]
+    },
+    "mmlupro_088012": {
+      "source_question": "Describe the kingdoms within which algae are classified.",
+      "variants": [
+        "Outline the kingdoms under which algae fall in terms of classification.",
+        "It is asked to identify the kingdoms in which algae are categorized.",
+        "According to biological taxonomy, within which kingdoms are algae classified? Describe them."
+      ]
+    },
+    "mmlupro_052921": {
+      "source_question": "A small electrical device is having eight pin fins each of 5 mm wide, 0.5 mm thick and 25 mm long, to dissipate the heat generated within it. The thermal conductivity of the fin material is 200 W/m \u00b0K and the film heat coefficient is uniform throughout the lengths of the fin at 9 W/m^2 \u00b0K. If the device is at 350\u00b0K and the ambient air is at 300\u00b0K, determine the power dissipated through the fins.",
+      "variants": [
+        "A compact electrical device uses eight pin fins, each 5 mm in width, 0.5 mm in thickness, and 25 mm in length, for dissipating the heat it produces. The fin material has a thermal conductivity of 200 W/m \u00b0K, and a uniform film heat transfer coefficient of 9 W/m\u00b2 \u00b0K applies along the entire length of each fin. Given that the device temperature is 350 \u00b0K and the surrounding air temperature is 300 \u00b0K, calculate the total power dissipated through the fins.",
+        "It is known that a small electrical device is equipped with eight pin fins to dissipate its internally generated heat. Each fin is 5 mm wide, 0.5 mm thick, and 25 mm long. The thermal conductivity of the material used for the fins is 200 W/m \u00b0K, while the film heat transfer coefficient remains uniform at 9 W/m\u00b2 \u00b0K over the full length of the fins. With the device maintained at 350 \u00b0K and the ambient air at 300 \u00b0K, determine the power that is dissipated via the fins.",
+        "Consider a small electrical device fitted with eight pin fins for heat dissipation purposes. Each of these fins has a width of 5 mm, a thickness of 0.5 mm, and a length of 25 mm. The fin material possesses a thermal conductivity of 200 W/m \u00b0K, and the film heat coefficient is 9 W/m\u00b2 \u00b0K, applied uniformly along the entire fin length. The device operates at a temperature of 350 \u00b0K in an ambient air environment of 300 \u00b0K. Find the total power dissipated through the fins."
+      ]
+    },
+    "mmlupro_074333": {
+      "source_question": "\"According to the elaboration likelihood model, a person is most likely to rely on the \u201ccentral route\"\" for processing information when:\"",
+      "variants": [
+        "Based on the elaboration likelihood model, an individual is most apt to use the \"central route\" for information processing when:",
+        "The elaboration likelihood model holds that a person will most likely depend on the \"central route\" to process information under the following condition:",
+        "It is established that, according to the elaboration likelihood model, the \"central route\" of information processing is most likely to be employed by a person when:"
+      ]
+    },
+    "mmlupro_049870": {
+      "source_question": "Given the bandwidth BW = (2\\beta + 1)f_m used for a space communication system, where \\beta is the modulation index. If \\beta = 0.2 and 5, determine the fraction of the signal power-passed by the filter.",
+      "variants": [
+        "For a space communication system whose bandwidth is given by BW = (2\u03b2 + 1)f_m, with \u03b2 representing the modulation index, find the fraction of signal power that is passed by the filter when \u03b2 = 0.2 and when \u03b2 = 5.",
+        "Consider a space communication system that uses the bandwidth expression BW = (2\u03b2 + 1)f_m, where \u03b2 denotes the modulation index. Determine the fraction of the signal power passed by the filter for modulation index values of \u03b2 = 0.2 and \u03b2 = 5.",
+        "It is known that a space communication system employs a bandwidth defined as BW = (2\u03b2 + 1)f_m, in which \u03b2 is the modulation index. For the cases where \u03b2 equals 0.2 and 5, calculate the fraction of signal power that the filter passes."
+      ]
+    },
+    "mmlupro_014880": {
+      "source_question": "What happens to the pressure, P, of an ideal gas if the temperature is increased by a factor of 2 and the volume is increased by a factor of 8 ?",
+      "variants": [
+        "If the temperature of an ideal gas is doubled and its volume is increased by a factor of 8, what effect does this have on the pressure, P?",
+        "Consider an ideal gas whose temperature is multiplied by 2 while its volume is multiplied by 8. What is the resulting change in the pressure, P?",
+        "For an ideal gas, it is given that the temperature increases by a factor of 2 and the volume increases by a factor of 8. What happens to the gas's pressure, P, under these conditions?"
+      ]
+    },
+    "mmlupro_039246": {
+      "source_question": "A highway patrol officer stopped a driver for speeding and found that her license was suspended. He arrested her for driving while under suspension and secured her in the rear seat of the squad car. He then searched the car where he found several bags of cocaine inside a coat that was setting on the rear seat; he arrested her for possession and possession with intent to deliver cocaine. Prior to trial, the driver moved for suppression of the cocaine. Is it likely that the trial court will grant the suppression motion?",
+      "variants": [
+        "A driver was pulled over by a highway patrol officer for exceeding the speed limit, at which point the officer discovered that her license had been suspended. She was placed under arrest for operating a vehicle with a suspended license and was secured in the back seat of the patrol car. The officer proceeded to search her vehicle and found multiple bags of cocaine inside a coat lying on the rear seat, leading to additional charges of cocaine possession and possession with intent to deliver. Before the trial began, the driver filed a motion to suppress the cocaine evidence. Is the trial court likely to grant this suppression motion?",
+        "It is reported that a highway patrol officer initiated a traffic stop after observing a driver speeding. Upon checking her credentials, the officer learned that her license was under suspension. The driver was arrested for driving on a suspended license and placed in the rear of the squad car. A subsequent search of her vehicle revealed several bags of cocaine concealed within a coat that was sitting on the back seat, resulting in her being charged with possession of cocaine and possession with intent to deliver. The driver sought suppression of the cocaine evidence prior to trial. Is it likely that the court will grant her motion to suppress?",
+        "According to the facts of the case, a speeding driver was stopped by a highway patrol officer who then determined that her driver's license had been suspended. She was taken into custody for driving under suspension and secured in the back of the officer's squad car. The officer then conducted a search of her automobile, discovering several bags of cocaine in a coat that had been left on the rear seat. She was consequently charged with cocaine possession as well as possession with intent to deliver. Before the case went to trial, the driver filed a motion seeking to have the cocaine suppressed as evidence. Is it probable that the trial court will rule in favor of the suppression motion?"
+      ]
+    },
+    "mmlupro_087986": {
+      "source_question": "The cells of humans and most animals have become adapted to surviving only within a relatively small range of hydrogen ion concentrations. What is the role of the kidneys in regulating hydrogen ion concentration?",
+      "variants": [
+        "Human and most animal cells have adapted to survive only within a relatively narrow range of hydrogen ion concentrations. What role do the kidneys play in the regulation of hydrogen ion concentration?",
+        "It is known that the cells of humans and the majority of animals are adapted to survive within only a small range of hydrogen ion concentrations. In this context, what is the function of the kidneys when it comes to regulating hydrogen ion concentration?",
+        "The cells found in humans and in most animals have become suited to surviving exclusively within a comparatively limited range of hydrogen ion concentrations. What part do the kidneys play in controlling hydrogen ion concentration?"
+      ]
+    },
+    "mmlupro_099629": {
+      "source_question": "Excavation of Yang-shao sites in China indicates which domesticated crops?",
+      "variants": [
+        "Which domesticated crops are indicated by the excavation of Yang-shao sites in China?",
+        "Based on excavations carried out at Yang-shao sites in China, what domesticated crops have been identified?",
+        "It is known that Yang-shao sites in China have been excavated \u2014 what domesticated crops do these excavations indicate?"
+      ]
+    },
+    "mmlupro_032788": {
+      "source_question": "A chemist wants to produce chlorine from molten NaCl. How many grams could be produced if he uses a current of one amp for 5.00 minutes?",
+      "variants": [
+        "A chemist aims to generate chlorine by electrolyzing molten NaCl. If a current of one ampere is applied for 5.00 minutes, how many grams of chlorine could be produced?",
+        "It is given that a chemist wishes to obtain chlorine from molten sodium chloride. Using a current of 1 amp over a period of 5.00 minutes, what mass in grams of chlorine could be generated?",
+        "Consider a chemist who intends to produce chlorine through the electrolysis of molten NaCl. Assuming a 1-amp current is passed through the molten salt for 5.00 minutes, how many grams of chlorine can be obtained?"
+      ]
+    },
+    "mmlupro_080496": {
+      "source_question": "_______ theory can be described as a code of conduct to which all rational beings should adhere. This contrasts with ________ morality which is the code of conduct adopted by a particular group or society.",
+      "variants": [
+        "According to established definitions, _______ theory is characterized as a code of conduct that all rational beings ought to follow. In contrast, ________ morality refers to the code of conduct that has been adopted by a specific group or society.",
+        "A code of conduct to which every rational being should adhere is how _______ theory can be described. This stands in opposition to ________ morality, which is the code of conduct embraced by a particular group or society.",
+        "It is understood that _______ theory represents a code of conduct binding on all rational beings. ________ morality, by contrast, denotes the code of conduct that a specific society or group has chosen to adopt."
+      ]
+    },
+    "mmlupro_003071": {
+      "source_question": "Find all zeros in the indicated finite field of the given polynomial with coefficients in that field. x^5 + 3x^3 + x^2 + 2x in Z_5",
+      "variants": [
+        "Determine all roots of the polynomial x^5 + 3x^3 + x^2 + 2x within the finite field Z_5, given that its coefficients belong to that field.",
+        "In the finite field Z_5, identify every zero of the polynomial x^5 + 3x^3 + x^2 + 2x, whose coefficients are elements of Z_5.",
+        "It is required to find all elements of Z_5 that are zeros of the polynomial x^5 + 3x^3 + x^2 + 2x, where the coefficients are taken from the finite field Z_5."
+      ]
+    },
+    "mmlupro_033407": {
+      "source_question": "The equation for cream of tartar and baking powder, in action with hot water is: NaHCO_3 + KHC_4H_6O_6\\ding{217} NaKC_4H_4O_6 + H_2O + CO_2 (g) From the use of 4.2 g of NaHCO_3 (baking powder), what volume of CO_2 should be liberated through the dough at 273\u00b0C?",
+      "variants": [
+        "When cream of tartar reacts with baking powder in hot water, the chemical equation is: NaHCO_3 + KHC_4H_6O_6 \u2192 NaKC_4H_4O_6 + H_2O + CO_2 (g). Given that 4.2 g of NaHCO_3 (baking powder) is used, what volume of CO_2 is expected to be released through the dough at a temperature of 273\u00b0C?",
+        "It is known that the reaction of cream of tartar with baking powder in the presence of hot water follows this equation: NaHCO_3 + KHC_4H_6O_6 \u2192 NaKC_4H_4O_6 + H_2O + CO_2 (g). If 4.2 g of NaHCO_3 (baking powder) is employed, determine the volume of CO_2 that should be liberated through the dough at 273\u00b0C.",
+        "The reaction between cream of tartar and baking powder when combined with hot water is represented by the following equation: NaHCO_3 + KHC_4H_6O_6 \u2192 NaKC_4H_4O_6 + H_2O + CO_2 (g). Based on using 4.2 g of NaHCO_3 (baking powder), what is the volume of CO_2 that would be released through the dough at a temperature of 273\u00b0C?"
+      ]
+    },
+    "mmlupro_077262": {
+      "source_question": "In which of the following psychotherapies is self-disclosure by the psychologist a specifically recommended and frequently applied technique",
+      "variants": [
+        "In which of the following psychotherapy approaches is self-disclosure on the part of the psychologist a technique that is specifically recommended and frequently utilized?",
+        "Among the psychotherapies listed below, in which one is it the case that self-disclosure by the therapist is both specifically advocated and commonly employed as a technique?",
+        "Of the following psychotherapeutic modalities, which one specifically recommends and frequently applies the technique of psychologist self-disclosure?"
+      ]
+    },
+    "mmlupro_057234": {
+      "source_question": "At a Nash equilibrium,",
+      "variants": [
+        "In the context of a Nash equilibrium,",
+        "When a Nash equilibrium has been reached,",
+        "It is known that at a Nash equilibrium,"
+      ]
+    },
+    "mmlupro_064100": {
+      "source_question": "What is the difference between money income and real income?",
+      "variants": [
+        "How does money income differ from real income?",
+        "What distinguishes real income from money income?",
+        "It is worth considering: what is the distinction between nominal (money) income and real income?"
+      ]
+    },
+    "mmlupro_049728": {
+      "source_question": "A (1/4) in. thick double leather belt is used on a cast steel pulley 50 in. in diameter which rotates at 1000 rpm and transmits 100 hp. Calculate the belt width using the following data: Coefficient of friction between cast-steel and leather = 0.40. Safe stress for belting = 300 psi Joint efficiency = 70 percent.",
+      "variants": [
+        "A double leather belt with a thickness of 1/4 inch is employed on a 50-inch-diameter cast steel pulley rotating at 1000 rpm and transmitting 100 hp. Determine the required belt width given the following information: the coefficient of friction between cast steel and leather is 0.40, the safe stress for the belting material is 300 psi, and the joint efficiency is 70 percent.",
+        "It is known that a cast steel pulley, 50 inches in diameter, operates at 1000 rpm and transmits 100 horsepower using a double leather belt that is 1/4 inch thick. Using the data provided below, calculate the width of the belt. The coefficient of friction between leather and cast steel is 0.40; the allowable stress for the belt is 300 psi; and the efficiency of the joint is 70%.",
+        "Given a 1/4-inch-thick double leather belt running on a cast steel pulley of 50 in. diameter at a rotational speed of 1000 rpm, with 100 hp being transmitted, find the necessary belt width. The relevant data are as follows: coefficient of friction (cast steel on leather) = 0.40, safe belt stress = 300 psi, and joint efficiency = 70 percent."
+      ]
+    },
+    "mmlupro_090475": {
+      "source_question": "Which of the following statements about mitochondria and chloroplasts is generally true?",
+      "variants": [
+        "Which of the statements below regarding chloroplasts and mitochondria is generally considered to be true?",
+        "Of the following claims concerning mitochondria and chloroplasts, which one is generally accurate?",
+        "Generally speaking, which of the listed statements about mitochondria and chloroplasts holds true?"
+      ]
+    },
+    "mmlupro_061752": {
+      "source_question": "How does capitalism stimulate and encourage technological advance?",
+      "variants": [
+        "In what ways does capitalism drive and promote technological progress?",
+        "How is technological advancement stimulated and fostered by capitalism?",
+        "By what means does capitalism serve to encourage and spur advances in technology?"
+      ]
+    },
+    "mmlupro_104367": {
+      "source_question": "A practitioner is engaged to express an opinion on management\u2019s assertion that the square footage of a warehouse offered for sale is 150,000 square feet. The practitioner should refer to which of the following sources for professional guidance?",
+      "variants": [
+        "A practitioner has been hired to provide an opinion on management's claim that a warehouse being offered for sale has a square footage of 150,000 square feet. To which of the following sources should the practitioner turn for professional guidance?",
+        "An engagement has been undertaken by a practitioner to opine on the assertion made by management that the square footage of a warehouse available for sale is 150,000 square feet. Which of the following sources should the practitioner consult for professional guidance?",
+        "It is known that a practitioner has been engaged to express an opinion regarding management's assertion that a warehouse put up for sale comprises 150,000 square feet of space. For professional guidance, which of the following sources should the practitioner refer to?"
+      ]
+    },
+    "mmlupro_029023": {
+      "source_question": "Assume that all gases are perfect and that data refer to 298.15 K unless otherwise stated. Calculate the Carnot efficiency of a primitive steam engine operating on steam at $100^{\\circ} \\mathrm{C}$ and discharging at $60^{\\circ} \\mathrm{C}$.",
+      "variants": [
+        "Assuming all gases behave as perfect gases and that data pertain to 298.15 K unless stated otherwise, determine the Carnot efficiency of a primitive steam engine that operates with steam at 100\u00b0C and releases exhaust at 60\u00b0C.",
+        "It is given that all gases are ideal and that the data correspond to 298.15 K unless otherwise indicated. Find the Carnot efficiency for a primitive steam engine working with steam at 100 \u00b0C and discharging heat at 60 \u00b0C.",
+        "Under the assumptions that every gas is perfect and that all data refer to 298.15 K unless otherwise specified, compute the Carnot efficiency of a primitive steam engine whose hot reservoir is at 100\u00b0C and whose cold reservoir is at 60\u00b0C."
+      ]
+    },
+    "mmlupro_095133": {
+      "source_question": " According to Nathanson, criminals who commit murder forfeit their right to",
+      "variants": [
+        "Nathanson holds that the right to life is forfeited by criminals who commit murder.",
+        "As Nathanson argues, those who are guilty of committing murder forfeit their right to",
+        "It is Nathanson's position that criminals guilty of murder forfeit their right to"
+      ]
+    },
+    "mmlupro_029350": {
+      "source_question": "For HF,K_diss= 6.7 \u00d7 10^-4 what is the H_3O^+ and OH^- concentrations of a 0.10M HF solution? Assume K_W = 1 \u00d7 10^-14 .",
+      "variants": [
+        "Given that the dissociation constant of HF is K_diss = 6.7 \u00d7 10^-4, determine the concentrations of H_3O^+ and OH^- in a 0.10 M HF solution. Assume that K_W = 1 \u00d7 10^-14.",
+        "It is known that HF has a dissociation constant K_diss of 6.7 \u00d7 10^-4 and that K_W equals 1 \u00d7 10^-14. What are the H_3O^+ and OH^- concentrations in a solution of HF at 0.10 M?",
+        "For a 0.10 M solution of HF, calculate the concentrations of H_3O^+ and OH^-, given that the dissociation constant K_diss for HF is 6.7 \u00d7 10^-4 and the ion-product constant of water K_W is assumed to be 1 \u00d7 10^-14."
+      ]
+    },
+    "mmlupro_043065": {
+      "source_question": "A defendant, a nurse at a nursing home, is charged with murdering a resident at the home by adding an allegedly lethal substance to the resident's food. At trial, to prove that the substance added to the resident's food could result in death, the prosecutor, without first calling any witnesses, offers to read into evidence several pages from a standard medical treatise that support the prosecution's claim that the substance the defendant added to the food is lethal. Is the evidence offered admissible?",
+      "variants": [
+        "A nurse employed at a nursing home stands trial for the murder of a resident, allegedly committed by introducing a lethal substance into the resident's food. During the trial, the prosecutor seeks to establish that the substance added to the food was capable of causing death. Without having called any witnesses beforehand, the prosecutor proposes to read aloud several pages from a recognized medical treatise that support the claim that the substance in question is lethal. Is this evidence admissible?",
+        "It is known that a defendant, who worked as a nurse at a nursing home, has been charged with murdering one of the home's residents by allegedly mixing a deadly substance into the resident's food. At trial, in an effort to demonstrate that the substance placed in the resident's food could lead to death, the prosecutor offers to read into evidence multiple pages from a standard medical treatise \u2014 without first calling any witnesses \u2014 in support of the prosecution's assertion that the substance is lethal. Should this offered evidence be deemed admissible?",
+        "According to the case record, a nursing home nurse is being tried for the murder of a resident, the allegation being that the defendant added a supposedly lethal substance to the resident's food. To prove that the substance introduced into the food was capable of resulting in death, the prosecutor, prior to calling any witnesses to the stand, offers to read several pages from an established medical treatise into evidence. These pages support the prosecution's contention that the substance the defendant added is lethal. Is the evidence so offered admissible?"
+      ]
+    },
+    "mmlupro_032002": {
+      "source_question": "The gypsy moth produces a natural attractant, C_18H_34O_3. If a female moth is trapped behind a cellophane screen containing a pinhole and the carbon dioxide she produces diffuses through the pinhole at the rate of 1millimicromole per 90 seconds, what quantity of attractant will diffuse through the orifice in the same amount of time (90 seconds)?",
+      "variants": [
+        "It is known that the gypsy moth produces a natural attractant with the molecular formula C_18H_34O_3. Suppose a female moth is confined behind a cellophane screen that has a pinhole, and the carbon dioxide she generates diffuses through this pinhole at a rate of 1 millimicromole per 90 seconds. What amount of attractant would diffuse through the same orifice during that 90-second interval?",
+        "The natural attractant produced by the gypsy moth has the formula C_18H_34O_3. A female moth is placed behind a cellophane screen with a single pinhole, and her carbon dioxide diffuses through the pinhole at 1 millimicromole every 90 seconds. How much of the attractant will pass through the pinhole over the same 90-second period?",
+        "According to established facts, the gypsy moth generates a natural attractant whose molecular formula is C_18H_34O_3. When a female moth is trapped behind a cellophane screen equipped with a pinhole, the CO_2 she produces diffuses through the opening at a rate of 1 millimicromole per 90 seconds. What quantity of the attractant would diffuse through that same orifice in 90 seconds?"
+      ]
+    },
+    "mmlupro_093527": {
+      "source_question": "A rooster with gray feathers and a hen with the same phenotype produce 17 gray, 7 black, and 8 white chicks. What is the simplest explanation for the inheritance of these colors in chickens?",
+      "variants": [
+        "A gray-feathered rooster is crossed with a gray-feathered hen, and their offspring consist of 17 gray, 7 black, and 8 white chicks. What is the simplest explanation for how these feather colors are inherited in chickens?",
+        "When a rooster and a hen, both exhibiting gray plumage, are mated, they produce a total of 17 gray, 7 black, and 8 white offspring. What is the most straightforward explanation for the inheritance pattern of these color phenotypes in chickens?",
+        "It is observed that a gray rooster and a gray hen produce chicks with the following phenotypes: 17 gray, 7 black, and 8 white. What is the simplest account of how feather color is inherited in these chickens?"
+      ]
+    },
+    "mmlupro_083981": {
+      "source_question": "Mr. Haines bought a tractor for $2,895.00. The estimated salvagevalue at the end of the 10 years is $495.00. Use the straight-linemethod to find the depreciation after the first five years.",
+      "variants": [
+        "Mr. Haines purchased a tractor at a cost of $2,895.00. Its estimated salvage value after 10 years is $495.00. Using the straight-line method, determine the total depreciation over the first five years.",
+        "A tractor was bought by Mr. Haines for $2,895.00, with an estimated salvage value of $495.00 at the end of a 10-year period. Apply the straight-line method to calculate the depreciation accumulated after the first five years.",
+        "It is given that Mr. Haines acquired a tractor for $2,895.00 and that the salvage value is estimated to be $495.00 at the end of 10 years. Find the depreciation for the first five years using the straight-line method."
+      ]
+    },
+    "mmlupro_088787": {
+      "source_question": "All of the following are examples of connective tissue EXCEPT",
+      "variants": [
+        "Which of the following is NOT an example of connective tissue?",
+        "Of the options listed below, all are classified as connective tissue EXCEPT",
+        "It is known that all of the following represent types of connective tissue, with the EXCEPTION of"
+      ]
+    },
+    "mmlupro_106368": {
+      "source_question": "An entity prepares its financial statements on its income tax basis. The accompanying notes include a summary of significant accounting policies that discusses the basis of presentation and describes how that basis differs from GAAP. The dollar amount of the effects of the difference between the income tax basis and GAAP",
+      "variants": [
+        "An entity uses the income tax basis to prepare its financial statements. The notes that accompany the statements contain a summary of significant accounting policies, which addresses the basis of presentation and explains how it differs from GAAP. The dollar amount of the effects of the difference between the income tax basis and GAAP is included.",
+        "It is known that an entity's financial statements are prepared on an income tax basis. Included in the accompanying notes is a summary of significant accounting policies that discusses the basis of presentation and describes the ways in which that basis diverges from GAAP. The dollar amount reflecting the effects of the differences between the income tax basis and GAAP is provided.",
+        "According to established records, an entity has prepared its financial statements using the income tax basis. A summary of significant accounting policies is presented in the accompanying notes, covering the basis of presentation and detailing how this basis differs from GAAP. The monetary amount of the effects arising from the difference between the income tax basis and GAAP is disclosed."
+      ]
+    },
+    "mmlupro_020190": {
+      "source_question": "From the indices of refraction given below, calculate the rotation of the plane of polarization for violet light \\lambda = 396.0 nm, in a quartz plate cut perpendicular to the optic axis and 1 mm thick. [\\lambda / (396.0 nm)] [n_R/ (1.55610)] [n_L/ (1.55821)] (Refractive Indices for Quartz)",
+      "variants": [
+        "Using the refractive indices provided below for quartz, determine the rotation of the plane of polarization for violet light with wavelength \u03bb = 396.0 nm passing through a 1 mm thick quartz plate that has been cut perpendicular to the optic axis. [\u03bb / (396.0 nm)] [n_R / (1.55610)] [n_L / (1.55821)] (Refractive Indices for Quartz)",
+        "It is given that for quartz at wavelength \u03bb = 396.0 nm, the right-handed refractive index is n_R = 1.55610 and the left-handed refractive index is n_L = 1.55821. Based on these refractive indices, calculate the rotation of the plane of polarization for violet light in a quartz plate of 1 mm thickness, cut perpendicular to the optic axis.",
+        "A quartz plate, cut perpendicular to its optic axis and having a thickness of 1 mm, is considered. Given the following refractive indices for quartz \u2014 n_R = 1.55610 and n_L = 1.55821 at \u03bb = 396.0 nm \u2014 compute the rotation of the plane of polarization for violet light at this wavelength."
+      ]
+    },
+    "mmlupro_016282": {
+      "source_question": "A beam of linear polarized light is sent through a piece of solid glass tubing 25 cm long and 1 cm in diameter. The tubing is wound with a single layer of 250 turns of enameled copper wire along its entire length. If theVerdetconstant of the glass is 0.05 [(min. of angle) / (oersted- cm)], what is the amount of rotation of the plane of polarization of the light when a current of 5 amperes is flowing through the wire?",
+      "variants": [
+        "A linearly polarized beam of light passes through a solid glass tube that is 25 cm in length and 1 cm in diameter. Around the tube, a single layer consisting of 250 turns of enameled copper wire is wound along its full length. Given that the Verdet constant of the glass is 0.05 minutes of angle per oersted-cm, what rotation of the plane of polarization occurs when a current of 5 amperes flows through the wire?",
+        "It is given that a solid glass tube, 25 cm long and 1 cm in diameter, has a single layer of 250 turns of enameled copper wire wound over its entire length. A beam of linearly polarized light is directed through this tube. If the Verdet constant for the glass is 0.05 (min. of angle)/(oersted\u00b7cm), determine the rotation of the polarization plane when a 5-ampere current is passed through the wire.",
+        "Consider a piece of solid glass tubing measuring 25 cm in length with a diameter of 1 cm. The tubing is wrapped along its entire length with a single layer of enameled copper wire comprising 250 turns. A beam of linearly polarized light is transmitted through this tubing. According to the given data, the Verdet constant of the glass equals 0.05 minutes of arc per oersted-cm. What is the resulting rotation of the light's plane of polarization when a current of 5 amperes flows through the wire?"
+      ]
+    },
+    "mmlupro_043597": {
+      "source_question": "Should treaties assume a particular form?",
+      "variants": [
+        "Is there a requirement for treaties to take on a specific form?",
+        "It is worth considering whether treaties are expected to assume a particular form.",
+        "Must a particular form be adopted by treaties?"
+      ]
+    },
+    "mmlupro_036677": {
+      "source_question": "If 1 mole of HCI and 1 mole of NaC_2H_3O_2 are mixed in enoughwater to make one liter of solution, what will be the concentrationsof the species in the final equi-librium? K_diss=1.8 \u00d7 10^-5 for NaC_2H_3O_2.",
+      "variants": [
+        "When 1 mole of HCl and 1 mole of NaC\u2082H\u2083O\u2082 are combined in sufficient water to produce one liter of solution, what are the concentrations of all species at final equilibrium? The dissociation constant for NaC\u2082H\u2083O\u2082 is K_diss = 1.8 \u00d7 10\u207b\u2075.",
+        "It is given that 1 mole of HCl is mixed with 1 mole of NaC\u2082H\u2083O\u2082 in enough water to make a total volume of one liter. Determine the equilibrium concentrations of all species in the resulting solution, noting that K_diss for NaC\u2082H\u2083O\u2082 equals 1.8 \u00d7 10\u207b\u2075.",
+        "Consider a solution prepared by dissolving 1 mole of HCl and 1 mole of NaC\u2082H\u2083O\u2082 in enough water so that the final volume is one liter. Given that the dissociation constant K_diss for NaC\u2082H\u2083O\u2082 is 1.8 \u00d7 10\u207b\u2075, what will the concentrations of the various species be once equilibrium is reached?"
+      ]
+    },
+    "mmlupro_074331": {
+      "source_question": "A psychiatrist sends a signed patient release form to a psychologist requesting a copy of a report on a patient who was assessed 7 years earlier. The psychologist should",
+      "variants": [
+        "A psychologist receives a signed patient release form from a psychiatrist who is requesting a copy of an assessment report on a patient that was evaluated 7 years ago. The psychologist should",
+        "A signed release form for a patient is sent by a psychiatrist to a psychologist, along with a request for a copy of a report from an assessment conducted on the patient 7 years prior. The psychologist should",
+        "It is the case that a psychiatrist has forwarded a signed patient release form to a psychologist, asking for a copy of a report concerning a patient who underwent assessment 7 years earlier. The psychologist should"
+      ]
+    },
+    "mmlupro_025042": {
+      "source_question": "When an increase in speed doubles the momentum of a moving body its kinetic energy",
+      "variants": [
+        "When the momentum of a moving body is doubled as a result of an increase in its speed, its kinetic energy",
+        "If a moving body's momentum becomes twice its original value due to a rise in speed, the kinetic energy of that body",
+        "It is known that when an increase in the speed of a moving body leads to a doubling of its momentum, the body's kinetic energy"
+      ]
+    },
+    "mmlupro_035150": {
+      "source_question": "An equilibrium solution of the complex ion Ag(NH_3)_2^+ contains 0.30 M of NH_4^+ and 0.15 M of the actual ^+complex ion. To obtain a concentration of Ag^+ equal to 1.0 \u00d7 10^-6 M, what must the pH of this solution be?K_dissof Ag(NH_3)_2^+ = 6.0 \u00d7 10^-8, K_b of NH_3 = 1.8 \u00d7 10^-5 and K_W = 1 \u00d7 10^-14.",
+      "variants": [
+        "Consider an equilibrium solution of the complex ion Ag(NH_3)_2^+ in which the concentration of NH_4^+ is 0.30 M and the concentration of the Ag(NH_3)_2^+ complex ion itself is 0.15 M. What pH must this solution have so that the Ag^+ concentration equals 1.0 \u00d7 10^-6 M? The relevant constants are: K_diss for Ag(NH_3)_2^+ = 6.0 \u00d7 10^-8, K_b for NH_3 = 1.8 \u00d7 10^-5, and K_W = 1 \u00d7 10^-14.",
+        "It is given that a solution at equilibrium contains the complex ion Ag(NH_3)_2^+ at a concentration of 0.15 M, along with 0.30 M NH_4^+. Determine the pH required for this solution so that the concentration of Ag^+ reaches 1.0 \u00d7 10^-6 M. The dissociation constant of Ag(NH_3)_2^+ is 6.0 \u00d7 10^-8, the base dissociation constant of NH_3 is 1.8 \u00d7 10^-5, and the ion product of water K_W is 1 \u00d7 10^-14.",
+        "In a solution where the complex ion Ag(NH_3)_2^+ is in equilibrium, the concentrations of NH_4^+ and Ag(NH_3)_2^+ are 0.30 M and 0.15 M, respectively. According to the provided data \u2014 K_diss of Ag(NH_3)_2^+ = 6.0 \u00d7 10^-8, K_b of NH_3 = 1.8 \u00d7 10^-5, and K_W = 1 \u00d7 10^-14 \u2014 what must the solution's pH be in order to achieve an Ag^+ concentration of 1.0 \u00d7 10^-6 M?"
+      ]
+    },
+    "mmlupro_012610": {
+      "source_question": "Andrew wrote the number 186,425 on the board. In which number is the value of the digit 6 exactly 10 times the value of the digit 6 in the number Andrew wrote?",
+      "variants": [
+        "Andrew wrote 186,425 on the board. In which number does the digit 6 have a value that is exactly 10 times the value of the digit 6 in Andrew's number?",
+        "On the board, Andrew wrote the number 186,425. Which number contains a digit 6 whose value is precisely 10 times the value represented by the digit 6 in the number he wrote?",
+        "It is given that Andrew wrote the number 186,425 on the board. In which number is the value represented by the digit 6 exactly ten times the value of the digit 6 in the number that Andrew wrote?"
+      ]
+    },
+    "mmlupro_039268": {
+      "source_question": "A defendant was playing cards with a group of friends at their weekly poker game. Earlier in the evening, one of the players handed the defendant a gun and told him it was unloaded. As a joke, the defendant pointed the gun at one of his friends and pulled the trigger. Unknown to the defendant, the gun was loaded and it discharged. The bullet grazed the friend's shoulder, slightly wounding him. The defendant was charged with assault with intent to kill. In this jurisdiction, battery is a lesser included offense of assault. At trial, the defendant requested that the court instruct the jury that if his mistake was honest, whether reasonable or unreasonable, it would be a valid defense to assault and the lesser included offense of battery. Conversely, the prosecution wanted the court to instruct the jury that in order for the defendant's mistake to be a valid defense for either crime, it must be reasonable. Regarding the jury instructions, which of the following statements is most accurate?",
+      "variants": [
+        "During a weekly poker game with friends, a defendant was handed a gun by one of the other players, who told him it was not loaded. As a prank, the defendant aimed the gun at a friend and pulled the trigger. Unbeknownst to the defendant, the gun was in fact loaded and fired, with the bullet grazing the friend's shoulder and causing a minor wound. The defendant was subsequently charged with assault with intent to kill, and in this jurisdiction, battery is considered a lesser included offense of assault. At trial, the defendant asked the court to instruct the jury that an honest mistake, whether reasonable or unreasonable, would constitute a valid defense to both assault and the lesser included offense of battery. The prosecution, on the other hand, requested that the jury be instructed that the defendant's mistake must be reasonable in order to serve as a valid defense for either crime. Which of the following statements most accurately addresses the jury instructions?",
+        "It is established that a defendant was participating in a regular weekly poker game with a group of friends. At an earlier point in the evening, another player gave the defendant a gun, claiming it was unloaded. The defendant, intending it as a joke, pointed the weapon at one of his friends and pulled the trigger. The gun, which was actually loaded without the defendant's knowledge, discharged and the bullet grazed the friend's shoulder, inflicting a slight wound. Charges of assault with intent to kill were brought against the defendant. Under the laws of this jurisdiction, battery constitutes a lesser included offense of assault. During the trial, the defense requested a jury instruction stating that an honest mistake \u2014 regardless of whether it was reasonable or unreasonable \u2014 would serve as a valid defense to both assault and the lesser included offense of battery. The prosecution, conversely, sought an instruction directing the jury that the mistake must be reasonable to qualify as a defense for either offense. With respect to these competing jury instructions, which of the following statements is most accurate?",
+        "A group of friends were gathered for their usual weekly poker game when one of the players passed a gun to the defendant, assuring him it was unloaded. Treating it as a joke, the defendant pointed the gun at another friend and pulled the trigger. Without the defendant's knowledge, the gun turned out to be loaded; it fired, and the bullet grazed his friend's shoulder, causing a minor injury. The defendant faced charges of assault with intent to kill. In the applicable jurisdiction, battery is recognized as a lesser included offense of assault. The defendant's trial counsel requested that the court instruct the jury that if the defendant's mistake was genuine, it would be a valid defense to assault as well as the lesser included offense of battery, regardless of whether the mistake was reasonable. The prosecution, by contrast, urged the court to instruct the jury that the defendant's mistake could only serve as a valid defense for either charge if it was reasonable. Concerning the appropriate jury instructions, which of the following statements is most accurate?"
+      ]
+    },
+    "mmlupro_072274": {
+      "source_question": "Describe Sherman's and Key's (1932) study of the Hollow Children. What do their findings indicate about the effect of environment on intellectual development?",
+      "variants": [
+        "Provide an account of the study conducted by Sherman and Key (1932) on the Hollow Children. What do their results suggest regarding the influence of environment on intellectual development?",
+        "What were the details of Sherman's and Key's (1932) research involving the Hollow Children, and what conclusions can be drawn from their findings about how environment affects intellectual development?",
+        "It is known that Sherman and Key carried out a study in 1932 focusing on the Hollow Children. Describe this study and explain what their findings reveal concerning the impact of environment on intellectual development."
+      ]
+    },
+    "mmlupro_058404": {
+      "source_question": "Congress has embarked on another round of expansionary fiscal policy to boost employment and get reelected. As chair of the central bank how would you reduce the \"crowding-out\" effect and what macroeconomic problem might your policy exacerbate?",
+      "variants": [
+        "In an effort to stimulate employment and secure reelection, Congress has initiated a new phase of expansionary fiscal policy. As the chair of the central bank, what steps would you take to mitigate the \"crowding-out\" effect, and which macroeconomic issue could your policy potentially worsen?",
+        "It is known that Congress has launched yet another round of expansionary fiscal policy aimed at boosting employment and improving reelection prospects. In your role as central bank chair, how would you go about reducing the \"crowding-out\" effect, and what macroeconomic problem might be exacerbated by your chosen policy?",
+        "Congress has once again pursued expansionary fiscal policy with the goals of increasing employment and enhancing their chances of reelection. Assuming you are the chair of the central bank, what approach would you adopt to lessen the \"crowding-out\" effect, and what macroeconomic concern could your policy end up making worse?"
+      ]
+    },
+    "mmlupro_099829": {
+      "source_question": "The influence of the Tiwanaku was eclipsed by the _________ culture, to the north and west.",
+      "variants": [
+        "To the north and west, the _________ culture eclipsed the influence of the Tiwanaku.",
+        "The Tiwanaku's influence was overshadowed by the _________ culture, which was situated to the north and west.",
+        "It is known that the _________ culture, located to the north and west, eclipsed the influence of the Tiwanaku."
+      ]
+    },
+    "mmlupro_010344": {
+      "source_question": "\\lim_{x \\to 1}(1/(x - 1) - c/(x^3 - 1)) exists. What is the value of c?",
+      "variants": [
+        "The limit as x approaches 1 of the expression (1/(x - 1) - c/(x^3 - 1)) is known to exist. Determine the value of c.",
+        "Given that lim_{x \u2192 1} [1/(x - 1) \u2212 c/(x\u00b3 \u2212 1)] exists, what must c equal?",
+        "It is established that the limit of (1/(x - 1) - c/(x^3 - 1)) as x tends to 1 has a finite value. Find c."
+      ]
+    },
+    "mmlupro_083642": {
+      "source_question": "Let\u2019s assume that the 10-year annual return for the S&P 500 (market portfolio) is 10%, while the average annual return on Treasury bills (a good proxy for the risk-free rate) is 5%. The standard deviation is 15% over a 10-year period. Whats the market Sharpe Ratio?",
+      "variants": [
+        "Suppose that over a 10-year period, the S&P 500 (serving as the market portfolio) has an annual return of 10%, Treasury bills (used as a proxy for the risk-free rate) yield an average annual return of 5%, and the standard deviation is 15%. What is the market Sharpe Ratio?",
+        "It is given that the S&P 500, representing the market portfolio, delivers a 10-year annual return of 10%. The average annual return on Treasury bills, which serves as a reasonable proxy for the risk-free rate, is 5%, and the standard deviation over this 10-year period is 15%. What would the Sharpe Ratio of the market be?",
+        "Assume the following: the annual return of the market portfolio (S&P 500) over a 10-year horizon is 10%; the risk-free rate, approximated by the average annual return on Treasury bills, stands at 5%; and the standard deviation across this 10-year period is 15%. What is the resulting market Sharpe Ratio?"
+      ]
+    },
+    "mmlupro_102128": {
+      "source_question": "Which of the following activities will be most effective in introducing kindergartners to the concept of how plants transport water?",
+      "variants": [
+        "Which of the following activities would be most effective for introducing the concept of water transport in plants to kindergarten students?",
+        "Of the activities listed below, which one is the most effective way to introduce kindergartners to how plants move water through themselves?",
+        "When it comes to introducing kindergarten-aged children to the concept of how water is transported by plants, which of the following activities will be most effective?"
+      ]
+    },
+    "mmlupro_022302": {
+      "source_question": "An object 5 cm in diameter is 33.3 cm from a converging lens of 8diopters. Calculate the position of the image from the lens and its size.",
+      "variants": [
+        "A converging lens with a power of 8 diopters is positioned 33.3 cm away from an object that has a diameter of 5 cm. Determine the image's distance from the lens as well as its size.",
+        "Given that an object measuring 5 cm in diameter is placed at a distance of 33.3 cm from a converging lens whose optical power is 8 diopters, find the position of the image relative to the lens and calculate the image size.",
+        "It is known that a converging lens of 8 diopters has an object of 5 cm diameter located 33.3 cm from it. Compute both the distance of the resulting image from the lens and the dimensions of the image."
+      ]
+    },
+    "mmlupro_053065": {
+      "source_question": "Find the throat area, exit area and the exit Mach number for a nozzle having an efficiency of 90%. The initial air pressure and temperature are 60 psia and 1500\u00b0R respectively. The air mass flow rate is 0.6 lb/sec and the exit pressure is 14.696 psia.",
+      "variants": [
+        "Determine the throat area, exit area, and exit Mach number for a nozzle with a 90% efficiency. The inlet air pressure is 60 psia and the inlet temperature is 1500\u00b0R. The mass flow rate of air is 0.6 lb/sec, and the pressure at the exit is 14.696 psia.",
+        "For a nozzle operating at an efficiency of 90%, calculate the area of the throat, the area at the exit, and the Mach number at the exit. It is given that the initial pressure and temperature of the air are 60 psia and 1500\u00b0R, respectively, with an air mass flow rate of 0.6 lb/sec and an exit pressure of 14.696 psia.",
+        "It is known that a nozzle has an efficiency of 90%, with air entering at a pressure of 60 psia and a temperature of 1500\u00b0R. The air mass flow rate through the nozzle is 0.6 lb/sec, and the exit pressure is 14.696 psia. Find the throat area, the exit area, and the Mach number at the exit."
+      ]
+    },
+    "mmlupro_010365": {
+      "source_question": "what is the limit of (2n)!!/(2n+1)!! as n goes to infinity?",
+      "variants": [
+        "What is the limit of (2n)!! divided by (2n+1)!! as n approaches infinity?",
+        "As n tends to infinity, what does the expression (2n)!!/(2n+1)!! converge to?",
+        "Determine the value that (2n)!!/(2n+1)!! approaches in the limit as n goes to infinity."
+      ]
+    },
+    "mmlupro_000082": {
+      "source_question": "Statement 1 | The external direct product of cyclic groups is cyclic. Statement 2 | The external direct product of D_3 and D_4 is isomorphic to D_12.",
+      "variants": [
+        "Statement 1 | The external direct product of cyclic groups is cyclic. Statement 2 | D_12 is isomorphic to the external direct product of D_3 and D_4.",
+        "Statement 1: It is claimed that the external direct product of cyclic groups always yields a cyclic group. Statement 2: It is claimed that the external direct product of D_3 and D_4 is isomorphic to D_12.",
+        "Consider the following two assertions. First, forming the external direct product of cyclic groups results in a cyclic group. Second, the external direct product of D_3 with D_4 is isomorphic to D_12."
+      ]
+    },
+    "mmlupro_078976": {
+      "source_question": "MRI is preferred over CT (computed tomography) in all of the following scenarios, EXCEPT:",
+      "variants": [
+        "In each of the following scenarios, MRI is favored over computed tomography (CT), with the EXCEPTION of:",
+        "It is known that MRI is the preferred imaging modality compared to CT (computed tomography) in all of the scenarios listed below, EXCEPT:",
+        "Of the scenarios listed below, all favor MRI over CT (computed tomography) EXCEPT which one:"
+      ]
+    },
+    "mmlupro_035928": {
+      "source_question": "Body temperature on the average is 98.6\u00b0F. What is thison (a)theCelsius scale and (b) the Kelvin scale?",
+      "variants": [
+        "The average human body temperature is 98.6\u00b0F. What is this temperature on (a) the Celsius scale and (b) the Kelvin scale?",
+        "It is known that the average body temperature is 98.6\u00b0F. Determine this value on (a) the Celsius scale and (b) the Kelvin scale.",
+        "On average, body temperature measures 98.6\u00b0F. Express this temperature on (a) the Celsius scale and (b) the Kelvin scale."
+      ]
+    },
+    "mmlupro_038692": {
+      "source_question": "A truck and a car collided at an intersection. Both drivers were injured, and each one filed a lawsuit against the other for negligence. At trial, the jury found each of the drivers liable for negligence. The jury found that the amount of the truck driver's injuries was $10,000, and the amount of the car driver's injuries was $8,000. The jury assigned 50 percent of the fault for the accident to the truck driver and 50 percent of the fault to the car driver. Assume that the jurisdiction has a statute in effect that provides: \"Contributory negligence shall not bar recovery in an action to recover damages for negligence resulting in injury to person or property if such negligence was not as great as the negligence of the person from whom recovery is sought. Any damages allowed shall be diminished in proportion to the amount of negligence attributable to the person who is seeking recovery. \"Which of the following is the appropriate judgment in the case?",
+      "variants": [
+        "At an intersection, a collision occurred between a truck and a car. Both drivers sustained injuries, and each subsequently sued the other, alleging negligence. During the trial, the jury determined that both drivers were negligent. The truck driver's damages were assessed at $10,000, while the car driver's damages were assessed at $8,000. Fault for the accident was apportioned equally, with 50 percent assigned to each driver. Assume that a statute is in effect in the jurisdiction stating: \"Contributory negligence shall not bar recovery in an action to recover damages for negligence resulting in injury to person or property if such negligence was not as great as the negligence of the person from whom recovery is sought. Any damages allowed shall be diminished in proportion to the amount of negligence attributable to the person who is seeking recovery.\" Which of the following represents the appropriate judgment in this case?",
+        "It is known that a truck and a car were involved in a collision at an intersection. Each driver was injured and brought a negligence lawsuit against the other. At trial, the jury found both drivers to be liable for negligence. The jury determined that the truck driver's injuries amounted to $10,000 and the car driver's injuries amounted to $8,000. Responsibility for the accident was split evenly, with 50 percent of the fault attributed to each driver. Assume the jurisdiction has enacted a statute providing: \"Contributory negligence shall not bar recovery in an action to recover damages for negligence resulting in injury to person or property if such negligence was not as great as the negligence of the person from whom recovery is sought. Any damages allowed shall be diminished in proportion to the amount of negligence attributable to the person who is seeking recovery.\" What is the appropriate judgment in this case?",
+        "A car and a truck collided with each other at an intersection, resulting in injuries to both drivers. Each driver filed a negligence lawsuit against the other. The jury, after trial, concluded that both drivers were liable for negligence and valued the truck driver's injuries at $10,000 and the car driver's injuries at $8,000. The fault for the accident was divided equally\u201450 percent to the truck driver and 50 percent to the car driver. Assume that the applicable jurisdiction has a statute in force that states: \"Contributory negligence shall not bar recovery in an action to recover damages for negligence resulting in injury to person or property if such negligence was not as great as the negligence of the person from whom recovery is sought. Any damages allowed shall be diminished in proportion to the amount of negligence attributable to the person who is seeking recovery.\" Which of the following constitutes the proper judgment in this case?"
+      ]
+    },
+    "mmlupro_104434": {
+      "source_question": "Summer, a single individual, had a net operating loss of $20,000 three years ago. A Code Sec. 1244 stock loss made up three-fourths of that loss. Summer had no taxable income from that year until the current year. In the current year, Summer has gross income of $80,000 and sustains another loss of $50,000 on Code Sec. 1244 stock. Assuming that Summer can carry the entire $20,000 net operating loss to the current year, what is the amount and character of the Code Sec. 1244 loss that Summer can deduct for the current year?",
+      "variants": [
+        "Three years ago, Summer, who files as a single taxpayer, incurred a net operating loss totaling $20,000, of which three-fourths was attributable to a Code Sec. 1244 stock loss. From that year through the year preceding the current year, Summer had no taxable income. In the current year, Summer earns gross income of $80,000 and suffers an additional $50,000 loss on Code Sec. 1244 stock. Given the assumption that the full $20,000 net operating loss can be carried forward to the current year, what is the amount and character of the Code Sec. 1244 loss deductible by Summer in the current year?",
+        "It is known that Summer, an unmarried individual, sustained a $20,000 net operating loss three years ago, three-fourths of which consisted of a loss on Code Sec. 1244 stock. Between that year and the current year, Summer reported no taxable income. During the current year, Summer receives $80,000 in gross income and experiences a further Code Sec. 1244 stock loss of $50,000. Assuming the entire $20,000 net operating loss is eligible to be carried to the current year, what amount and character of Code Sec. 1244 loss may Summer deduct in the current year?",
+        "Summer is a single filer who, three years ago, had a net operating loss of $20,000 \u2014 three-fourths of which was due to a Code Sec. 1244 stock loss. No taxable income was generated by Summer from that year up until the current year. In the current year, gross income of $80,000 is earned by Summer, who also sustains an additional $50,000 loss on Code Sec. 1244 stock. Under the assumption that the full $20,000 net operating loss may be carried forward to the current year, determine the deductible amount and character of Summer's Code Sec. 1244 loss for the current year."
+      ]
+    },
+    "mmlupro_092527": {
+      "source_question": "A proficient engineer can easily design skeletal structures that are more functional than those currently found in the forelimbs of such diverse mammals as horses, whales, and bats. That the actual forelimbs of these mammals do not seem to be optimally arranged is because",
+      "variants": [
+        "A skilled engineer could readily design skeletal frameworks that function better than the existing forelimb structures found in mammals as varied as horses, whales, and bats. The reason the actual forelimbs of these mammals appear to be less than optimally configured is because",
+        "It is well recognized that a competent engineer would have little difficulty designing skeletal structures superior in function to those present in the forelimbs of such diverse mammals as horses, whales, and bats. The fact that the real forelimbs of these animals do not appear to be arranged in an optimal manner is because",
+        "An experienced engineer is capable of easily devising skeletal structures that outperform, in terms of functionality, the forelimb structures currently observed in mammals as different from one another as horses, whales, and bats. The apparent suboptimal arrangement of the actual forelimbs in these mammals is due to the fact that"
+      ]
+    },
+    "mmlupro_022470": {
+      "source_question": "A point light source is on the axis of a convergent lens, and an image is formed 25 cm from the lens on the other side. When a second lens is placed in contact with the first, the image is formed 40 cm from the combination on the side opposite the source. What is the focal length of the second lens?",
+      "variants": [
+        "A point light source lies along the axis of a converging lens, producing an image 25 cm away from the lens on the opposite side. If a second lens is placed in contact with the first, the image shifts to 40 cm from the lens combination on the side away from the source. Determine the focal length of the second lens.",
+        "It is given that a point source of light is positioned on the axis of a convergent lens and that an image forms at a distance of 25 cm from the lens on the far side. When a second lens is brought into contact with the first lens, the resulting image appears 40 cm from the combined lenses on the side opposite the source. What is the focal length of this second lens?",
+        "Consider a convergent lens with a point light source on its axis; the image produced is located 25 cm from the lens on the side opposite the source. A second lens is then placed in contact with the first, and the image now forms 40 cm from the two-lens combination, again on the side opposite the source. Find the focal length of the second lens."
+      ]
+    },
+    "mmlupro_025723": {
+      "source_question": "An electron is separated from a proton by a dis-tance of 10^\\rule{1em}{1pt}10 m. What is the gravitational and electro-static potential energy due to the proton at the position of the electron? How much work is required against each field to move the electron to a position of separation 5 \u00d7 10^\\rule{1em}{1pt}10 m?",
+      "variants": [
+        "Consider an electron that is positioned at a distance of 10^{-10} m from a proton. What are the gravitational and electrostatic potential energies due to the proton at the electron's location? How much work must be done against each field in order to move the electron to a new separation distance of 5 \u00d7 10^{-10} m?",
+        "It is given that a proton and an electron are separated by a distance of 10^{-10} m. Determine the gravitational potential energy and the electrostatic potential energy produced by the proton at the position where the electron is located. What amount of work is required against each respective field to increase the separation between the electron and the proton to 5 \u00d7 10^{-10} m?",
+        "An electron is located at a distance of 10^{-10} m from a proton. Calculate both the gravitational and the electrostatic potential energy at the electron's position due to the proton. Additionally, find the work that must be performed against each of these fields to move the electron so that the separation becomes 5 \u00d7 10^{-10} m."
+      ]
+    },
+    "mmlupro_048298": {
+      "source_question": "A 220-volt, 60-hertz, 10-hp, single-phase induction motor operates at an efficiency of 86% and a power factor of 90%. What capacity should be placed in parallel with the motor so that the feeder supplying the motor will operate at unity power factor?",
+      "variants": [
+        "A single-phase induction motor rated at 220 volts, 60 hertz, and 10 horsepower runs with an efficiency of 86% and a power factor of 90%. What capacitance should be connected in parallel with this motor so that the feeder supplying it operates at unity power factor?",
+        "Consider a 10-hp single-phase induction motor operating on a 220-volt, 60-hertz supply, with an efficiency of 86% and a power factor of 0.90. It is required to determine the capacity of the capacitor that must be placed in parallel with the motor to correct the power factor of the supply feeder to unity.",
+        "It is given that a single-phase induction motor \u2014 rated 220 V, 60 Hz, and 10 hp \u2014 has an operating efficiency of 86% and a power factor of 90%. What value of capacitance connected in parallel with the motor would cause the feeder serving the motor to operate at a unity power factor?"
+      ]
+    },
+    "mmlupro_002844": {
+      "source_question": "Let $X_1, X_2, \\ldots$ be a sequence of independent indetically distributed random variables drawn according to the probability mass function $p(x) = N(0,1)$. Let $q(x)=N(1,1)$ be another probability mass function. Use natural logarithm to evaluate $\\lim -\\frac{1}{n}\\log{q(X_1,X_2,\\ldots,X_n)}$ as $n \\to \\infty$.",
+      "variants": [
+        "Consider a sequence $X_1, X_2, \\ldots$ of independent and identically distributed random variables sampled from the distribution $p(x) = N(0,1)$. Let $q(x) = N(1,1)$ denote a second probability mass function. Using the natural logarithm, determine the value of $\\lim_{n \\to \\infty} -\\frac{1}{n}\\log q(X_1, X_2, \\ldots, X_n)$.",
+        "It is given that $X_1, X_2, \\ldots$ are i.i.d. random variables drawn from the probability mass function $p(x) = N(0,1)$, and that $q(x) = N(1,1)$ is another probability mass function. Evaluate, using the natural logarithm, the limit $\\lim_{n \\to \\infty} \\left(-\\frac{1}{n} \\log q(X_1, X_2, \\ldots, X_n)\\right)$.",
+        "Suppose that $X_1, X_2, \\ldots$ is a sequence of independent identically distributed random variables with probability mass function $p(x) = N(0,1)$. Another probability mass function is defined as $q(x) = N(1,1)$. Using natural logarithms, find the value to which $-\\frac{1}{n}\\log q(X_1, X_2, \\ldots, X_n)$ converges as $n \\to \\infty$."
+      ]
+    },
+    "mmlupro_107049": {
+      "source_question": "The tendency for migration to decrease with distance is called",
+      "variants": [
+        "The phenomenon whereby migration tends to diminish as distance increases is referred to as",
+        "It is known that the tendency of migration to decline with increasing distance is called",
+        "According to established geographic principles, the pattern in which migration decreases as distance grows is termed"
+      ]
+    },
+    "mmlupro_109053": {
+      "source_question": "'Eyeballing' is a technique that involves:",
+      "variants": [
+        "The technique known as 'eyeballing' is one that involves:",
+        "'Eyeballing' refers to a technique that entails:",
+        "There is a technique called 'eyeballing,' which involves:"
+      ]
+    },
+    "mmlupro_027558": {
+      "source_question": "Nitrogen reacts with hydrogen to form ammonia (NH_3). The weight-percent of nitrogen in ammonia is 82.25. The atomic weight of hydrogen is 1.008. Calculate the atomic weight of nitrogen.",
+      "variants": [
+        "When nitrogen combines with hydrogen, ammonia (NH_3) is produced. It is known that the weight-percent of nitrogen in ammonia is 82.25 and that hydrogen has an atomic weight of 1.008. Determine the atomic weight of nitrogen.",
+        "Ammonia (NH_3) is formed by the reaction of nitrogen with hydrogen. The atomic weight of hydrogen is 1.008, and nitrogen constitutes 82.25 weight-percent of ammonia. Using this information, calculate nitrogen's atomic weight.",
+        "According to established chemical knowledge, nitrogen and hydrogen react to produce ammonia (NH_3). Hydrogen has an atomic weight of 1.008, and the weight-percent of nitrogen in ammonia is 82.25. What is the atomic weight of nitrogen?"
+      ]
+    },
+    "mmlupro_015520": {
+      "source_question": "Two masses m_1 = 5 kg and m_2 = 10 kg have velocities u^\\ding{217}_1= 2m/sec in the +x direction and u^\\ding{217}_2= 4 m/sec in the +y direction. They collide and stick together. What is their final velocity after collision?",
+      "variants": [
+        "A mass m_1 of 5 kg moving at 2 m/sec in the +x direction and a mass m_2 of 10 kg moving at 4 m/sec in the +y direction collide and stick together. What is the final velocity of the combined mass after the collision?",
+        "Consider two objects: one with mass 5 kg traveling at 2 m/sec along the positive x-axis, and another with mass 10 kg traveling at 4 m/sec along the positive y-axis. Upon collision, they stick together. Determine their final velocity after the collision.",
+        "It is given that a 5 kg mass has a velocity of 2 m/sec in the +x direction and a 10 kg mass has a velocity of 4 m/sec in the +y direction. The two masses collide and become stuck together. What is the resulting velocity of the combined object after the collision?"
+      ]
+    },
+    "mmlupro_065869": {
+      "source_question": "A 43-year-old female presents to the office with a\u00a02-month\u00a0history of heat intolerance, weight loss, tachycardia, and diffuse goiter. Examination reveals exophthalmos, inflammation of the periorbital tissue and conjunctivae, a heart rate of 140/min, and warm, velvety skin. An MRI of the head and orbits will most likely reveal ",
+      "variants": [
+        "A female patient aged 43 visits the office reporting a two-month history of heat intolerance, weight loss, tachycardia, and diffuse goiter. Physical examination shows exophthalmos, periorbital tissue and conjunctival inflammation, a heart rate of 140 beats per minute, and skin that is warm and velvety. An MRI of the head and orbits would most likely show",
+        "It is noted that a 43-year-old woman presents at the office with symptoms lasting 2 months, including heat intolerance, weight loss, tachycardia, and diffuse goiter. On examination, exophthalmos is observed along with inflammation of the periorbital tissue and conjunctivae, a pulse of 140/min, and warm, velvety skin. The most likely finding on an MRI of the head and orbits is",
+        "Presenting to the office is a 43-year-old female who has experienced heat intolerance, weight loss, tachycardia, and diffuse goiter over the past two months. Her examination is notable for exophthalmos, conjunctival and periorbital tissue inflammation, a heart rate measured at 140 per minute, and skin that is warm and velvety in texture. An MRI of the head and orbits is most likely to reveal"
+      ]
+    },
+    "mmlupro_056264": {
+      "source_question": "Compute the field intensity midway between two point charges; number 1 of + 30\\mucoulombs(microcoulombs), number2 of + 40\\mucoulombs, when the charges are 10 cm apartin air.",
+      "variants": [
+        "Determine the electric field intensity at the midpoint between two point charges separated by 10 cm in air, where charge 1 is +30 microcoulombs and charge 2 is +40 microcoulombs.",
+        "Two point charges are placed 10 cm apart in air: the first carries a charge of +30 \u03bcC and the second carries a charge of +40 \u03bcC. Calculate the field intensity at the point midway between them.",
+        "It is required to find the electric field intensity at the halfway point between two point charges in air, given that charge number 1 is +30 microcoulombs, charge number 2 is +40 microcoulombs, and the separation between them is 10 cm."
+      ]
+    },
+    "mmlupro_103687": {
+      "source_question": "Under state law Boca Co. may reimburse the state directly for actual unemployment claims or it may pay 3% of eligible gross wages. Boca believes that actual unemployment claims will be 2% of eligible gross wages and has chosen to reimburse the state. Eligible gross wages are defined as the first $15000 of gross wages paid to each employee. Boca had four employees each of whom earned $20000 during the year. What amount should Boca report as accrued liability for unemployment claims in its year-end balance sheet?",
+      "variants": [
+        "According to state law, Boca Co. has two options: it can either reimburse the state directly for actual unemployment claims or pay 3% of eligible gross wages. Boca estimates that actual unemployment claims will amount to 2% of eligible gross wages and has opted to reimburse the state directly. Eligible gross wages are defined as the first $15,000 of gross wages paid to each employee. During the year, Boca employed four workers, each of whom earned $20,000. What amount should Boca report as an accrued liability for unemployment claims on its year-end balance sheet?",
+        "It is established that, under state law, Boca Co. may either directly reimburse the state for actual unemployment claims or elect to pay 3% of eligible gross wages. The company expects actual unemployment claims to equal 2% of eligible gross wages and has chosen the direct reimbursement option. The first $15,000 of gross wages paid to each employee constitutes eligible gross wages. Each of Boca's four employees earned $20,000 over the course of the year. What accrued liability for unemployment claims should Boca report on its balance sheet at year-end?",
+        "State law permits Boca Co. to either pay 3% of eligible gross wages or reimburse the state directly for actual unemployment claims. Having estimated that actual claims will be 2% of eligible gross wages, Boca has selected direct reimbursement. Eligible gross wages are calculated as the first $15,000 in gross wages paid per employee. Boca employed four individuals during the year, with each one earning $20,000. On its year-end balance sheet, what amount should Boca recognize as an accrued liability for unemployment claims?"
+      ]
+    },
+    "mmlupro_066345": {
+      "source_question": "A 40-year-old woman comes to the physician because of a 6-month history of increased facial hair growth. Her last menstrual period was 4 months ago. She is 165 cm (5 ft 5 in) tall and weighs 70 kg (154 lb); BMI is 26 kg/m2 . Her pulse is 80/min, and blood pressure is 130/82 mm Hg. Physical examination shows temporal balding and coarse dark hair on the upper lip and chin. Pelvic examination shows clitoral enlargement. Her serum testosterone concentration is increased. Serum concentrations of androstenedione, dehydroepiandrosterone, and urinary 17-ketosteroids are within the reference ranges. Ultrasonography of the pelvis shows a 12-cm ovarian mass. Which of the following best describes this mass? ",
+      "variants": [
+        "A woman aged 40 presents to her doctor with a complaint of increasing facial hair over the past six months. Her most recent menstrual period occurred four months prior. She stands 165 cm (5 ft 5 in) tall, weighs 70 kg (154 lb), and has a BMI of 26 kg/m\u00b2. Her pulse rate is 80 beats per minute, and her blood pressure measures 130/82 mm Hg. On physical examination, temporal hair loss is noted along with coarse dark hair on the upper lip and chin. A pelvic exam reveals clitoral enlargement. Her serum testosterone level is elevated, while serum androstenedione, dehydroepiandrosterone, and urinary 17-ketosteroid levels all fall within normal limits. Pelvic ultrasonography identifies a 12-cm mass on the ovary. Which of the following is the best description of this mass?",
+        "It is reported that a 40-year-old female visits her physician due to a 6-month history of progressive growth of facial hair. She has not had a menstrual period for four months. Her height is 165 cm (5 ft 5 in), her weight is 70 kg (154 lb), and her BMI is calculated at 26 kg/m\u00b2. A pulse of 80/min and blood pressure of 130/82 mm Hg are recorded. Physical examination demonstrates balding in the temporal region and coarse, dark hair present on the chin and upper lip. Clitoral enlargement is observed during pelvic examination. Laboratory results show an elevated serum testosterone concentration, whereas androstenedione, dehydroepiandrosterone, and urinary 17-ketosteroid concentrations are all within reference ranges. An ultrasound of the pelvis reveals a 12-cm ovarian mass. Which of the following best characterizes this mass?",
+        "According to the clinical presentation, a 40-year-old woman seeks medical attention for facial hair growth that has been worsening over six months. Four months have passed since her last menstrual period. She measures 165 cm (5 ft 5 in) in height and 70 kg (154 lb) in weight, with a BMI of 26 kg/m\u00b2. Her vitals include a pulse of 80 beats per minute and a blood pressure of 130/82 mm Hg. Examination findings are notable for temporal balding as well as coarse dark hair on the chin and upper lip, and pelvic examination demonstrates enlargement of the clitoris. Serum testosterone is found to be elevated; however, serum levels of androstenedione and dehydroepiandrosterone, along with urinary 17-ketosteroids, remain within the normal reference ranges. Ultrasonography of the pelvis detects an ovarian mass measuring 12 cm. Which of the following most accurately describes this mass?"
+      ]
+    },
+    "mmlupro_018356": {
+      "source_question": "It is found that the image of a distant scene, limited by the light passing through a window, can be focused sharply on a white card held 40 cm from a lens. What is the power of the lens?",
+      "variants": [
+        "When light from a distant scene passes through a window and then through a lens, it is observed that a sharp image can be produced on a white card positioned 40 cm away from the lens. What is the power of this lens?",
+        "A lens is used to focus the image of a faraway scene, with the incoming light restricted by a window opening. It is determined that a clearly focused image forms on a white card held at a distance of 40 cm from the lens. Determine the lens's power.",
+        "According to an observation, light from a distant scene that is limited by passage through a window can be brought to a sharp focus by a lens onto a white card placed 40 cm from it. What power does the lens have?"
+      ]
+    },
+    "mmlupro_008956": {
+      "source_question": "A group of 9 people is split into 3 committees of 3 people. Committees are identical besides of members. In how many ways can this be done?",
+      "variants": [
+        "In how many ways can 9 people be divided into 3 groups of 3, given that the committees are indistinguishable except for their members?",
+        "Consider a set of 9 individuals that must be split into three committees, each consisting of 3 members. The committees have no distinguishing features other than who belongs to them. How many distinct ways can this division be made?",
+        "It is given that 9 people are to be partitioned into 3 committees of equal size (3 members each). Since the committees are identical apart from their membership, how many possible ways are there to accomplish this?"
+      ]
+    },
+    "mmlupro_077652": {
+      "source_question": "The primary advantage of the forced-choice distribution of rated attributes in performance appraisal is that it",
+      "variants": [
+        "The main benefit of using a forced-choice distribution of rated attributes in performance appraisal is that it",
+        "In performance appraisal, the principal advantage of the forced-choice distribution method for rating attributes is that it",
+        "It is recognized that the primary advantage of employing forced-choice distribution of rated attributes within the performance appraisal process is that it"
+      ]
+    },
+    "mmlupro_038952": {
+      "source_question": "An investor sued a corporation for stock fraud. In presenting his case-in-chief, the investor sought to introduce an issue of a newspaper to show the corporation's stock price on that given day. Upon objection by the corporation's attorney, this evidence should be",
+      "variants": [
+        "A corporation was sued by an investor on grounds of stock fraud. During the presentation of his case-in-chief, the investor attempted to introduce a newspaper issue as evidence of the corporation's stock price on a particular day. The corporation's attorney raised an objection to this evidence, which should be",
+        "An investor brought a stock fraud lawsuit against a corporation. While putting forward his case-in-chief, he sought to admit into evidence a copy of a newspaper in order to demonstrate the corporation's stock price on that specific day. When the corporation's counsel objected, this piece of evidence should be",
+        "It is the case that an investor filed a suit alleging stock fraud against a corporation. In the course of presenting his case-in-chief, the investor wished to introduce a newspaper issue for the purpose of establishing the corporation's stock price on the day in question. Following an objection raised by the attorney representing the corporation, this evidence should be"
+      ]
+    },
+    "mmlupro_042870": {
+      "source_question": "Bill, a single man, owned pasture land in Deerwoods, Florida, which he leased to a tenant. He also owned a condominium in Miami, which he held for investment. In his will, he devised the pasture land to his son Tommy and the condominium to his daughter Julie. All other assets would pass equally to Tommy and Julie. Bill met Kathy and married her after she executed a valid prenuptial agreement relinquishing all rights she might otherwise enjoy by marrying Bill. On their Miami honeymoon they drove by the condominium and Kathy declared she'd love to live there. Bill was so happy with Kathy that after the honeymoon he signed and delivered to Kathy a deed conveying the condominium to himself and Kathy as an estate by the entirety and made plans to live in the condominium as soon as the tenant vacated. Bill died the next day. How are the foregoing assets distributed? ",
+      "variants": [
+        "Bill was an unmarried man who owned two properties: a parcel of pasture land in Deerwoods, Florida, which was leased to a tenant, and a condominium in Miami, held as an investment. Under his will, the pasture land was devised to his son Tommy, and the condominium was devised to his daughter Julie. Any remaining assets were to be divided equally between Tommy and Julie. Bill subsequently met Kathy and married her, but only after she signed a valid prenuptial agreement in which she relinquished all rights she might otherwise acquire through the marriage. During their honeymoon in Miami, they drove past the condominium, and Kathy expressed that she would love to live there. Delighted with Kathy, Bill, after the honeymoon, executed and delivered a deed conveying the condominium to himself and Kathy as an estate by the entirety. He also made arrangements to move into the condominium once the tenant moved out. Bill passed away the following day. How should the aforementioned assets be distributed?",
+        "It is known that Bill, a single man, was the owner of pasture land located in Deerwoods, Florida, leased to a tenant, as well as a condominium in Miami that he held for investment purposes. His will provided that the pasture land would go to his son Tommy and the condominium would go to his daughter Julie, with all other assets to be split equally between the two children. Bill later met and married Kathy, who had first executed a valid prenuptial agreement waiving any and all rights she would otherwise be entitled to as Bill's spouse. While honeymooning in Miami, the couple drove past the condominium, and Kathy remarked that she would love to live there. So pleased was Bill with Kathy that, following the honeymoon, he signed and delivered a deed transferring the condominium to himself and Kathy as tenants by the entirety, and he began planning to reside in the condominium after the current tenant vacated. Bill died the very next day. How are the foregoing assets to be distributed?",
+        "According to the established facts, Bill \u2014 at the time an unmarried man \u2014 owned both a parcel of pasture land in Deerwoods, Florida, which he had leased to a tenant, and a Miami condominium that served as an investment property. In his will, Bill devised the pasture land to his son, Tommy, and the condominium to his daughter, Julie, directing that all remaining assets be passed to Tommy and Julie in equal shares. Bill then met Kathy and the two married, but prior to the wedding Kathy executed a valid prenuptial agreement through which she relinquished any rights she might otherwise enjoy by virtue of marrying Bill. On their honeymoon in Miami, they happened to drive by the condominium, at which point Kathy declared she would love to live there. Overjoyed with Kathy, Bill, once the honeymoon concluded, signed and delivered to her a deed conveying the condominium to the two of them as an estate by the entirety, and he made plans for them to move in as soon as the tenant left. Bill died the next day. How should the assets described above be distributed?"
+      ]
+    },
+    "mmlupro_105579": {
+      "source_question": "Which of the following situations would not impair objectivity, integrity, or independence with respect to an audit client?",
+      "variants": [
+        "Which of the following scenarios would fail to compromise objectivity, integrity, or independence in relation to an audit client?",
+        "Among the situations listed below, which one would not undermine the auditor's objectivity, integrity, or independence with regard to an audit client?",
+        "It is asked which of the following circumstances would leave objectivity, integrity, and independence unimpaired with respect to an audit client."
+      ]
+    },
+    "mmlupro_075783": {
+      "source_question": "A couple has six children whose ages are 6, 8, 10, 12, 14, and16. Find the variance in ages.",
+      "variants": [
+        "A couple has six children, aged 6, 8, 10, 12, 14, and 16. Determine the variance of their ages.",
+        "It is known that a couple has six children whose ages are 6, 8, 10, 12, 14, and 16. Calculate the variance in their ages.",
+        "There is a couple with six children, and their ages are 6, 8, 10, 12, 14, and 16. Find the variance of the children's ages."
+      ]
+    },
+    "mmlupro_011426": {
+      "source_question": "Use Poiseuille's Law to calculate the rate of flow in a small human artery where we can take $\\eta=0.027, R=0.008 \\mathrm{~cm}$, $I=2 \\mathrm{~cm}$, and $P=4000$ dynes $/ \\mathrm{cm}^2$.",
+      "variants": [
+        "Apply Poiseuille's Law to determine the flow rate through a small human artery, given the following parameters: viscosity \u03b7 = 0.027, radius R = 0.008 cm, length l = 2 cm, and pressure difference P = 4000 dynes/cm\u00b2.",
+        "It is given that for a small human artery, \u03b7 = 0.027, R = 0.008 cm, I = 2 cm, and P = 4000 dynes/cm\u00b2. Using Poiseuille's Law, calculate the rate of flow in this artery.",
+        "According to Poiseuille's Law, find the rate of flow in a small human artery where the viscosity is taken to be \u03b7 = 0.027, the radius is R = 0.008 cm, the length is I = 2 cm, and the pressure drop is P = 4000 dynes/cm\u00b2."
+      ]
+    },
+    "mmlupro_055790": {
+      "source_question": "Design a steel bar to withstand an axial load of 5500 lbs. based on the Euler load. Assume a factor of safety of 2.5; the length of the column is 222 in.",
+      "variants": [
+        "A steel bar must be designed to resist an axial load of 5500 lbs., using the Euler load as the basis. The factor of safety is to be taken as 2.5, and the column length is 222 in.",
+        "Based on the Euler load, design a steel bar capable of supporting an axial load of 5500 lbs. The column has a length of 222 in., and a safety factor of 2.5 should be assumed.",
+        "It is required to design a steel bar that can withstand an axial load of 5500 lbs., with the design based on the Euler load. Assume that the column is 222 in. long and that a factor of safety of 2.5 applies."
+      ]
+    },
+    "mmlupro_059974": {
+      "source_question": "If 1964 GNP = $622 billion and the average money supply was$155 billion, what was the income velocity of money?",
+      "variants": [
+        "Given that the GNP in 1964 was $622 billion and the average money supply stood at $155 billion, what was the income velocity of money?",
+        "Assuming a 1964 Gross National Product of $622 billion and an average money supply of $155 billion, determine the income velocity of money.",
+        "It is known that in 1964 the GNP amounted to $622 billion while the average money supply was $155 billion. What was the income velocity of money?"
+      ]
+    },
+    "mmlupro_095371": {
+      "source_question": "According to Hume, reason:",
+      "variants": [
+        "In Hume's view, reason:",
+        "As Hume maintained, reason:",
+        "It is known that, according to Hume, reason:"
+      ]
+    },
+    "mmlupro_017877": {
+      "source_question": "For a uniform sphere with moments of inertia I_1 = I_2 = I_3, use the Euler equations to find the equation of motion of the sphere.",
+      "variants": [
+        "Using the Euler equations, determine the equation of motion for a uniform sphere whose moments of inertia satisfy I_1 = I_2 = I_3.",
+        "Consider a uniform sphere with equal principal moments of inertia, I_1 = I_2 = I_3. Apply the Euler equations to derive its equation of motion.",
+        "It is given that a uniform sphere has moments of inertia I_1 = I_2 = I_3; use the Euler equations to obtain the sphere's equation of motion."
+      ]
+    },
+    "mmlupro_091843": {
+      "source_question": "It is observed that the chemical transmission occurring at a synapse is unidirectional that is, the neurotransmitter always travels from thepresynapticaxon to the post-synaptic dendrite . Explain why.",
+      "variants": [
+        "It has been noted that chemical transmission at a synapse occurs in only one direction \u2014 the neurotransmitter invariably moves from the presynaptic axon toward the post-synaptic dendrite. Provide an explanation for this phenomenon.",
+        "According to observations, the process of chemical transmission at a synapse is unidirectional, meaning that neurotransmitters are always released from the presynaptic axon and travel to the post-synaptic dendrite. Why is this the case?",
+        "One well-established observation is that synaptic chemical transmission proceeds in a single direction: neurotransmitters consistently travel from the presynaptic axon to the post-synaptic dendrite. Explain the reason behind this unidirectional transmission."
+      ]
+    },
+    "mmlupro_101029": {
+      "source_question": "This question refers to the following information.\nAll this while the Indians came skulking about them, and would sometimes show themselves aloof off, but when any approached near them, they would run away; and once they stole away their tools where they had been at work and were gone to dinner. But about the 16th of March, a certain Indian came boldly amongst them and spoke to them in broken English, which they could well understand but marveled at it. At length they understood by discourse with him, that he was not of these parts, but belonged to the eastern parts where some English ships came to fish, with whom he was acquainted and could name sundry of them by their names, amongst whom he had got his language. He became profitable to them in acquainting them with many things concerning the state of the country in the east parts where he lived, which was afterwards profitable unto them; as also of the people here, of their names, number and strength, of their situation and distance from the place, and who was chief amongst them. His name was Samoset. He told them also of another Indian whose name was Squanto, a native of this place, who had been in England and could speak better English than himself.\n\u2014William Bradford, History of Plymouth Plantation\nSamoset and Squanto can most directly be compared to whom?",
+      "variants": [
+        "The following passage provides context for the question.\nDuring this entire period, the Indians would sneak around the settlers, occasionally showing themselves at a distance but fleeing whenever anyone drew near. On one occasion, they even stole the settlers' tools while the group had left their work site to eat dinner. However, around the 16th of March, a particular Indian walked boldly into their midst and addressed them in broken English, which they could understand but found astonishing. Through extended conversation with him, they learned that he was not from the local area but rather from the eastern regions, where English fishing vessels would visit. He had become familiar with several of these English sailors and could identify many of them by name, having learned the language from them. He proved valuable by sharing knowledge about the conditions of the eastern country where he resided, information that later benefited the settlers greatly. He also informed them about the local people \u2014 their names, population, military strength, locations, distances from the settlement, and their leadership. His name was Samoset. Additionally, he told them of another Indian called Squanto, a native of that very place, who had traveled to England and spoke English more fluently than Samoset himself.\n\u2014William Bradford, History of Plymouth Plantation\nTo whom can Samoset and Squanto most directly be compared?",
+        "This question is based on the passage below.\nThroughout this time, the native people crept around the settlers, occasionally appearing at a distance yet running away whenever anyone came close. Once, they stole the settlers' tools while the workers had gone to have their midday meal. Then, on approximately the 16th of March, one Indian approached them with confidence and spoke to them in halting English that they could comprehend, though they were greatly surprised by it. After conversing with him at length, they came to understand that he did not originate from the nearby region but from the eastern parts of the country, where English ships regularly came to fish. He had gotten to know these fishermen and could refer to a number of them by name; it was from them that he had acquired his English. He turned out to be of great use, as he shared much about the state of the eastern country where he lived \u2014 knowledge that would later prove beneficial \u2014 and about the indigenous people nearby: their names, numbers, strength, where they were situated, how far away they were, and who served as their leaders. The man's name was Samoset. He further mentioned another Indian named Squanto, who was originally from this very place, had been to England, and could speak English with greater skill than Samoset could.\n\u2014William Bradford, History of Plymouth Plantation\nWith whom can Samoset and Squanto be most directly compared?",
+        "It is known that the following excerpt provides the basis for this question.\nDuring the whole of this time, the Indians lurked around the settlers, sometimes making themselves visible from afar but always running off when approached. At one point, they made off with the settlers' tools while the group had stepped away from their work for dinner. Yet around March 16th, a single Indian came forward boldly among them, speaking in broken English that, while surprising, was well understood by the settlers. Over the course of a lengthy discussion, they discovered he was originally from the eastern regions rather than the local area. English ships frequented those eastern parts for fishing, and he had come to know several of the sailors, being able to name a good number of them \u2014 this being how he had picked up the English language. His knowledge proved highly useful: he shared detailed information about conditions in the eastern country where he dwelt, which later served the settlers well. He also described the nearby indigenous peoples \u2014 their names, numbers, military capability, locations and distances from the settlement, and who held authority among them. This man's name was Samoset. He also spoke of a second Indian, Squanto by name, who was a native of the settlers' own area, had visited England, and possessed a stronger command of English than Samoset himself.\n\u2014William Bradford, History of Plymouth Plantation\nTo whom are Samoset and Squanto most directly comparable?"
+      ]
+    },
+    "mmlupro_063608": {
+      "source_question": "If GNP = $2,000 billion and the velocity of money is 4, what isthe money supply?",
+      "variants": [
+        "Given that the GNP is $2,000 billion and the velocity of money equals 4, what is the money supply?",
+        "It is known that the GNP amounts to $2,000 billion and that the velocity of money is 4. What would the money supply be?",
+        "Assuming a GNP of $2,000 billion and a money velocity of 4, determine the money supply."
+      ]
+    },
+    "mmlupro_033719": {
+      "source_question": "What would be the final partial pressure of oxygen in the following experiment? A collapsed polyethylene bag of 30 liters capacity is partially blown up by the addition of 10 liters of nitrogen gas measured at 0.965atmand 298\u00b0K. Subsequently, enough oxygen is pumped into the bag so that, at 298\u00b0K and external pressure of 0.990atm, the bag contains a full 30 liters, (assume ideal behavior.)",
+      "variants": [
+        "Consider the following experiment: A collapsed polyethylene bag with a capacity of 30 liters is partially inflated by introducing 10 liters of nitrogen gas, measured at 0.965 atm and 298 K. Afterward, sufficient oxygen is added to the bag such that, at a temperature of 298 K and an external pressure of 0.990 atm, the bag is fully expanded to its 30-liter capacity. Assuming ideal gas behavior, what is the final partial pressure of oxygen?",
+        "It is known that a polyethylene bag, initially collapsed and having a total capacity of 30 liters, is first partially inflated with 10 liters of nitrogen gas at 0.965 atm and 298\u00b0K. Enough oxygen is then pumped in so that the bag reaches its full 30-liter volume at 298\u00b0K under an external pressure of 0.990 atm. Assuming the gases behave ideally, determine the final partial pressure of oxygen in the bag.",
+        "Suppose a deflated polyethylene bag that can hold up to 30 liters is partly filled by adding nitrogen gas \u2014 specifically, 10 liters measured at a pressure of 0.965 atm and a temperature of 298\u00b0K. Oxygen is subsequently introduced until the bag is completely filled to 30 liters at 298\u00b0K, with the external pressure being 0.990 atm. Under the assumption of ideal gas behavior, what would the partial pressure of oxygen be at the end of the experiment?"
+      ]
+    },
+    "mmlupro_034647": {
+      "source_question": "The solubility product constant of magnesium hydroxide is 8.9 \u00d7 10-^12 , calculate its solubility in (a) water and (b) .05M NaOH.",
+      "variants": [
+        "Given that the solubility product constant (Ksp) of magnesium hydroxide is 8.9 \u00d7 10\u207b\u00b9\u00b2, determine its solubility in (a) pure water and (b) a 0.05 M NaOH solution.",
+        "It is known that magnesium hydroxide has a Ksp value of 8.9 \u00d7 10\u207b\u00b9\u00b2. Calculate the solubility of magnesium hydroxide in (a) water and (b) 0.05 M sodium hydroxide.",
+        "The Ksp of Mg(OH)\u2082 is reported to be 8.9 \u00d7 10\u207b\u00b9\u00b2. Based on this value, find its solubility in (a) water and (b) a sodium hydroxide solution with a concentration of 0.05 M."
+      ]
+    },
+    "mmlupro_049420": {
+      "source_question": "Given the following data for diamond and graphite at 25\u00b0C and 1atm Diamond Graphite Units g 1.233 0 Btu / lb mol - \u00b0R v 0.00456 0.00712 ft^3/lbm \\beta_T 0.16 \u00d7 10^-6 3.0 \u00d7 10^-6 atm^-1 determine the pressure that is needed to make diamonds from graphite at 25\u00b0C.",
+      "variants": [
+        "Using the following thermodynamic properties measured at 25\u00b0C and 1 atm for diamond and graphite \u2014 Gibbs free energy: diamond 1.233 Btu/(lb mol\u00b7\u00b0R), graphite 0 Btu/(lb mol\u00b7\u00b0R); specific volume: diamond 0.00456 ft\u00b3/lbm, graphite 0.00712 ft\u00b3/lbm; isothermal compressibility: diamond 0.16 \u00d7 10\u207b\u2076 atm\u207b\u00b9, graphite 3.0 \u00d7 10\u207b\u2076 atm\u207b\u00b9 \u2014 calculate the pressure required to convert graphite into diamond at 25\u00b0C.",
+        "It is known that at 25\u00b0C and 1 atm, diamond and graphite have the following properties: g = 1.233 and 0 Btu/(lb mol\u00b7\u00b0R) respectively, v = 0.00456 and 0.00712 ft\u00b3/lbm respectively, and \u03b2_T = 0.16 \u00d7 10\u207b\u2076 and 3.0 \u00d7 10\u207b\u2076 atm\u207b\u00b9 respectively. Based on these data, find the pressure at which graphite can be transformed into diamonds at a temperature of 25\u00b0C.",
+        "Consider the data below, provided for both diamond and graphite under conditions of 25\u00b0C and 1 atm. The Gibbs free energy values are 1.233 Btu/(lb mol\u00b7\u00b0R) for diamond and 0 for graphite; the specific volumes are 0.00456 ft\u00b3/lbm for diamond and 0.00712 ft\u00b3/lbm for graphite; the isothermal compressibilities are 0.16 \u00d7 10\u207b\u2076 atm\u207b\u00b9 for diamond and 3.0 \u00d7 10\u207b\u2076 atm\u207b\u00b9 for graphite. Determine what pressure is necessary to produce diamonds from graphite at 25\u00b0C."
+      ]
+    },
+    "mmlupro_016212": {
+      "source_question": "A silicate crown prism of apex angle 15\u00b0 is to be combined with a prism of silicate flint so as to be achromatic for rays of wavelength 400m\\muand 700m\\mu. For crown glass, n_400 = 1.522, n_700 = 1.504. For flint glass, n_400 = 1.662, n_700 = 1.613 (n denotes the index of refraction of the prism). Find the apex angle of the flint prism.",
+      "variants": [
+        "A crown glass (silicate) prism with an apex angle of 15\u00b0 is to be paired with a silicate flint glass prism to achieve achromatism for wavelengths of 400 m\u03bc and 700 m\u03bc. The refractive indices for the crown glass are n_400 = 1.522 and n_700 = 1.504, while for the flint glass they are n_400 = 1.662 and n_700 = 1.613. Determine the apex angle of the flint glass prism.",
+        "It is given that a silicate crown prism having an apex angle of 15\u00b0 is combined with a silicate flint prism to form an achromatic combination for rays at wavelengths 400 m\u03bc and 700 m\u03bc. The indices of refraction for the crown glass are 1.522 at 400 m\u03bc and 1.504 at 700 m\u03bc; for the flint glass, the indices are 1.662 at 400 m\u03bc and 1.613 at 700 m\u03bc. What is the apex angle of the flint prism?",
+        "Consider a silicate crown glass prism whose apex angle is 15\u00b0, which is to be combined with a prism made of silicate flint glass such that the combination is achromatic for light of wavelengths 400 m\u03bc and 700 m\u03bc. According to the given data, the crown glass has refractive indices n_400 = 1.522 and n_700 = 1.504, and the flint glass has refractive indices n_400 = 1.662 and n_700 = 1.613. Find the required apex angle of the flint glass prism."
+      ]
+    },
+    "mmlupro_010603": {
+      "source_question": "Some group (G, 0) is known to be abelian. Then which one of the following is TRUE for G?",
+      "variants": [
+        "It is given that a certain group (G, 0) is abelian. Based on this, which of the following statements holds true for G?",
+        "Consider a group (G, 0) that is known to be abelian. Which one of the following is a true statement about G?",
+        "According to the given information, the group (G, 0) is abelian. Determine which of the following is TRUE regarding G."
+      ]
+    },
+    "mmlupro_098163": {
+      "source_question": " According to Singer, the conclusions argued for in \"all animals are equal\" flow from which of the following principles alone?",
+      "variants": [
+        "In Singer's view, from which of the following principles alone do the conclusions argued for in \"All Animals Are Equal\" flow?",
+        "Which of the following principles alone, according to Singer, gives rise to the conclusions that are argued for in \"All Animals Are Equal\"?",
+        "It is stated by Singer that the conclusions put forward in \"All Animals Are Equal\" follow from which of the following principles on its own?"
+      ]
+    },
+    "mmlupro_087222": {
+      "source_question": "Cancer cells grown in culture are similar to normal cells grown in culture in that they",
+      "variants": [
+        "When cancer cells are cultivated in culture, they resemble normal cells grown under the same conditions in that they",
+        "It is known that cancer cells maintained in culture share a similarity with normal cultured cells, specifically in that they",
+        "Cultured cancer cells are comparable to their normal counterparts grown in culture with respect to the fact that they"
+      ]
+    },
+    "mmlupro_044260": {
+      "source_question": "A resident lived in a house across the street from a small office building. One of the offices in that building was that of a criminal defense lawyer. The resident hated the idea of the lawyer's office being close to her home. She felt that it meant dangerous criminals were coming and going in her neighborhood. The resident spent a lot of time looking out her window, trying to figure out which people going in and out of the office building were criminals, and imagining what sorts of crimes they had committed. The resident eventually decided that she needed to drive the lawyer out of the neighborhood. She made a telephone call to the lawyer and said, \"You are scum, and so are all of your clients. I know that you're conspiring to commit crimes with all those bad people you represent. The police should arrest you and put you in jail with your clients. \" The lawyer was very upset by what he heard. If the lawyer asserts a claim for defamation against the resident based on the telephone call, he will most likely",
+      "variants": [
+        "A woman resided in a house situated directly across the street from a small office building. Among the offices in that building was one belonging to a criminal defense attorney. The woman despised the proximity of the attorney's office to her home, believing it meant that dangerous criminals were frequently passing through her neighborhood. She spent considerable time watching from her window, attempting to identify which individuals entering and exiting the building were criminals and imagining the types of offenses they might have committed. Eventually, the woman resolved to force the attorney out of the neighborhood. She placed a phone call to the attorney, stating: \"You are scum, and so are all of your clients. I know you're conspiring to commit crimes with all those bad people you represent. The police should arrest you and lock you up in jail alongside your clients.\" The attorney was deeply distressed by these remarks. If the attorney brings a defamation claim against the woman based on this telephone call, he will most likely",
+        "It is known that a resident lived in a house on the opposite side of the street from a small office building, one of whose offices belonged to a criminal defense lawyer. The resident harbored strong resentment toward the lawyer's office being so near her home, as she believed this meant that dangerous criminals were regularly coming and going through her neighborhood. She devoted a great deal of time to observing from her window, trying to determine which people entering and leaving the office building were criminals and speculating about what crimes they had committed. The resident ultimately concluded that she had to drive the lawyer out of the area. She called the lawyer on the telephone and told him, \"You are scum, and so are all of your clients. I know that you're conspiring to commit crimes with all those bad people you represent. The police should arrest you and put you in jail with your clients.\" The lawyer was extremely upset by what was said to him. Should the lawyer assert a defamation claim against the resident on the basis of that phone call, he will most likely",
+        "Across the street from a small office building, a resident occupied a house. A criminal defense lawyer maintained one of the offices in that building. The resident loathed having the lawyer's office situated so close to where she lived, convinced that it brought dangerous criminals into her neighborhood on a regular basis. Much of her time was spent peering out her window, endeavoring to distinguish which people going in and out of the office building were criminals and conjuring up the kinds of crimes they might have committed. She finally made up her mind that the lawyer needed to be driven from the neighborhood. Picking up the phone, she called the lawyer and declared, \"You are scum, and so are all of your clients. I know you're conspiring to commit crimes with all those bad people you represent. The police should arrest you and put you in jail with your clients.\" What the resident said left the lawyer very upset. In the event that the lawyer files a defamation claim against the resident based on the telephone call, he will most likely"
+      ]
+    },
+    "mmlupro_099841": {
+      "source_question": "The possibility that Homo erectus possessed an aesthetic sense and may have created \u201cart\u201d is suggested by:",
+      "variants": [
+        "The idea that Homo erectus may have had an aesthetic sense and could have produced \"art\" is indicated by:",
+        "Evidence suggesting that Homo erectus possessed an appreciation for aesthetics and may have been capable of creating \"art\" comes from:",
+        "It has been proposed that Homo erectus had an aesthetic sensibility and might have engaged in the creation of \"art,\" a notion supported by:"
+      ]
+    },
+    "mmlupro_001039": {
+      "source_question": "Statement 1 | If a group has an element of order 10, then it has elements of orders 1, 2, and 5. Statement 2 | If a group has an element of order 2 and an element of order 3, then it has an element of order 6.",
+      "variants": [
+        "Statement 1: A group that contains an element of order 10 necessarily contains elements of orders 1, 2, and 5. Statement 2: A group that contains both an element of order 2 and an element of order 3 necessarily contains an element of order 6.",
+        "It is known that Statement 1 asserts the following: if a group has an element whose order is 10, then it also has elements whose orders are 1, 2, and 5. Statement 2 asserts that if a group possesses an element of order 2 as well as an element of order 3, then it possesses an element of order 6.",
+        "According to Statement 1, the existence of an order-10 element in a group implies the existence of elements of orders 1, 2, and 5 in that group. According to Statement 2, having an element of order 2 and an element of order 3 in a group implies that the group has an element of order 6."
+      ]
+    },
+    "mmlupro_096590": {
+      "source_question": "Which of the following propositions is an immediate (one-step) consequence in PL of the given premises?\n(A \u2228 B) \u2283 (C \u2228 D)\nA \u2228 B\n~C",
+      "variants": [
+        "Which of the following propositions can be derived as an immediate (one-step) consequence in propositional logic from the premises below?\n(A \u2228 B) \u2283 (C \u2228 D)\nA \u2228 B\n~C",
+        "Given the premises (A \u2228 B) \u2283 (C \u2228 D), A \u2228 B, and ~C, which of the listed propositions is a one-step immediate consequence in PL?",
+        "It is asked: from the following premises in propositional logic\u2014(A \u2228 B) \u2283 (C \u2228 D), A \u2228 B, ~C\u2014which of the propositions listed below follows as an immediate, single-step consequence?"
+      ]
+    },
+    "mmlupro_105328": {
+      "source_question": "Anna feels that she is confusing \"who\" and \"whom\" in her narrative. She wants to correct her error. Which of the following reference materials will best help Anna accomplish such a task?",
+      "variants": [
+        "Anna believes she is mixing up \"who\" and \"whom\" in her narrative and wishes to fix this mistake. Which of the following reference materials would be most useful for helping Anna achieve this goal?",
+        "It is the case that Anna feels she has been confusing the usage of \"who\" and \"whom\" in her narrative. She would like to correct this error. Of the following reference materials, which one would best assist Anna in accomplishing this task?",
+        "In her narrative, Anna senses that she is incorrectly using \"who\" and \"whom.\" She wants to remedy this mistake. Which reference material from the options below would be most helpful for Anna to complete such a correction?"
+      ]
+    },
+    "mmlupro_078032": {
+      "source_question": "Some contemporary intelligence researchers like Howard Gardner and Robert Sternberg complain that schools focus too much on",
+      "variants": [
+        "Certain modern intelligence researchers, such as Howard Gardner and Robert Sternberg, argue that schools place excessive emphasis on",
+        "Howard Gardner and Robert Sternberg, among other contemporary researchers in the field of intelligence, have voiced concerns that educational institutions concentrate too heavily on",
+        "It is noted that some present-day scholars of intelligence, including Howard Gardner and Robert Sternberg, have criticized schools for focusing too much on"
+      ]
+    },
+    "mmlupro_056825": {
+      "source_question": "What is gross private domestic investment?",
+      "variants": [
+        "What does the term gross private domestic investment refer to?",
+        "It is asked: what is meant by gross private domestic investment?",
+        "Could you define gross private domestic investment?"
+      ]
+    },
+    "mmlupro_036175": {
+      "source_question": "Calculate the heat transferred when 250J of work is done on a system consisting of 1 mole of an ideal gas. At constant temperature, \\DeltaE = 0 for the expansion of an ideal gas.",
+      "variants": [
+        "Determine the heat transfer for a system of 1 mole of an ideal gas when 250 J of work is performed on it. It is known that for the expansion of an ideal gas at constant temperature, \u0394E = 0.",
+        "Given that \u0394E = 0 for an ideal gas expanding at constant temperature, find the heat transferred when 250 J of work is done on a system containing one mole of an ideal gas.",
+        "For a system composed of 1 mole of an ideal gas, calculate the heat transferred when 250 J of work is done on the system. According to established principles, the internal energy change (\u0394E) equals zero during the isothermal expansion of an ideal gas."
+      ]
+    },
+    "mmlupro_035183": {
+      "source_question": "What is the pH of 0.500 M NaHSO_3? TheK_eqfor NaHSO_3 is 1.26 \u00d7 10^-2.",
+      "variants": [
+        "Determine the pH of a 0.500 M solution of NaHSO\u2083, given that the equilibrium constant (K_eq) for NaHSO\u2083 is 1.26 \u00d7 10\u207b\u00b2.",
+        "Given that NaHSO\u2083 has an equilibrium constant of 1.26 \u00d7 10\u207b\u00b2, what is the pH of a solution with a concentration of 0.500 M NaHSO\u2083?",
+        "It is known that the K_eq for NaHSO\u2083 equals 1.26 \u00d7 10\u207b\u00b2. Calculate the pH of a 0.500 M NaHSO\u2083 solution."
+      ]
+    },
+    "mmlupro_016005": {
+      "source_question": "Titan, the largest moon of Saturn, has a mean orbital radius of 1.22x10^9 m. The orbital period of Titan is 15.95 days. Hyperion, another moon of Saturn, orbits at a mean radius of 1.48x10^9 m. Use Kepler's third law of planetary motion to predict the orbital period of Hyperion in days.",
+      "variants": [
+        "Titan, Saturn's largest moon, has a mean orbital radius of 1.22\u00d710^9 m and an orbital period of 15.95 days. Another moon of Saturn, Hyperion, orbits at a mean radius of 1.48\u00d710^9 m. Using Kepler's third law of planetary motion, predict Hyperion's orbital period in days.",
+        "It is known that Titan, the largest of Saturn's moons, orbits at a mean radius of 1.22\u00d710^9 m with an orbital period of 15.95 days. Hyperion, which is another Saturnian moon, has a mean orbital radius of 1.48\u00d710^9 m. Apply Kepler's third law of planetary motion to determine the orbital period of Hyperion in days.",
+        "Saturn's largest moon, Titan, has an orbital period of 15.95 days and orbits at a mean radius of 1.22\u00d710^9 m. Hyperion, another of Saturn's moons, has a mean orbital radius of 1.48\u00d710^9 m. Based on Kepler's third law of planetary motion, what is the predicted orbital period of Hyperion in days?"
+      ]
+    },
+    "mmlupro_103013": {
+      "source_question": "What is the structure of the United Nations Security Council?",
+      "variants": [
+        "How is the United Nations Security Council structured?",
+        "It is worth examining the organizational structure of the UN Security Council.",
+        "According to established frameworks, what constitutes the structure of the United Nations Security Council?"
+      ]
+    },
+    "mmlupro_106936": {
+      "source_question": "On January 1, a company enters into an operating lease for office space and receives control of the property to make leasehold improvements. The company begins alterations to the property on March 1 and the company\u2019s staff moves into the property on May 1. The monthly rental payments begin on July 1. The recognition of rental expense for the new offices should begin in which of the following months?",
+      "variants": [
+        "A company signs an operating lease for office space on January 1 and gains control of the property for the purpose of making leasehold improvements. Alterations to the property commence on March 1, and the company's employees move into the space on May 1. Monthly rent payments are scheduled to start on July 1. In which of the following months should the company begin recognizing rental expense for the new offices?",
+        "It is known that on January 1, a company enters into an operating lease for office space, at which time it receives control of the property to carry out leasehold improvements. The company starts making alterations on March 1, its staff occupies the property on May 1, and monthly rental payments begin on July 1. Starting in which of the following months should rental expense recognition for the new offices commence?",
+        "According to the given facts, a company obtains control of an office property on January 1 under an operating lease agreement in order to perform leasehold improvements. Property alterations are initiated on March 1, the company's personnel relocate to the property on May 1, and the first monthly rental payment is due on July 1. Recognition of rental expense for these new offices should begin in which of the following months?"
+      ]
+    }
+  }
+}

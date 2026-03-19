@@ -7,6 +7,7 @@ and refutability as described in the research paper.
 """
 
 import os
+import time
 
 # import json  # unused currently
 from typing import Optional, Dict, List
@@ -273,7 +274,8 @@ Response:"""
         elif "CANNOT VERIFY" in response:
             return TruthValueComponent.FALSE
         else:
-            # Model failed to return required token sequence - return empty
+            # Model failed to return required token sequence
+            print(f"WARNING [parse_verification]: Unexpected response: '{response[:80]}' [PARSE_FAILURE]")
             return TruthValueComponent.UNDEFINED
 
     def _parse_refutation_response(self, response_text: str) -> TruthValueComponent:
@@ -295,32 +297,185 @@ Response:"""
         elif "CANNOT REFUTE" in response:
             return TruthValueComponent.FALSE
         else:
-            # Model failed to return required token sequence - return empty
+            # Model failed to return required token sequence
+            print(f"WARNING [parse_refutation]: Unexpected response: '{response[:80]}' [PARSE_FAILURE]")
             return TruthValueComponent.UNDEFINED
 
-    def _evaluate_verification(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
-        """
-        Evaluate verification component separately.
-        Must be overridden by concrete evaluator classes.
-        
+    def _call_with_retry(self, api_callable, call_type: str = "api",
+                         max_retries: int = 5, base_delay: float = 2.0):
+        """Execute an API call with exponential backoff retry on transient errors.
+
         Args:
-            assertion: The assertion to evaluate
-            system_prompt: Optional custom system prompt for verification instructions
-            context: Optional background information to inform the evaluation
+            api_callable: Zero-argument callable that performs the API call and returns text
+            call_type: Label for logging (e.g., "openai_verification/gpt-4.1")
+            max_retries: Maximum number of retry attempts after the initial attempt
+            base_delay: Initial delay in seconds (doubles each retry)
+
+        Returns:
+            The return value of api_callable on success
+
+        Raises:
+            The last exception if all retries are exhausted or error is non-transient
         """
+        _TRANSIENT_MARKERS = (
+            "rate limit", "ratelimit", "rate_limit",
+            "429", "503", "502", "overloaded",
+            "timeout", "timed out", "read timeout",
+            "connection error", "connectionerror",
+            "service unavailable", "serviceunavailable",
+            "internal server error", "internalservererror",
+            "too many requests",
+        )
+
+        for attempt in range(max_retries + 1):
+            try:
+                return api_callable()
+            except Exception as e:
+                error_str = (str(e) + type(e).__name__).lower()
+                is_transient = any(m in error_str for m in _TRANSIENT_MARKERS)
+
+                if not is_transient or attempt == max_retries:
+                    if attempt > 0:
+                        print(f"ERROR [{call_type}]: Failed after {attempt} retries: "
+                              f"{type(e).__name__} [API_ERROR_RETRY_EXHAUSTED]")
+                    raise
+
+                delay = base_delay * (2 ** attempt)
+                print(f"WARNING [{call_type}]: Transient error (attempt {attempt + 1}/{max_retries + 1}), "
+                      f"retrying in {delay:.0f}s: {type(e).__name__}: {str(e)[:120]}")
+                time.sleep(delay)
+
+    def _raw_complete(self, prompt: str, system_prompt: str, max_tokens: int,
+                      call_type: str) -> str:
+        """Make a single provider API call and return the response text.
+
+        Must be overridden by concrete evaluator classes. All retry logic is
+        handled here via _call_with_retry; callers receive the raw text string
+        or an exception if all retries are exhausted.
+        """
+        raise NotImplementedError("Subclasses must implement _raw_complete")
+
+    def _evaluate_verification(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
+        """Evaluate verification component. Must be overridden by concrete classes."""
         raise NotImplementedError("Subclasses must implement _evaluate_verification")
 
     def _evaluate_refutation(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
-        """
-        Evaluate refutation component separately.
-        Must be overridden by concrete evaluator classes.
-        
-        Args:
-            assertion: The assertion to evaluate
-            system_prompt: Optional custom system prompt for refutation instructions
-            context: Optional background information to inform the evaluation
-        """
+        """Evaluate refutation component. Must be overridden by concrete classes."""
         raise NotImplementedError("Subclasses must implement _evaluate_refutation")
+
+    # ------------------------------------------------------------------
+    # Non-bilateral evaluation methods (forced unilateral / ternary / confidence)
+    # ------------------------------------------------------------------
+
+    def _create_forced_unilateral_prompt(self, assertion: Assertion,
+                                          context: Optional[str] = None) -> str:
+        context_section = f"\n\nContext: {context}\n" if context else ""
+        return (
+            f"Determine whether the following statement is correct or incorrect."
+            f"{context_section}\nStatement: {assertion}\n\n"
+            "You must respond with exactly one of:\n"
+            "- TRUE (if the statement is correct)\n"
+            "- FALSE (if the statement is incorrect)\n\n"
+            "Do not provide any explanation. Respond with only TRUE or FALSE.\n\nResponse:"
+        )
+
+    def _create_ternary_prompt(self, assertion: Assertion,
+                                context: Optional[str] = None) -> str:
+        context_section = f"\n\nContext: {context}\n" if context else ""
+        return (
+            f"Based on available evidence and knowledge, determine whether the following "
+            f"statement is supported by evidence, contradicted by evidence, or undetermined."
+            f"{context_section}\nStatement: {assertion}\n\n"
+            "Consider all available facts and reliable sources. You must respond with exactly one of:\n"
+            "- TRUE (if evidence supports the statement as correct)\n"
+            "- FALSE (if evidence contradicts the statement as incorrect)\n"
+            "- UNCERTAIN (if there is insufficient evidence to either support or refute it)\n\n"
+            "Do not provide any explanation. Respond with only TRUE, FALSE, or UNCERTAIN.\n\nResponse:"
+        )
+
+    def _create_confidence_prompt_unilateral(self, assertion: Assertion,
+                                              context: Optional[str] = None) -> str:
+        context_section = f"\n\nContext: {context}\n" if context else ""
+        return (
+            f"Rate your confidence that the following statement is correct."
+            f"{context_section}\nStatement: {assertion}\n\n"
+            "Provide a single number between 0.0 and 1.0:\n"
+            "- 0.0 = Definitely incorrect\n"
+            "- 0.5 = Completely uncertain\n"
+            "- 1.0 = Definitely correct\n\n"
+            "Respond with ONLY: CONFIDENCE: [number]\n\nResponse:"
+        )
+
+    def _parse_forced_unilateral_response(self, response_text: str) -> TruthValueComponent:
+        r = response_text.strip().upper()
+        if "TRUE" in r:
+            return TruthValueComponent.TRUE
+        elif "FALSE" in r:
+            return TruthValueComponent.FALSE
+        print(f"WARNING [parse_forced_unilateral]: Unexpected: '{r[:80]}' [PARSE_FAILURE] — defaulting FALSE")
+        return TruthValueComponent.FALSE
+
+    def _parse_ternary_response(self, response_text: str) -> TruthValueComponent:
+        r = response_text.strip().upper()
+        if "UNCERTAIN" in r:
+            return TruthValueComponent.UNDEFINED
+        elif "TRUE" in r:
+            return TruthValueComponent.TRUE
+        elif "FALSE" in r:
+            return TruthValueComponent.FALSE
+        print(f"WARNING [parse_ternary]: Unexpected: '{r[:80]}' [PARSE_FAILURE]")
+        return TruthValueComponent.UNDEFINED
+
+    def _parse_confidence_response_unilateral(self, response_text: str) -> float:
+        import re
+        m = re.search(r'CONFIDENCE:\s*([\d.]+)', response_text, re.IGNORECASE)
+        if m:
+            return max(0.0, min(1.0, float(m.group(1))))
+        print(f"WARNING [parse_confidence]: Unexpected: '{response_text[:80]}' [PARSE_FAILURE]")
+        return 0.5
+
+    def evaluate_forced_unilateral(self, assertion: Assertion,
+                                    context: Optional[str] = None) -> TruthValueComponent:
+        """Single-call forced binary evaluation — TRUE or FALSE, no abstention."""
+        model_id = getattr(self, "model", "unknown")
+        try:
+            prompt = self._create_forced_unilateral_prompt(assertion, context=context)
+            sys_prompt = "You are an expert fact-checker. You must respond with only TRUE or FALSE."
+            text = self._raw_complete(prompt, sys_prompt, max_tokens=10,
+                                      call_type=f"forced_unilateral/{model_id}")
+            return self._parse_forced_unilateral_response(text)
+        except Exception as e:
+            print(f"ERROR [forced_unilateral/{model_id}]: {type(e).__name__}: {str(e)[:120]} [API_ERROR]")
+            return TruthValueComponent.FALSE
+
+    def evaluate_ternary(self, assertion: Assertion,
+                          context: Optional[str] = None) -> TruthValueComponent:
+        """Single-call ternary evaluation — TRUE / FALSE / UNCERTAIN."""
+        model_id = getattr(self, "model", "unknown")
+        try:
+            prompt = self._create_ternary_prompt(assertion, context=context)
+            sys_prompt = "You are an expert fact-checker evaluating claims based on evidence. Respond with only TRUE, FALSE, or UNCERTAIN."
+            text = self._raw_complete(prompt, sys_prompt, max_tokens=10,
+                                      call_type=f"ternary/{model_id}")
+            return self._parse_ternary_response(text)
+        except Exception as e:
+            print(f"ERROR [ternary/{model_id}]: {type(e).__name__}: {str(e)[:120]} [API_ERROR]")
+            return TruthValueComponent.UNDEFINED
+
+    def evaluate_confidence(self, assertion: Assertion,
+                             context: Optional[str] = None) -> float:
+        """Single-call numerical confidence rating (0.0–1.0)."""
+        model_id = getattr(self, "model", "unknown")
+        try:
+            prompt = self._create_confidence_prompt_unilateral(assertion, context=context)
+            sys_prompt = ("You are an expert evaluator. "
+                          "Always respond with 'CONFIDENCE: X.X' where X.X is between 0.0 and 1.0.")
+            text = self._raw_complete(prompt, sys_prompt, max_tokens=20,
+                                      call_type=f"confidence/{model_id}")
+            return self._parse_confidence_response_unilateral(text)
+        except Exception as e:
+            print(f"ERROR [confidence/{model_id}]: {type(e).__name__}: {str(e)[:120]} [API_ERROR]")
+            return 0.5
 
 
 class OpenAIEvaluator(LLMEvaluator):
@@ -358,76 +513,50 @@ class OpenAIEvaluator(LLMEvaluator):
             return self.evaluate_with_majority_voting(assertion, samples, system_prompt=system_prompt, context=context)
         return self._single_evaluation(assertion, system_prompt=system_prompt, context=context)
 
+    def _raw_complete(self, prompt: str, system_prompt: str, max_tokens: int,
+                      call_type: str) -> str:
+        """Single OpenAI chat completion call with retry."""
+        request_params = {
+            "model": self.model,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt},
+            ],
+            "max_completion_tokens": max_tokens,
+        }
+        if not self.model.startswith("gpt-5"):
+            request_params["temperature"] = 0.0
+        return self._call_with_retry(
+            lambda: self.client.chat.completions.create(**request_params).choices[0].message.content,
+            call_type=call_type,
+        )
+
     def _evaluate_verification(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
-        """Evaluate verification using OpenAI API."""
+        """Evaluate verification using OpenAI API with exponential backoff retry."""
         try:
             prompt = self._create_verification_prompt(assertion, context=context)
-            
-            # Use custom system prompt or default
             sys_prompt = system_prompt or "You are an expert in factual verification. You must respond with only the exact required token sequences."
-
-            # Build request parameters
-            request_params = {
-                "model": self.model,
-                "messages": [
-                    {
-                        "role": "system",
-                        "content": sys_prompt,
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                "max_completion_tokens": 10,  # Only need a few tokens for response
-            }
-
-            # Add temperature only for models that support it (GPT-5 series don't support temperature=0.0)
-            if not self.model.startswith("gpt-5"):
-                request_params["temperature"] = (
-                    0.0  # Zero temperature for consistent token responses
-                )
-
-            response = self.client.chat.completions.create(**request_params)
-
-            response_text = response.choices[0].message.content
+            response_text = self._raw_complete(
+                prompt, sys_prompt, max_tokens=10,
+                call_type=f"openai_verification/{self.model}"
+            )
             return self._parse_verification_response(response_text)
-
         except Exception as e:
-            print(f"Warning: OpenAI verification call failed: {e}")
+            print(f"ERROR [openai_verification/{self.model}]: {type(e).__name__}: {str(e)[:120]} [API_ERROR]")
             return TruthValueComponent.UNDEFINED
 
     def _evaluate_refutation(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
-        """Evaluate refutation using OpenAI API."""
+        """Evaluate refutation using OpenAI API with exponential backoff retry."""
         try:
             prompt = self._create_refutation_prompt(assertion, context=context)
-            
-            # Use custom system prompt or default
             sys_prompt = system_prompt or "You are an expert in logical refutation. You must respond with only the exact required token sequences."
-
-            # Build request parameters
-            request_params = {
-                "model": self.model,
-                "messages": [
-                    {
-                        "role": "system",
-                        "content": sys_prompt,
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                "max_completion_tokens": 10,  # Only need a few tokens for response
-            }
-
-            # Add temperature only for models that support it (GPT-5 series don't support temperature=0.0)
-            if not self.model.startswith("gpt-5"):
-                request_params["temperature"] = (
-                    0.0  # Zero temperature for consistent token responses
-                )
-
-            response = self.client.chat.completions.create(**request_params)
-
-            response_text = response.choices[0].message.content
+            response_text = self._raw_complete(
+                prompt, sys_prompt, max_tokens=10,
+                call_type=f"openai_refutation/{self.model}"
+            )
             return self._parse_refutation_response(response_text)
-
         except Exception as e:
-            print(f"Warning: OpenAI refutation call failed: {e}")
+            print(f"ERROR [openai_refutation/{self.model}]: {type(e).__name__}: {str(e)[:120]} [API_ERROR]")
             return TruthValueComponent.UNDEFINED
 
 
@@ -468,50 +597,46 @@ class AnthropicEvaluator(LLMEvaluator):
             return self.evaluate_with_majority_voting(assertion, samples, system_prompt=system_prompt, context=context)
         return self._single_evaluation(assertion, system_prompt=system_prompt, context=context)
 
+    def _raw_complete(self, prompt: str, system_prompt: str, max_tokens: int,
+                      call_type: str) -> str:
+        """Single Anthropic messages call with retry."""
+        return self._call_with_retry(
+            lambda: self.client.messages.create(
+                model=self.model,
+                max_tokens=max_tokens,
+                temperature=0.0,
+                system=system_prompt,
+                messages=[{"role": "user", "content": prompt}],
+            ).content[0].text,
+            call_type=call_type,
+        )
+
     def _evaluate_verification(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
-        """Evaluate verification using Anthropic API."""
+        """Evaluate verification using Anthropic API with exponential backoff retry."""
         try:
             prompt = self._create_verification_prompt(assertion, context=context)
-            
-            # Use custom system prompt or default
             sys_prompt = system_prompt or "You are an expert in factual verification. You must respond with only the exact required token sequences."
-
-            response = self.client.messages.create(
-                model=self.model,
-                max_tokens=10,  # Only need a few tokens for response
-                temperature=0.0,  # Zero temperature for consistent token responses
-                system=sys_prompt,
-                messages=[{"role": "user", "content": prompt}],
+            response_text = self._raw_complete(
+                prompt, sys_prompt, max_tokens=10,
+                call_type=f"anthropic_verification/{self.model}"
             )
-
-            response_text = response.content[0].text
             return self._parse_verification_response(response_text)
-
         except Exception as e:
-            print(f"Warning: Anthropic verification call failed: {e}")
+            print(f"ERROR [anthropic_verification/{self.model}]: {type(e).__name__}: {str(e)[:120]} [API_ERROR]")
             return TruthValueComponent.UNDEFINED
 
     def _evaluate_refutation(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
-        """Evaluate refutation using Anthropic API."""
+        """Evaluate refutation using Anthropic API with exponential backoff retry."""
         try:
             prompt = self._create_refutation_prompt(assertion, context=context)
-            
-            # Use custom system prompt or default
             sys_prompt = system_prompt or "You are an expert in logical refutation. You must respond with only the exact required token sequences."
-
-            response = self.client.messages.create(
-                model=self.model,
-                max_tokens=10,  # Only need a few tokens for response
-                temperature=0.0,  # Zero temperature for consistent token responses
-                system=sys_prompt,
-                messages=[{"role": "user", "content": prompt}],
+            response_text = self._raw_complete(
+                prompt, sys_prompt, max_tokens=10,
+                call_type=f"anthropic_refutation/{self.model}"
             )
-
-            response_text = response.content[0].text
             return self._parse_refutation_response(response_text)
-
         except Exception as e:
-            print(f"Warning: Anthropic refutation call failed: {e}")
+            print(f"ERROR [anthropic_refutation/{self.model}]: {type(e).__name__}: {str(e)[:120]} [API_ERROR]")
             return TruthValueComponent.UNDEFINED
 
 
@@ -534,6 +659,11 @@ class MockLLMEvaluator(LLMEvaluator):
         if samples > 1:
             return self.evaluate_with_majority_voting(assertion, samples, system_prompt=system_prompt, context=context)
         return self._single_evaluation(assertion, system_prompt=system_prompt, context=context)
+
+    def _raw_complete(self, prompt: str, system_prompt: str, max_tokens: int,
+                      call_type: str) -> str:
+        """Mock completion — always returns TRUE."""
+        return "TRUE"
 
     def _evaluate_verification(self, assertion: Assertion, system_prompt: Optional[str] = None, context: Optional[str] = None) -> TruthValueComponent:
         """Mock verification evaluation using predefined logic."""

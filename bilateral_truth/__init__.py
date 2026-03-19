@@ -16,6 +16,7 @@ from .llm_evaluators import (
     create_llm_evaluator,
 )
 from .model_router import ModelRouter, OpenRouterEvaluator
+from .variation_generator import SituationVariationGenerator
 
 __version__ = "0.2.1"
 __all__ = [
@@ -34,4 +35,5 @@ __all__ = [
     "OpenRouterEvaluator",
     "create_llm_evaluator",
     "ModelRouter",
+    "SituationVariationGenerator",
 ]

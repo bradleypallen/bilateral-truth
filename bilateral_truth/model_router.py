@@ -33,16 +33,19 @@ class ModelRouter:
         "gpt-4.1-mini-2025-04-14": "openai",
         
         # Anthropic models
+        "claude-opus-4-6": "anthropic",
         "claude-opus-4-1-20250805": "anthropic",
         "claude-sonnet-4-20250514": "anthropic",
         "claude-3-7-sonnet-20250219": "anthropic",
-        "claude-3-5-haiku-20241022": "anthropic",
+        "claude-haiku-4-5-20251001": "anthropic",
         
         # OpenRouter models
         "meta-llama/llama-4-scout": "openrouter",
         "meta-llama/llama-4-maverick": "openrouter",
         "google/gemini-2.5-pro": "openrouter",
         "google/gemini-2.5-flash": "openrouter",
+        "deepseek/deepseek-chat": "openrouter",       # DeepSeek-V3
+        "qwen/qwen-2.5-72b-instruct": "openrouter",   # Qwen2.5-72B
         
         # Mock models for testing
         "mock": "mock",
@@ -158,76 +161,52 @@ class OpenRouterEvaluator(LLMEvaluator):
             return self.evaluate_with_majority_voting(assertion, samples, system_prompt=system_prompt, context=context)
         return self._single_evaluation(assertion, system_prompt=system_prompt, context=context)
 
+    def _raw_complete(self, prompt: str, system_prompt: str, max_tokens: int,
+                      call_type: str) -> str:
+        """Single OpenRouter chat completion call with retry."""
+        request_params = {
+            "model": self.model,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt},
+            ],
+            "max_completion_tokens": max_tokens,
+        }
+        if "gpt-5" not in self.model:
+            request_params["temperature"] = 0.0
+        return self._call_with_retry(
+            lambda: self.client.chat.completions.create(**request_params).choices[0].message.content,
+            call_type=call_type,
+        )
+
     def _evaluate_verification(self, assertion: "Assertion", system_prompt: Optional[str] = None, context: Optional[str] = None) -> "TruthValueComponent":
-        """Evaluate verification using OpenRouter API."""
+        """Evaluate verification using OpenRouter API with exponential backoff retry."""
+        from .truth_values import TruthValueComponent
         try:
             prompt = self._create_verification_prompt(assertion, context=context)
-            
-            # Use custom system prompt or default
             sys_prompt = system_prompt or "You are an expert in factual verification. You must respond with only the exact required token sequences."
-
-            # Build request parameters
-            request_params = {
-                "model": self.model,
-                "messages": [
-                    {
-                        "role": "system",
-                        "content": sys_prompt,
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                "max_completion_tokens": 10,  # Only need a few tokens for response
-            }
-
-            # Add temperature only for models that support it
-            if not (self.model.startswith("gpt-5") or "gpt-5" in self.model):
-                request_params["temperature"] = 0.0
-
-            response = self.client.chat.completions.create(**request_params)
-            
-            response_text = response.choices[0].message.content
+            response_text = self._raw_complete(
+                prompt, sys_prompt, max_tokens=10,
+                call_type=f"openrouter_verification/{self.model}"
+            )
             return self._parse_verification_response(response_text)
-            
         except Exception as e:
-            print(f"Warning: OpenRouter verification call failed: {e}")
-            from .truth_values import TruthValueComponent
-            
+            print(f"ERROR [openrouter_verification/{self.model}]: {type(e).__name__}: {str(e)[:120]} [API_ERROR]")
             return TruthValueComponent.UNDEFINED
 
     def _evaluate_refutation(self, assertion: "Assertion", system_prompt: Optional[str] = None, context: Optional[str] = None) -> "TruthValueComponent":
-        """Evaluate refutation using OpenRouter API."""
+        """Evaluate refutation using OpenRouter API with exponential backoff retry."""
+        from .truth_values import TruthValueComponent
         try:
             prompt = self._create_refutation_prompt(assertion, context=context)
-            
-            # Use custom system prompt or default
             sys_prompt = system_prompt or "You are an expert in logical refutation. You must respond with only the exact required token sequences."
-
-            # Build request parameters
-            request_params = {
-                "model": self.model,
-                "messages": [
-                    {
-                        "role": "system",
-                        "content": sys_prompt,
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                "max_completion_tokens": 10,  # Only need a few tokens for response
-            }
-
-            # Add temperature only for models that support it
-            if not (self.model.startswith("gpt-5") or "gpt-5" in self.model):
-                request_params["temperature"] = 0.0
-
-            response = self.client.chat.completions.create(**request_params)
-            
-            response_text = response.choices[0].message.content
+            response_text = self._raw_complete(
+                prompt, sys_prompt, max_tokens=10,
+                call_type=f"openrouter_refutation/{self.model}"
+            )
             return self._parse_refutation_response(response_text)
-            
         except Exception as e:
-            print(f"Warning: OpenRouter refutation call failed: {e}")
-            from .truth_values import TruthValueComponent
-            
+            print(f"ERROR [openrouter_refutation/{self.model}]: {type(e).__name__}: {str(e)[:120]} [API_ERROR]")
             return TruthValueComponent.UNDEFINED
 
 
