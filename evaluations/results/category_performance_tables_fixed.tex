@@ -1,0 +1,154 @@
+\begin{table}[htbp]
+\centering
+\caption{Model performance (F1-Macro) by category on TruthfulQA. Values show F1 scores for bilateral evaluation.}
+\small
+\begin{tabular}{l|ccccccc}
+\toprule
+\textbf{Category} & \rotatebox{45}{GPT-4o} & \rotatebox{45}{GPT-4o Mini} & \rotatebox{45}{Claude 3.5 Sonnet} & \rotatebox{45}{Claude 3.5 Haiku} & \rotatebox{45}{Llama 4 Scout} & \rotatebox{45}{Llama 4 Maverick} & \rotatebox{45}{Gemini 2.0 Flash} \\
+\midrule
+Misconceptions & \textbf{0.91} & -- & \textbf{0.92} & 0.73 & 0.74 & 0.85 & 0.82 \\
+Law & 0.77 & -- & 0.80 & \textit{0.57} & \textit{0.60} & \textit{0.63} & 0.71 \\
+Health & \textbf{0.92} & -- & \textbf{0.92} & 0.78 & 0.74 & 0.87 & 0.87 \\
+Sociology & 0.85 & -- & 0.89 & 0.82 & 0.74 & \textbf{0.93} & 0.75 \\
+Fiction & \textbf{0.96} & -- & 0.89 & 0.82 & 0.86 & 0.88 & 0.85 \\
+Economics & 0.88 & -- & 0.79 & \textit{0.61} & \textit{0.64} & \textit{0.57} & \textit{0.62} \\
+History & \textbf{0.94} & \textbf{1.00} & \textbf{0.91} & 0.76 & 0.83 & \textbf{0.94} & 0.84 \\
+Conspiracies & 0.78 & \textbf{1.00} & \textbf{0.97} & \textbf{0.92} & 0.86 & \textbf{0.90} & \textbf{0.93} \\
+Paranormal & \textbf{1.00} & -- & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{0.96} & \textbf{0.96} \\
+Myths And Fairytales & 0.83 & \textbf{1.00} & 0.88 & 0.71 & 0.78 & 0.73 & 0.75 \\
+Indexical Error: ... & \textbf{1.00} & -- & \textbf{1.00} & 0.87 & \textbf{0.92} & \textit{0.67} & \textit{0.50} \\
+Language & \textbf{1.00} & -- & \textbf{1.00} & 0.83 & 0.89 & 0.85 & 0.86 \\
+\midrule
+\textbf{Mean} & \textbf{0.90} & \textbf{1.00} & \textbf{0.91} & \textbf{0.79} & \textbf{0.80} & \textbf{0.81} & \textbf{0.79} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Model performance (F1-Macro) by category on SimpleQA. Values show F1 scores for bilateral evaluation.}
+\small
+\begin{tabular}{l|ccccccc}
+\toprule
+\textbf{Category} & \rotatebox{45}{GPT-4o} & \rotatebox{45}{GPT-4o Mini} & \rotatebox{45}{Claude 3.5 Sonnet} & \rotatebox{45}{Claude 3.5 Haiku} & \rotatebox{45}{Llama 4 Scout} & \rotatebox{45}{Llama 4 Maverick} & \rotatebox{45}{Gemini 2.0 Flash} \\
+\midrule
+Politics & 0.84 & 0.81 & \textbf{0.94} & 0.76 & \textbf{0.90} & 0.84 & \textit{0.63} \\
+Science And Techn... & 0.83 & 0.81 & \textbf{0.95} & 0.87 & 0.89 & \textbf{0.92} & 0.73 \\
+Art & 0.81 & 0.82 & \textbf{0.96} & 0.83 & \textbf{0.90} & 0.84 & 0.74 \\
+Other & 0.85 & 0.80 & \textbf{0.92} & \textbf{0.92} & 0.88 & \textbf{0.91} & 0.71 \\
+Geography & 0.87 & 0.87 & \textbf{0.94} & 0.84 & 0.90 & 0.81 & \textit{0.66} \\
+Sports & 0.79 & 0.79 & \textbf{0.97} & 0.78 & 0.86 & \textbf{0.93} & \textit{0.68} \\
+Tv Shows & 0.84 & 0.86 & \textbf{0.97} & 0.85 & \textbf{0.95} & \textbf{0.92} & 0.81 \\
+Music & 0.83 & 0.77 & \textbf{1.00} & 0.84 & 0.85 & \textbf{0.90} & \textit{0.61} \\
+History & 0.89 & 0.83 & \textbf{1.00} & 0.83 & \textbf{1.00} & \textbf{0.96} & \textit{0.69} \\
+Video Games & 0.76 & \textbf{0.93} & \textbf{0.93} & \textbf{0.92} & 0.90 & 0.86 & 0.76 \\
+\midrule
+\textbf{Mean} & \textbf{0.83} & \textbf{0.83} & \textbf{0.96} & \textbf{0.85} & \textbf{0.90} & \textbf{0.89} & \textbf{0.70} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Model performance (F1-Macro) by category on MMLU-Pro. Values show F1 scores for bilateral evaluation.}
+\small
+\begin{tabular}{l|ccccccc}
+\toprule
+\textbf{Category} & \rotatebox{45}{GPT-4o} & \rotatebox{45}{GPT-4o Mini} & \rotatebox{45}{Claude 3.5 Sonnet} & \rotatebox{45}{Claude 3.5 Haiku} & \rotatebox{45}{Llama 4 Scout} & \rotatebox{45}{Llama 4 Maverick} & \rotatebox{45}{Gemini 2.0 Flash} \\
+\midrule
+Math & \textit{0.68} & 0.75 & 0.89 & \textit{0.69} & 0.77 & \textbf{0.94} & 0.75 \\
+Physics & \textit{0.70} & 0.75 & \textbf{1.00} & \textit{0.57} & \textit{0.67} & 0.85 & \textit{0.56} \\
+Chemistry & \textit{0.65} & \textit{0.60} & \textbf{1.00} & \textcolor{gray}{0.48} & \textit{0.67} & \textit{0.67} & \textit{0.68} \\
+Law & 0.77 & 0.70 & \textit{0.68} & 0.78 & \textit{0.62} & 0.77 & \textit{0.66} \\
+Other & 0.89 & 0.84 & \textbf{1.00} & 0.77 & 0.71 & 0.76 & 0.83 \\
+Health & 0.88 & 0.83 & \textbf{1.00} & \textit{0.69} & 0.81 & 0.85 & 0.88 \\
+Business & 0.78 & 0.89 & -- & 0.70 & 0.76 & 0.89 & 0.80 \\
+Engineering & \textit{0.65} & \textit{0.65} & \textbf{1.00} & \textit{0.59} & \textcolor{gray}{0.45} & \textbf{1.00} & \textit{0.57} \\
+Economics & 0.88 & 0.87 & \textbf{1.00} & 0.83 & 0.80 & \textbf{0.98} & 0.87 \\
+Biology & \textbf{0.91} & 0.88 & \textbf{0.94} & 0.77 & 0.88 & \textbf{0.95} & 0.87 \\
+Psychology & 0.88 & 0.88 & 0.84 & 0.80 & 0.82 & 0.86 & 0.85 \\
+Philosophy & 0.79 & 0.77 & \textbf{1.00} & \textit{0.66} & 0.71 & 0.87 & 0.76 \\
+\midrule
+\textbf{Mean} & \textbf{0.79} & \textbf{0.78} & \textbf{0.94} & \textbf{0.69} & \textbf{0.72} & \textbf{0.86} & \textbf{0.76} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Model performance (F1-Macro) by category on FACTScore. Values show F1 scores for bilateral evaluation.}
+\small
+\begin{tabular}{l|ccccccc}
+\toprule
+\textbf{Category} & \rotatebox{45}{GPT-4o} & \rotatebox{45}{GPT-4o Mini} & \rotatebox{45}{Claude 3.5 Sonnet} & \rotatebox{45}{Claude 3.5 Haiku} & \rotatebox{45}{Llama 4 Scout} & \rotatebox{45}{Llama 4 Maverick} & \rotatebox{45}{Gemini 2.0 Flash} \\
+\midrule
+Biography & \textit{0.66} & \textit{0.62} & \textit{0.65} & \textit{0.62} & \textit{0.61} & \textit{0.63} & \textit{0.61} \\
+\midrule
+\textbf{Mean} & \textbf{0.66} & \textbf{0.62} & \textbf{0.65} & \textbf{0.62} & \textbf{0.61} & \textbf{0.63} & \textbf{0.61} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Best and worst performing categories for each model across all datasets}
+\begin{tabular}{ll|ll}
+\toprule
+\textbf{Model} & \textbf{Dataset} & \textbf{Best Category (F1)} & \textbf{Worst Category (F1)} \\
+\midrule
+\multirow{4}{*}{GPT-4o} & TruthfulQA & Subjective (1.00) & Indexical Error (0.25) \\
+ & SimpleQA & History (0.89) & Video Games (0.76) \\
+ & MMLU-Pro & Biology (0.91) & History (0.61) \\
+ & FACTScore & Biography (0.66) & Biography (0.66) \\
+\cline{1-4}
+\multirow{4}{*}{GPT-4o Mini} & TruthfulQA & Religion (1.00) & Religion (1.00) \\
+ & SimpleQA & Video Games (0.93) & Music (0.77) \\
+ & MMLU-Pro & Business (0.89) & Chemistry (0.60) \\
+ & FACTScore & Biography (0.62) & Biography (0.62) \\
+\cline{1-4}
+\multirow{4}{*}{Claude 3.5 Sonnet} & TruthfulQA & Subjective (1.00) & Education (0.56) \\
+ & SimpleQA & History (1.00) & Other (0.92) \\
+ & MMLU-Pro & Chemistry (1.00) & Law (0.68) \\
+ & FACTScore & Biography (0.65) & Biography (0.65) \\
+\cline{1-4}
+\multirow{4}{*}{Claude 3.5 Haiku} & TruthfulQA & Subjective (1.00) & Indexical Error (0.25) \\
+ & SimpleQA & Other (0.92) & Politics (0.76) \\
+ & MMLU-Pro & History (0.86) & Chemistry (0.48) \\
+ & FACTScore & Biography (0.62) & Biography (0.62) \\
+\cline{1-4}
+\multirow{4}{*}{Llama 4 Scout} & TruthfulQA & Subjective (1.00) & Education (0.50) \\
+ & SimpleQA & History (1.00) & Music (0.85) \\
+ & MMLU-Pro & Biology (0.88) & Engineering (0.45) \\
+ & FACTScore & Biography (0.61) & Biography (0.61) \\
+\cline{1-4}
+\multirow{4}{*}{Llama 4 Maverick} & TruthfulQA & Subjective (1.00) & Indexical Error (0.33) \\
+ & SimpleQA & History (0.96) & Geography (0.81) \\
+ & MMLU-Pro & Engineering (1.00) & Chemistry (0.67) \\
+ & FACTScore & Biography (0.63) & Biography (0.63) \\
+\cline{1-4}
+\multirow{4}{*}{Gemini 2.0 Flash} & TruthfulQA & Subjective (1.00) & Indexical Error (0.50) \\
+ & SimpleQA & Tv Shows (0.81) & Music (0.61) \\
+ & MMLU-Pro & Health (0.88) & Physics (0.56) \\
+ & FACTScore & Biography (0.61) & Biography (0.61) \\
+\cline{1-4}
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Category Performance Heatmap Data
+% This can be used to create a heatmap visualization
+
+\begin{table}[htbp]
+\centering
+\caption{Cross-dataset category performance (F1-Macro). Categories appearing in multiple datasets.}
+\tiny
+\begin{tabular}{l|cccccccccccccccccccccccccccc}
+\toprule
+\textbf{Category} & \multicolumn{7}{c|}{TruthfulQA} & \multicolumn{7}{c|}{SimpleQA} & \multicolumn{7}{c|}{MMLU-Pro} & \multicolumn{7}{c|}{FACTScore} \\
+ & GPT-4o & GPT-4o & Claude & Claude & Llama & Llama & Gemini & GPT-4o & GPT-4o & Claude & Claude & Llama & Llama & Gemini & GPT-4o & GPT-4o & Claude & Claude & Llama & Llama & Gemini & GPT-4o & GPT-4o & Claude & Claude & Llama & Llama & Gemini \\
+\midrule
+History & \cellcolor{green!30}0.94 & \cellcolor{green!30}1.00 & \cellcolor{green!30}0.91 & \cellcolor{yellow!30}0.76 & \cellcolor{green!30}0.83 & \cellcolor{green!30}0.94 & \cellcolor{green!30}0.84 & \cellcolor{green!30}0.89 & \cellcolor{green!30}0.83 & \cellcolor{green!30}1.00 & \cellcolor{green!30}0.83 & \cellcolor{green!30}1.00 & \cellcolor{green!30}0.96 & \cellcolor{yellow!30}0.69 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+Politics & \cellcolor{green!30}1.00 & -- & \cellcolor{green!30}1.00 & \cellcolor{green!30}1.00 & \cellcolor{green!30}1.00 & \cellcolor{green!30}1.00 & \cellcolor{green!30}1.00 & \cellcolor{green!30}0.84 & \cellcolor{green!30}0.81 & \cellcolor{green!30}0.94 & \cellcolor{yellow!30}0.76 & \cellcolor{green!30}0.90 & \cellcolor{green!30}0.84 & \cellcolor{yellow!30}0.63 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
