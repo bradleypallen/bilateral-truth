@@ -24,12 +24,12 @@ logger = logging.getLogger("visualize_full_comparison")
 BASE = os.path.join(os.path.dirname(__file__), "results")
 
 MODEL_ORDER = [
-    ("claude-opus-4-1-20250805",   "Opus 4.1"),
-    ("gpt-4.1-2025-04-14",         "GPT-4.1"),
-    ("gpt-4.1-mini-2025-04-14",    "GPT-4.1-mini"),
-    ("meta-llama/llama-4-maverick","Llama 4 Maverick"),
-    ("google/gemini-2.5-flash",    "Gemini 2.5 Flash"),
-    ("deepseek/deepseek-chat",     "DeepSeek-V3"),
+    ("claude-opus-4-1-20250805",     "Opus 4.1"),
+    ("meta-llama/llama-4-maverick",  "Llama 4 Maverick"),
+    ("meta-llama/llama-4-scout",     "Llama 4 Scout"),
+    ("google/gemini-2.5-flash",      "Gemini 2.5 Flash"),
+    ("deepseek/deepseek-chat",       "DeepSeek-V3"),
+    ("qwen/qwen-2.5-72b-instruct",   "Qwen 2.5 72B"),
 ]
 BENCHMARK_ORDER = ["truthfulqa", "simpleqa", "mmlu-pro", "factscore"]
 BENCHMARK_LABELS = {

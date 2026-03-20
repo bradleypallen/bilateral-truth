@@ -41,11 +41,11 @@ DATASETS = {
 # Maps short label → model ID for the evaluator
 MODELS = {
     "opus":     "claude-opus-4-1-20250805",
-    "gpt41":    "gpt-4.1-2025-04-14",
-    "gpt41mini":"gpt-4.1-mini-2025-04-14",
     "llama":    "meta-llama/llama-4-maverick",
+    "scout":    "meta-llama/llama-4-scout",
     "gemini":   "google/gemini-2.5-flash",
     "deepseek": "deepseek/deepseek-chat",
+    "qwen":     "qwen/qwen-2.5-72b-instruct",
 }
 
 VARIANT_CACHE_DIR = BASE / "variant_cache"

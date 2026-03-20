@@ -4,252 +4,171 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This repository implements **bilateral-truth**, a Python package for caching bilateral factuality evaluation using generalized truth values. The implementation is based on the mathematical zeta_c function described in ArXiv paper 2507.09751v2, which provides bilateral evaluation of assertions returning <u,v> truth values where u represents verifiability and v represents refutability.
+This repository implements **bilateral-truth**, a Python package for LLM factuality evaluation using generalized truth values from the nine-valued bilattice NINE = ⟨V₃×V₃, ≤_t, ≤_k⟩. Each assertion receives a bilateral truth value ⟨u,v⟩ where u=verifiability and v=refutability, each ∈ {t,e,f}. Based on ArXiv paper 2507.09751v2, "BBL: A Bilateral Modal Logic for LLM Factuality Evaluation."
 
-## Development Commands
+## Environment Setup
 
-### Environment Setup
 ```bash
-# Automated setup (creates venv and installs dependencies)
-./setup_venv.sh
-source venv/bin/activate
-
-# Manual setup
-python3 -m venv venv
-source venv/bin/activate
-pip install -e .
-pip install -r requirements.txt
+./setup_venv.sh && source venv/bin/activate
+# or manually:
+python3 -m venv venv && source venv/bin/activate
+pip install -e . && pip install -r requirements.txt
 ```
 
-### Testing
+API keys are stored in `.env` in the root directory (OPENAI_API_KEY, ANTHROPIC_API_KEY, OPENROUTER_API_KEY).
+
+## Core Evaluation Framework
+
+### Primary Evaluator: `proper_benchmark_evaluator.py`
+
+The main evaluation script. Runs five epistemic approaches in a single pass per assertion, all using s₀ = source_question as context:
+
+1. **bilateral** — VM(s₀, p) → ⟨u,v⟩ → projected under 3 epistemic policies (classical, paracomplete, paraconsistent)
+2. **forced_unilateral** — forced binary TRUE/FALSE (no abstention)
+3. **ternary** — evidence-based TRUE/FALSE/UNCERTAIN (abstains on UNCERTAIN)
+4. **confidence @0.5** — numerical 0.0–1.0 thresholded
+
+Key parameters:
+- N=250 assertions, seed=42, balanced sampling (50% positive / 50% negative)
+- bilateral_samples=3 (majority vote over 3 calls per assertion, matching paper methodology)
+- Output: `results/{benchmark}_{model}_n3_proper_results.json`
+
 ```bash
-# Run full test suite (excludes integration tests by default)
-python -m pytest
-
-# Run specific test modules
-python -m pytest tests/test_truth_values.py
-python -m pytest tests/test_assertions.py
-python -m pytest tests/test_zeta_function.py
-
-# Run integration tests (requires API keys)
-python -m pytest -m integration
-
-# Run tests with coverage
-python -m pytest --cov=bilateral_truth
-```
-
-### Running Benchmark Evaluations
-```bash
-# Generate/update benchmark datasets
 cd evaluations
-python data_generators/truthfulqa_generator.py
-python data_generators/simpleqa_generator.py
-python data_generators/mmlupro_generator.py
-python data_generators/factscore_generator.py  # Requires downloading data first
-
-# Run evaluations with different models
-python generic_evaluator.py --dataset standard_datasets/truthfulqa_complete.json --model gpt-4 --samples 100
-python generic_evaluator.py --dataset standard_datasets/factscore_complete.json --model claude-3-5-haiku-20241022 --samples 50
-
-# View results
-ls -la results/
+python proper_benchmark_evaluator.py \
+  --model meta-llama/llama-4-maverick \
+  --dataset standard_datasets/truthfulqa_complete.json \
+  --samples 250
 ```
 
-### Code Quality
-```bash
-# Code formatting
-black bilateral_truth/ tests/
+### Modal Evaluator: `modal_evaluator.py`
 
-# Linting
-flake8 bilateral_truth/ tests/
+Evaluates the modal necessity operator [[□p]] = ⟨min uᵢ, max vᵢ⟩ over s₀ + 2 paraphrases (n=3 total situations). Does NOT include the null situation (no context). Computes:
+- `src_bilateral_distribution` — VM(s₀, p) where s₀=source_question
+- `modal_bilateral_distribution` — [[□p]] aggregated over s₀ + s₁ + s₂
 
-# Type checking
-mypy bilateral_truth/
-```
-
-### Package Installation
-```bash
-# Development installation
-pip install -e .
-
-# Test CLI after installation
-bilateral-truth --help
-bilateral-truth --model mock "The sky is blue"
-```
-
-### Evaluation Frameworks
-
-The project includes a comprehensive benchmark evaluation infrastructure:
+Variants (paraphrases of s₀) must be pre-generated once per dataset using `pregenerate_variants.py`, cached in `variant_cache/`. Pre-generation uses Claude Opus 4.6 — one-time cost, shared across all evaluation models.
 
 ```bash
-# Generic evaluator for all benchmarks
-cd evaluations
-python generic_evaluator.py --dataset standard_datasets/truthfulqa_complete.json --model gpt-4 --samples 100
-python generic_evaluator.py --dataset standard_datasets/simpleqa_complete.json --model claude-3-5-haiku-20241022 --samples 50
-python generic_evaluator.py --dataset standard_datasets/mmlupro_complete.json --model mock --samples 10
-python generic_evaluator.py --dataset standard_datasets/factscore_complete.json --model gpt-4o-mini --samples 20
+# Step 1: pre-generate variants (one-time per dataset)
+python pregenerate_variants.py \
+  --dataset standard_datasets/truthfulqa_complete.json \
+  --n-variants 3 --samples 250
+
+# Step 2: run modal evaluation using cached variants
+python modal_evaluator.py \
+  --model meta-llama/llama-4-maverick \
+  --dataset standard_datasets/truthfulqa_complete.json \
+  --n-variants 3 --samples 250 \
+  --variant-cache variant_cache/truthfulqa_n3_variants.json
 ```
 
-#### Available Benchmarks
+### Suite Launcher: `run_modal_suite.py`
 
-1. **TruthfulQA** (870KB, ~800 assertions)
-   - Tests factual accuracy and truthfulness
-   - Categories: Misconceptions, Science, History, etc.
-   
-2. **SimpleQA** (14MB, ~4,000 assertions)  
-   - Simple fact verification tasks
-   - Binary true/false questions
-   
-3. **MMLU-Pro** (115MB, ~12,000 assertions)
-   - Comprehensive knowledge evaluation
-   - Multiple domains and difficulty levels
-   
-4. **FACTScore** (configurable size)
-   - Atomic facts from LLM-generated biographies
-   - Pre-generated facts with LLAMA+NP and ChatGPT labels
-   - Sample data included; full dataset available from Google Drive
+Orchestrates pregeneration + all modal evaluation jobs. Use `--skip-pregen` if variant caches already exist.
 
-#### Benchmark Infrastructure Status
+```bash
+python run_modal_suite.py --samples 250 --skip-pregen --models opus llama scout gemini deepseek qwen
+```
 
-**✅ Completed:**
-- Generic evaluation framework (`evaluations/generic_evaluator.py`)
-- Standard data format for all benchmarks
-- Data generators for all 4 benchmarks
-- Checkpoint/recovery system for long evaluations
-- Results analysis and reporting
-- Sample FACTScore data (35 facts from 5 scientists)
+## Current Model Lineup (March 2026)
 
-**🔄 In Progress:**
-- Running full evaluations on production models
-- Downloading complete FACTScore dataset (~6,000 biography facts)
+Six models, skewed toward open-source, all via OpenRouter except Opus 4.1:
 
-**📋 Next Steps:**
-1. Download full FACTScore data from [Google Drive](https://drive.google.com/drive/folders/1kFey69z8hGXScln01mVxrOhrqgM62X7I)
-2. Run systematic evaluations across all models and benchmarks
-3. Generate comparative analysis reports
-4. Add more benchmarks (e.g., BIG-Bench, HellaSwag, GSM8K)
-5. Implement cross-benchmark correlation analysis
+| Short | Model ID | Type |
+|---|---|---|
+| opus | claude-opus-4-1-20250805 | closed (Anthropic) |
+| llama | meta-llama/llama-4-maverick | open |
+| scout | meta-llama/llama-4-scout | open |
+| gemini | google/gemini-2.5-flash | closed (Google) |
+| deepseek | deepseek/deepseek-chat | open (DeepSeek-V3) |
+| qwen | qwen/qwen-2.5-72b-instruct | open |
+
+**Important:** GPT-4.1 and GPT-4.1-mini were dropped due to OpenAI quota issues and replaced with Llama 4 Scout and Qwen 2.5 72B. Do not reference GPT-4.1 results in new analysis — those result files exist but are not part of the current model lineup.
+
+## Benchmarks
+
+All datasets in `evaluations/standard_datasets/`:
+
+| File | Benchmark name | Size |
+|---|---|---|
+| `truthfulqa_complete.json` | truthfulqa | ~1,580 assertions |
+| `simpleqa_complete.json` | simpleqa | ~21,630 assertions |
+| `mmlupro_complete.json` | mmlu-pro | ~110,225 assertions |
+| `factscore_complete.json` | factscore | ~33,820 assertions |
+
+Note: the file `mmlupro_complete.json` has benchmark name `mmlu-pro` in its metadata. Result files and variant caches use `mmlu-pro` as the benchmark identifier.
+
+## Result File Naming
+
+- Proper results: `results/{benchmark}_{model_safe}_n3_proper_results.json`
+- Modal results: `results/{dataset_stem}_{model_safe}_n3_modal_results.json`
+  - dataset_stem = stem of the dataset filename (e.g. `truthfulqa_complete`)
+- Variant caches: `variant_cache/{benchmark}_n3_variants.json`
+- model_safe = model ID with `/` and `:` replaced by `_`
+
+## Visualization Scripts
+
+All in `evaluations/`:
+
+- `visualize_tv_distributions.py` — 4×6 grid of stacked bars showing VM(s₀,p) TV distributions
+- `visualize_modal_distributions.py` — same grid for [[□p]] modal distributions
+- `visualize_full_comparison.py` — F1-macro comparison across approaches, delta heatmaps
+- `visualize_proper_pilot.py` — TruthfulQA pilot comparison (3-panel)
+
+All outputs go to `results/` as both PDF and PNG.
+
+## Epistemic Policies and D-Parameterization
+
+The three epistemic policies correspond to different choices of the set of designated values D:
+
+- **classical**: D = {⟨t,f⟩} — only clean verifications designated
+- **paraconsistent**: D = {⟨t,f⟩, ⟨t,t⟩} — also designates contradictions
+- **paracomplete**: D = {⟨t,f⟩, ⟨t,e⟩} — also designates partial verifications
+
+The empirical comparison across policies is a study of how D-parameterization affects downstream performance. This is explicitly a theoretical contribution of the paper.
+
+## Key Empirical Findings (March 2026)
+
+- **Bilateral > forced binary** confirmed across benchmarks
+- **Bilateral ≈ ternary (evidence-based)** — not bilateral > ternary as the paper draft claims for older models. This requires reframing in the paper.
+- **FACTScore high ⟨f,f⟩** — models systematically cannot verify/refute biographical facts. This is a diagnostic finding (knowledge gap exposure), not a failure of bilateral evaluation. The framework surfaces epistemic structure that unilateral approaches obscure.
+- **MMLU-Pro low classical coverage** — high abstention rate under D={⟨t,f⟩}; paraconsistent policy recovers significant coverage.
+- **Gemini 2.5 Flash outlier** — uniquely high ⟨f,f⟩ on SimpleQA, hurts bilateral F1 there.
+
+## Central Thesis (for paper framing)
+
+The paper's claim is NOT "bilateral achieves higher accuracy." It is: **bilateral provides actionable information about LLM doxastic states that unilateral and confidence-based approaches cannot express.** The ⟨u,v⟩ pair distinguishes ignorance (⟨f,f⟩) from contradiction (⟨t,t⟩), asymmetric partial knowledge (⟨t,e⟩, ⟨e,f⟩), etc. — epistemic states with no representation in unilateral frameworks.
+
+## Future Work (as discussed)
+
+1. **Neighborhood semantics** — more principled formal basis for the modal accessibility structure
+2. **Parameterization on D** — systematic study of how D-choice affects derivability and performance
+3. **e as "off topic" (Paoli et al. 2025)** — reinterpreting e as domain-exclusion rather than evaluation failure; has proof-theoretic consequences for the sequent calculus
 
 ## Architecture Overview
 
-### Core Mathematical Framework
-The package implements a bilateral factuality evaluation system where each assertion receives a generalized truth value <u,v>:
-- **u (verifiability)**: Can the statement be verified as true? (t/e/f)
-- **v (refutability)**: Can the statement be refuted as false? (t/e/f) 
-- **Three-valued logic**: t (true), e (undefined), f (false)
+### Core Package (`bilateral_truth/`)
 
-### Module Structure
-
-**`bilateral_truth/truth_values.py`**
-- `TruthValueComponent` enum: Represents t, e, f components
-- `GeneralizedTruthValue` class: Implements <u,v> truth value pairs
-- Class methods: `.true()`, `.false()`, `.undefined()` for standard truth values
-
-**`bilateral_truth/assertions.py`**
-- `Assertion` class: Represents atomic formulas φ ∈ ℒ_AT
-- Supports both natural language statements and predicate logic with arguments
-- Normalized representation for consistent hashing and caching
-
-**`bilateral_truth/zeta_function.py`**
-- `ZetaCache` class: Persistent cache implementation for zeta_c function
-- `zeta()` function: Base bilateral evaluation without caching
-- `zeta_c()` function: Cached bilateral evaluation implementing the mathematical definition
-- Global cache management: `clear_cache()`, `get_cache_size()`
-
-**`bilateral_truth/llm_evaluators.py`**
-- `LLMEvaluator` abstract base class for bilateral evaluation
-- `OpenAIEvaluator`: Uses OpenAI GPT models for evaluation
-- `AnthropicEvaluator`: Uses Anthropic Claude models for evaluation
-- `MockLLMEvaluator`: Deterministic mock for testing/development
-- Majority voting and sampling support for robust evaluation
-
-**`bilateral_truth/model_router.py`**
-- `ModelRouter` class: Routes model names to appropriate evaluators
-- `OpenRouterEvaluator`: Supports 50+ models via OpenRouter API
-- Pattern-based model detection and provider routing
-
-### Key Design Patterns
-
-**Caching Implementation**: The zeta_c function follows the mathematical definition:
-```
-zeta_c(φ) = {
-  c(φ)   if φ ∈ dom(c)
-  ζ(φ)   otherwise, and c := c ∪ {(φ, ζ(φ))}
-}
-```
-
-**Bilateral Evaluation**: Each LLM evaluator performs two separate assessments:
-1. Verifiability assessment (P+ function): Can this be verified as true?
-2. Refutability assessment (P- function): Can this be refuted as false?
-
-**Sampling and Majority Voting**: For robust evaluation, the system supports:
-- Multiple samples per assertion
-- Majority voting across samples
-- Tiebreaking strategies (random, pessimistic, optimistic)
-
-### API Key Configuration
-Set environment variables for LLM providers:
-```bash
-export OPENAI_API_KEY='your-key'
-export ANTHROPIC_API_KEY='your-key' 
-export OPENROUTER_API_KEY='your-key'
-```
-
-### CLI Usage Patterns
-```bash
-# Single evaluations
-bilateral-truth --model gpt-4 "Statement to evaluate"
-bilateral-truth --model claude-sonnet-4-20250514 "Another statement"
-
-# Robust evaluation with sampling
-bilateral-truth --model gpt-4 --samples 5 "Statement requiring consensus"
-
-# Mock evaluator for development
-bilateral-truth --model mock "Test statement"
-
-# Interactive mode
-bilateral-truth --model mock --interactive
-```
-
-### Testing Strategy
-- **Unit tests**: Test individual components in isolation using MockLLMEvaluator
-- **Integration tests**: Test with real LLM APIs (marked with `@pytest.mark.integration`)
-- **Sampling tests**: Verify majority voting and tiebreaking logic
-- **Caching tests**: Ensure mathematical correctness of cache operations
+- `truth_values.py` — `TruthValueComponent` (t/e/f), `GeneralizedTruthValue` ⟨u,v⟩, `EpistemicPolicy` enum, `.project(policy)` method
+- `assertions.py` — `Assertion` class, normalized representation for caching
+- `zeta_function.py` — `zeta()` / `zeta_c()` implementing the mathematical zeta_c definition
+- `llm_evaluators.py` — `LLMEvaluator` ABC, `OpenAIEvaluator`, `AnthropicEvaluator`, `MockLLMEvaluator`; includes `_raw_complete`, evidence-based ternary prompt, N=3 majority voting
+- `model_router.py` — `ModelRouter`, `OpenRouterEvaluator`; routes model names to providers
+- `variation_generator.py` — `SituationVariationGenerator` using Claude Opus 4.6 for situation paraphrases
 
 ### Important Implementation Details
 
-**Truth Value Terminology**: Use `GeneralizedTruthValue.undefined()` not `unknown()` and `TruthValueComponent.UNDEFINED` not `EMPTY` - the mathematical framework uses "undefined" for the e component to align with the ArXiv paper terminology.
+- Use `GeneralizedTruthValue.undefined()` not `unknown()`, `TruthValueComponent.UNDEFINED` not `EMPTY`
+- Use `tv.project(policy)` not `tv.apply_policy(policy)`
+- Dataset field is `assertion_text` not `statement`
+- Ternary prompt is evidence-based ("supported by evidence / contradicted by evidence / insufficient evidence"), NOT confidence self-reporting
+- Null situation (no context) is excluded from all current evaluations — always use s₀=source_question as context
 
-**Assertion Equality**: Assertions use normalized representations for consistent hashing, enabling proper cache behavior across equivalent formulations.
+## Testing
 
-**LLM Prompt Design**: Evaluators use structured prompts that explicitly ask for separate verifiability and refutability assessments, following the bilateral evaluation framework from the research paper.
-
-**Error Handling**: LLM evaluations gracefully handle API failures, network issues, and malformed responses by falling back to undefined values or continuing with fewer samples.
-
-## Current Development Status (September 2025)
-
-### Recently Completed
-- ✅ Generic evaluation framework supporting multiple benchmarks
-- ✅ Four benchmark datasets integrated (TruthfulQA, SimpleQA, MMLU-Pro, FACTScore)
-- ✅ Standard data format for consistent evaluation across benchmarks
-- ✅ FACTScore integration without pip package conflicts
-- ✅ Checkpoint/recovery system for long-running evaluations
-
-### Immediate Priorities
-1. **Download FACTScore full dataset** - Get ~6,000 biography facts from [Google Drive](https://drive.google.com/drive/folders/1kFey69z8hGXScln01mVxrOhrqgM62X7I)
-2. **Run production evaluations** - Systematic testing across all models and benchmarks
-3. **Generate analysis reports** - Comparative performance metrics and insights
-4. **Add new benchmarks** - Consider BIG-Bench, HellaSwag, GSM8K for broader coverage
-
-### Key Files for Benchmark Work
-- `evaluations/generic_evaluator.py` - Main evaluation engine
-- `evaluations/data_generators/` - Dataset conversion scripts
-- `evaluations/standard_datasets/` - Converted benchmark data
-- `evaluations/results/` - Evaluation outputs
-- `evaluations/STANDARD_FORMAT.md` - Data format specification
-
-### Notes
-- API keys are stored in the .env file in the root directory
-- Mock evaluator available for testing without API costs
-- All benchmarks use the same evaluation pipeline for consistency
+```bash
+python -m pytest                          # unit tests
+python -m pytest -m integration          # requires API keys
+python -m pytest --cov=bilateral_truth   # with coverage
+```
