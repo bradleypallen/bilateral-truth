@@ -318,13 +318,7 @@ When multiple samples produce tied votes for a component, the tiebreaking strate
 
 ## Examples
 
-Run the included examples:
-
-```bash
-python llm_examples.py    # LLM-based bilateral evaluation examples
-python examples.py        # Legacy examples (deprecated)
-python demo_cli.py        # CLI demonstration
-```
+See the "Quick Start" and "LLM-Based Bilateral Evaluation" code blocks above for usage examples. For empirical evaluations across benchmarks (TruthfulQA, SimpleQA, MMLU-Pro, FACTScore), see the companion repository [`tllm-2026-experiments`](https://github.com/bradleyallen/tllm-2026-experiments), which uses this package as a pinned dependency.
 
 ## Testing
 
